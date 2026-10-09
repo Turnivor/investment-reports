@@ -2,6 +2,8 @@
 
 Personal stock and industry research, made with Claude Code and the [ai-berkshire](https://github.com/xbtlin/ai-berkshire) framework (Buffett / Munger / Duan Yongping / Li Lu).
 
+**Website: https://turnivor.github.io/investment-reports/**
+
 > Not investment advice. AI-assisted research; verify before acting.
 
 **Web version:** [Turnivor Research Desk](https://claude.ai/artifact/AupNrpp8jsffRDvHBeBP1R) (source in [`site/`](site/index.html))
