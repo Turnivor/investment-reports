@@ -1,0 +1,350 @@
+<title>Turnivor Research Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Layout: a ledger of reports (date · ticker · verdict) that opens into a long-form reading column with a sticky contents rail. */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --ink: #14202b;
+  --muted: #5b6875;
+  --rule: #d9dfe5;
+  --accent: #1d5a85;
+  --accent-soft: #e3edf5;
+  --bad: #a3312b;     --bad-soft: #f7e4e2;
+  --warn: #8a5a00;    --warn-soft: #f8edd6;
+  --good: #23704a;    --good-soft: #e0f0e7;
+  --code-bg: #eef1f4;
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Newsreader", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f151b; --surface: #161e26; --ink: #e4e9ee; --muted: #93a1ae; --rule: #2a3540;
+    --accent: #7db4dc; --accent-soft: #1a2c3b;
+    --bad: #f08a80; --bad-soft: #3a1f1d; --warn: #e6b45a; --warn-soft: #362a12; --good: #7bcf9f; --good-soft: #17301f;
+    --code-bg: #1d2731; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f151b; --surface: #161e26; --ink: #e4e9ee; --muted: #93a1ae; --rule: #2a3540;
+  --accent: #7db4dc; --accent-soft: #1a2c3b;
+  --bad: #f08a80; --bad-soft: #3a1f1d; --warn: #e6b45a; --warn-soft: #362a12; --good: #7bcf9f; --good-soft: #17301f;
+  --code-bg: #1d2731; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 18px; line-height: 1.6;
+  padding-inline: 16px; padding-block: 0 64px;
+}
+.wrap { max-width: 1120px; margin-inline: auto; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+/* ---------- Masthead ---------- */
+.mast { display: grid; gap: 10px; padding-block: 40px 28px; border-bottom: 2px solid var(--ink); }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.mast h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 6vw, 56px); line-height: 1; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.mast p { margin: 0; max-width: 62ch; color: var(--muted); font-size: 17px; }
+.disclaimer { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+
+/* ---------- Ledger ---------- */
+.ledger-head, .row {
+  display: grid; gap: 18px; align-items: baseline;
+  grid-template-columns: 104px 150px minmax(0, 1fr) 190px;
+}
+.ledger-head { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-block: 14px 8px; border-bottom: 1px solid var(--rule); }
+.rows { display: grid; }
+.row {
+  padding-block: 22px; border-bottom: 1px solid var(--rule);
+  text-decoration: none; color: inherit; cursor: pointer;
+  transition: background-color .15s ease;
+}
+.row:hover { background: var(--surface); }
+.row .date { font-family: var(--f-mono); font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.row .tick { display: grid; gap: 2px; }
+.row .tick b { font-family: var(--f-mono); font-weight: 500; font-size: 15px; letter-spacing: .04em; }
+.row .tick span { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.row .what { min-width: 0; display: grid; gap: 4px; }
+.row .what h2 { font-family: var(--f-display); font-weight: 600; font-size: 24px; line-height: 1.15; margin: 0; text-wrap: balance; }
+.row .what p { margin: 0; color: var(--muted); font-size: 16.5px; line-height: 1.5; }
+.row .kind { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.verdict { display: grid; gap: 6px; justify-items: start; }
+.chip {
+  font-family: var(--f-mono); font-size: 12.5px; font-weight: 500; letter-spacing: .02em;
+  padding: 3px 9px; border-radius: 4px; border: 1px solid currentColor;
+}
+.chip.bad  { color: var(--bad);  background: var(--bad-soft); }
+.chip.warn { color: var(--warn); background: var(--warn-soft); }
+.chip.good { color: var(--good); background: var(--good-soft); }
+.verdict .px { font-family: var(--f-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  .ledger-head { display: none; }
+  .row { grid-template-columns: 1fr auto; gap: 8px 14px; padding-block: 20px; }
+  .row .date { grid-column: 1; grid-row: 1; }
+  .row .tick { grid-column: 2; grid-row: 1; justify-items: end; text-align: right; }
+  .row .what { grid-column: 1 / -1; grid-row: 2; }
+  .row .verdict { grid-column: 1 / -1; grid-row: 3; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .row .what h2 { font-size: 22px; }
+}
+
+.about { margin-top: 36px; display: grid; gap: 8px; max-width: 70ch; color: var(--muted); font-size: 16px; }
+.about h3 { font-family: var(--f-display); font-weight: 600; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); margin: 0; }
+.about p { margin: 0; }
+
+/* ---------- Reader ---------- */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--bg); border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding-block: 12px; margin-inline: -16px; padding-inline: 16px;
+}
+.back {
+  font-family: var(--f-mono); font-size: 13px; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 5px;
+  padding: 6px 12px; cursor: pointer;
+}
+.back:hover { border-color: var(--accent); color: var(--accent); }
+.bar .crumb { font-family: var(--f-mono); font-size: 13px; color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+
+.rhead { display: grid; gap: 12px; padding-block: 34px 26px; border-bottom: 2px solid var(--ink); }
+.rhead h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(30px, 5vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; }
+.rmeta { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
+
+.reader { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 28px; }
+@media (min-width: 1000px) { .reader { grid-template-columns: 230px minmax(0, 1fr); } }
+
+.toc { font-family: var(--f-display); font-size: 15px; }
+.toc .label { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.toc button {
+  all: unset; cursor: pointer; display: block; width: 100%; box-sizing: border-box;
+  padding: 5px 8px; border-left: 2px solid transparent; color: var(--muted); line-height: 1.3;
+}
+.toc button:hover { color: var(--ink); border-left-color: var(--rule); }
+.toc button.on { color: var(--accent); border-left-color: var(--accent); }
+.toc button:focus-visible { outline: 2px solid var(--accent); }
+@media (min-width: 1000px) {
+  .toc-inner { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 72px); max-height: calc(100vh - 100px); overflow: auto; }
+  .toc details > summary { display: none; }
+}
+@media (max-width: 999px) {
+  .toc details { border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); padding: 10px 12px; }
+  .toc summary { cursor: pointer; font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
+  .toc .label { display: none; }
+  .toc ol { margin-top: 8px; }
+}
+
+/* ---------- Prose (rendered markdown) ---------- */
+.prose { min-width: 0; max-width: 74ch; }
+.prose > *:first-child { margin-top: 0; }
+.prose h2 { font-family: var(--f-display); font-weight: 700; font-size: 28px; line-height: 1.15; margin: 2.2em 0 .6em; padding-top: .6em; border-top: 1px solid var(--rule); text-wrap: balance; scroll-margin-top: 80px; }
+.prose h3 { font-family: var(--f-display); font-weight: 600; font-size: 21px; margin: 1.7em 0 .5em; text-wrap: balance; scroll-margin-top: 80px; }
+.prose h4 { font-family: var(--f-display); font-weight: 600; font-size: 18px; margin: 1.4em 0 .4em; }
+.prose p, .prose ul, .prose ol { margin: 0 0 1em; }
+.prose li { margin-bottom: .35em; }
+.prose strong { font-weight: 600; }
+.prose a { overflow-wrap: anywhere; }
+.prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+.prose blockquote {
+  margin: 1.2em 0; padding: 12px 18px; background: var(--accent-soft);
+  border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.prose blockquote p:last-child { margin-bottom: 0; }
+.prose code { font-family: var(--f-mono); font-size: .82em; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+.prose pre { background: var(--code-bg); border-radius: 6px; padding: 14px 16px; overflow-x: auto; font-size: 14px; line-height: 1.5; }
+.prose pre code { background: none; padding: 0; font-size: 13px; }
+.prose img { max-width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; background: #fff; }
+.tbl { overflow-x: auto; margin: 1.2em 0 1.5em; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+.prose table { border-collapse: collapse; width: 100%; font-family: var(--f-display); font-size: 15.5px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.prose th { text-align: left; font-weight: 600; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+.prose th, .prose td { padding: 9px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.prose tr:last-child td { border-bottom: 0; }
+.prose td { min-width: 6ch; }
+
+.status { padding: 40px 0; color: var(--muted); font-family: var(--f-mono); font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <section id="home">
+    <header class="mast">
+      <div class="eyebrow">Equity &amp; industry research · 2026</div>
+      <h1>Turnivor Research Desk</h1>
+      <p>Company and industry write-ups built on the Buffett · Munger · Duan Yongping · Li Lu framework. Each one checks the data against two sources, asks what could go wrong, and ends with a price range.</p>
+      <div class="disclaimer">Personal research made with AI help. Not investment advice.</div>
+    </header>
+
+    <div class="ledger-head" aria-hidden="true">
+      <span>Date</span><span>Ticker</span><span>Report</span><span>Verdict · price at research</span>
+    </div>
+    <div class="rows" id="rows"></div>
+
+    <div class="about">
+      <h3>How to read these</h3>
+      <p>Verdicts reflect the price on the research date, not today. Each report lists its sources, the assumptions behind every valuation, and the questions it could not answer.</p>
+    </div>
+  </section>
+
+  <section id="readerView" hidden>
+    <div class="bar">
+      <button class="back" id="backBtn" type="button">← All reports</button>
+      <span class="crumb" id="crumb"></span>
+    </div>
+    <header class="rhead">
+      <div class="eyebrow" id="rKind"></div>
+      <h1 id="rTitle"></h1>
+      <div class="rmeta" id="rMeta"></div>
+    </header>
+    <div class="reader">
+      <nav class="toc" aria-label="Contents">
+        <div class="toc-inner">
+          <details id="tocDetails" open>
+            <summary>Contents</summary>
+            <div class="label">Contents</div>
+            <ol id="tocList"></ol>
+          </details>
+        </div>
+      </nav>
+      <article class="prose" id="prose"><div class="status">Loading report…</div></article>
+    </div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<script>
+const REPORTS = [
+  { id: "oklo", file: "reports/oklo.md", date: "2026-10-09", ticker: "OKLO", venue: "NYSE", kind: "Company",
+    title: "Oklo", px: "$34.44",
+    blurb: "Advanced nuclear developer with $3B of cash and no power revenue yet. The price implies 7–8 GW of reactors running by 2036.",
+    verdict: "Avoid · speculative < $20", tone: "bad" },
+  { id: "nuclear", file: "reports/nuclear.md", date: "2026-10-09", ticker: "SMR + FUEL", venue: "Industry", kind: "Industry",
+    title: "Advanced Nuclear & SMR Value Chain", px: "30 companies",
+    blurb: "Demand and permits are real; small-reactor costs are not proven yet. Value is flowing to fuel bottlenecks and existing fleets.",
+    verdict: "Favor BWXT · CCJ · CEG", tone: "good" },
+  { id: "rheinmetall", file: "reports/rheinmetall.md", date: "2026-10-06", ticker: "RHM", venue: "XETRA", kind: "Company",
+    title: "Rheinmetall", px: "€953",
+    blurb: "Europe's ammunition and land-systems champion. €80bn backlog, but negative free cash flow in H1 2026.",
+    verdict: "Gray zone · buy < €700", tone: "warn" },
+  { id: "flutter", file: "reports/flutter.md", date: "2026-02-26", ticker: "FLUT", venue: "NYSE", kind: "Pre-earnings trade",
+    title: "Flutter Entertainment", px: "$119.84",
+    blurb: "Deeply oversold into Q4 results after UK and US tax hits. The stock fell after 3 of its last 4 earnings beats.",
+    verdict: "Hold · wait for guidance", tone: "warn" },
+];
+const byId = Object.fromEntries(REPORTS.map(r => [r.id, r]));
+const LINK_MAP = [["Oklo-research", "oklo"], ["AdvancedNuclear-SMR-industry", "nuclear"], ["Rheinmetall-research", "rheinmetall"], ["FLUT", "flutter"]];
+
+const $ = s => document.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmtDate = d => new Date(d + "T12:00:00").toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+
+// Ledger
+$("#rows").innerHTML = REPORTS.map(r => `
+  <a class="row" href="#${r.id}" data-id="${r.id}">
+    <span class="date">${fmtDate(r.date)}</span>
+    <span class="tick"><b>${esc(r.ticker)}</b><span>${esc(r.venue)}</span></span>
+    <span class="what"><span class="kind">${esc(r.kind)}</span><h2>${esc(r.title)}</h2><p>${esc(r.blurb)}</p></span>
+    <span class="verdict"><span class="chip ${r.tone}">${esc(r.verdict)}</span><span class="px">${esc(r.px)}</span></span>
+  </a>`).join("");
+
+const cache = {};
+let observer = null;
+
+function slug(t, used) {
+  let s = t.toLowerCase().replace(/<[^>]+>/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section";
+  let k = s, n = 2; while (used.has(k)) k = `${s}-${n++}`; used.add(k); return k;
+}
+
+function renderMarkdown(md) {
+  const html = DOMPurify.sanitize(marked.parse(md, { gfm: true }));
+  const box = document.createElement("div");
+  box.innerHTML = html;
+  // drop the markdown's own H1: the reader header shows the title
+  const h1 = box.querySelector("h1"); if (h1) h1.remove();
+  // wrap tables so they scroll on their own
+  box.querySelectorAll("table").forEach(t => { const w = document.createElement("div"); w.className = "tbl"; t.replaceWith(w); w.appendChild(t); });
+  // charts are published next to the page under charts/
+  box.querySelectorAll("img[src]").forEach(img => { img.src = "charts/" + img.getAttribute("src").split("/").pop(); img.loading = "lazy"; });
+  // rewrite links between reports to in-page routes; send outside links to a new tab
+  box.querySelectorAll("a[href]").forEach(a => {
+    const href = a.getAttribute("href");
+    if (/^https?:/i.test(href)) { a.target = "_blank"; a.rel = "noopener"; return; }
+    const hit = LINK_MAP.find(([needle]) => href.includes(needle));
+    if (hit) a.setAttribute("href", "#" + hit[1]);
+    else a.replaceWith(document.createTextNode(a.textContent));
+  });
+  return box;
+}
+
+async function openReport(id) {
+  const r = byId[id];
+  $("#home").hidden = true; $("#readerView").hidden = false;
+  document.title = `${r.title} · Turnivor Research Desk`;
+  $("#crumb").textContent = `${r.ticker} · ${fmtDate(r.date)}`;
+  $("#rKind").textContent = `${r.kind} · ${r.venue}`;
+  $("#rTitle").textContent = r.title;
+  $("#rMeta").innerHTML = `<span>${fmtDate(r.date)}</span><span>Price at research ${esc(r.px)}</span><span class="chip ${r.tone}">${esc(r.verdict)}</span>`;
+  $("#prose").innerHTML = '<div class="status">Loading report…</div>';
+  $("#tocList").innerHTML = "";
+  window.scrollTo(0, 0);
+  try {
+    if (!cache[id]) {
+      const res = await fetch(r.file);
+      if (!res.ok) throw new Error(res.status);
+      cache[id] = await res.text();
+    }
+    const box = renderMarkdown(cache[id]);
+    $("#prose").replaceChildren(...box.childNodes);
+    buildToc();
+  } catch (e) {
+    $("#prose").innerHTML = '<div class="status">This report could not be loaded. Reload the page to try again.</div>';
+  }
+}
+
+function buildToc() {
+  const used = new Set();
+  const heads = [...document.querySelectorAll("#prose h2")];
+  heads.forEach(h => h.id = slug(h.textContent, used));
+  $("#tocList").innerHTML = heads.map(h =>
+    `<li><button type="button" data-target="${h.id}">${esc(h.textContent.replace(/[—–-]\s.*$/, "").trim())}</button></li>`).join("");
+  $("#tocDetails").open = window.matchMedia("(min-width: 1000px)").matches;
+  if (observer) observer.disconnect();
+  const btns = Object.fromEntries([...document.querySelectorAll("#tocList button")].map(b => [b.dataset.target, b]));
+  observer = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) {
+      Object.values(btns).forEach(b => b.classList.remove("on"));
+      btns[en.target.id]?.classList.add("on");
+    }});
+  }, { rootMargin: "-80px 0px -70% 0px" });
+  heads.forEach(h => observer.observe(h));
+}
+
+$("#tocList").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  document.getElementById(b.dataset.target)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (!window.matchMedia("(min-width: 1000px)").matches) $("#tocDetails").open = false;
+});
+
+function showHome() {
+  $("#readerView").hidden = true; $("#home").hidden = false;
+  document.title = "Turnivor Research Desk";
+}
+
+function route() {
+  const id = location.hash.replace("#", "");
+  if (byId[id]) openReport(id); else showHome();
+}
+$("#backBtn").addEventListener("click", () => {
+  if (location.hash) { try { history.pushState(null, "", location.pathname + location.search); } catch (e) {} }
+  showHome(); window.scrollTo(0, 0);
+});
+window.addEventListener("hashchange", route);
+route();
+</script>
