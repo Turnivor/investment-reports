@@ -14,3 +14,5 @@ Personal stock and industry research, made with Claude Code and the [ai-berkshir
 | 2026-02-26 | [Flutter Entertainment (FLUT)](reports/FLUT/FLUT-pre-earnings-20260226.md) ([PDF](reports/FLUT/FLUT_Analysis_20260226.pdf)) | Pre-earnings trade | Hold; wait for guidance |
 
 Charts: [`charts/`](charts/)
+
+Command cheat sheet: [AI Financial Tool Commands](https://turnivor.github.io/investment-reports/commands.html) (source: [`commands.html`](commands.html))

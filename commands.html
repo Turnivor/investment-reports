@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Financial Tool Commands</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+/* Layout: one reading column; sticky search bar; command rows grouped by job, each row = name · what · example + copy · cost chip */
+:root {
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --ink: #142033;
+  --muted: #5a6779;
+  --line: #dde3eb;
+  --accent: #23539e;
+  --accent-soft: #e6eefa;
+  --code-bg: #eef2f7;
+  --low: #1f7a4d;   --low-bg: #e3f3ea;
+  --med: #8a5a00;   --med-bg: #fbf0d9;
+  --high: #b04a12;  --high-bg: #fbe6da;
+  --vhigh: #b3261e; --vhigh-bg: #fbe0de;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1520; --surface: #172030; --ink: #e6ebf2; --muted: #9aa7b8; --line: #283447;
+    --accent: #8db4f2; --accent-soft: #1d2c45; --code-bg: #1d2738;
+    --low: #7fd3a6; --low-bg: #16301f; --med: #f0c46a; --med-bg: #33280f;
+    --high: #f2a172; --high-bg: #3a2216; --vhigh: #f59a92; --vhigh-bg: #3d1c1a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1520; --surface: #172030; --ink: #e6ebf2; --muted: #9aa7b8; --line: #283447;
+  --accent: #8db4f2; --accent-soft: #1d2c45; --code-bg: #1d2738;
+  --low: #7fd3a6; --low-bg: #16301f; --med: #f0c46a; --med-bg: #33280f;
+  --high: #f2a172; --high-bg: #3a2216; --vhigh: #f59a92; --vhigh-bg: #3d1c1a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.back { display: inline-block; margin-bottom: 14px; font-size: 13.5px; color: var(--accent); text-decoration: none; }
+.back:hover { text-decoration: underline; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; margin: 0; }
+.wrap { max-width: 920px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; }
+header h1 { font-family: var(--font-display); font-size: clamp(26px, 5vw, 34px); margin: 0 0 6px; text-wrap: balance; letter-spacing: -0.01em; }
+header p { margin: 0; color: var(--muted); max-width: 62ch; }
+.tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 20px 0 8px; }
+.tip { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; min-width: 0; }
+.tip b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 2px; }
+.tip code { font-family: var(--font-mono); font-size: 12.5px; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 2; background: var(--bg); padding-block: 12px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; border-bottom: 1px solid var(--line); }
+.bar input[type=search] { flex: 1 1 240px; min-width: 0; font: inherit; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); }
+.bar input[type=search]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.bar label { display: flex; gap: 8px; align-items: center; font-size: 13.5px; color: var(--muted); cursor: pointer; }
+.bar input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; }
+section { margin-top: 26px; }
+section h2 { font-family: var(--font-display); font-size: 20px; margin: 0 0 4px; }
+section > p { margin: 0 0 10px; color: var(--muted); font-size: 13.5px; }
+.list { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.row { display: grid; grid-template-columns: minmax(170px, 210px) 1fr auto; gap: 6px 16px; align-items: start; padding: 12px 14px; border-top: 1px solid var(--line); }
+.row:first-child { border-top: 0; }
+.name { font-family: var(--font-mono); font-weight: 500; color: var(--accent); font-size: 14.5px; overflow-wrap: anywhere; }
+.mine { display: inline-block; margin-top: 4px; font-family: var(--font-body); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); background: var(--accent-soft); padding: 1px 7px; border-radius: 99px; }
+.body { min-width: 0; }
+.what { margin: 0 0 6px; }
+.more { display: grid; grid-template-columns: max-content 1fr; gap: 6px 12px; margin: 0 0 10px; padding: 10px 12px; background: var(--code-bg); border-radius: 6px; font-size: 13.5px; }
+.more dt { font-weight: 600; color: var(--accent); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+.more dd { margin: 0; min-width: 0; }
+@media (max-width: 640px) { .more { grid-template-columns: 1fr; } .more dd { margin-bottom: 6px; } }
+.ex { display: flex; gap: 8px; align-items: center; min-width: 0; }
+.ex code { flex: 1; min-width: 0; font-family: var(--font-mono); font-size: 13px; background: var(--code-bg); padding: 5px 8px; border-radius: 6px; overflow-x: auto; white-space: nowrap; }
+.copy { font: 500 12.5px var(--font-body); border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 5px 10px; border-radius: 6px; cursor: pointer; white-space: nowrap; }
+.copy:hover { border-color: var(--accent); color: var(--accent); }
+.copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.copy.done { background: var(--low-bg); color: var(--low); border-color: transparent; }
+.cost { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 99px; white-space: nowrap; letter-spacing: 0.02em; }
+.c-low { color: var(--low); background: var(--low-bg); }
+.c-med { color: var(--med); background: var(--med-bg); }
+.c-high { color: var(--high); background: var(--high-bg); }
+.c-vhigh { color: var(--vhigh); background: var(--vhigh-bg); }
+.empty { padding: 18px; color: var(--muted); text-align: center; }
+footer { margin-top: 34px; color: var(--muted); font-size: 12.5px; }
+@media (max-width: 640px) {
+  .row { grid-template-columns: 1fr auto; }
+  .row .body { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="back" href="./">← Turnivor Research Desk</a>
+  <header>
+    <h1>AI Financial Tool Commands</h1>
+    <p>All 21 stock-research commands for Claude Code. Copy one, paste it into a session, and swap in the company you want.</p>
+  </header>
+
+  <div class="tips">
+    <div class="tip"><b>Before you start</b>Open the session in the <code>ai-berkshire</code> folder so the helper scripts work.</div>
+    <div class="tip"><b>Language</b>The prompts are written in Chinese. Tick the box below and every copy adds "answer in English".</div>
+    <div class="tip"><b>Usage</b>Commands marked Very high run several agents at once and can use up your limit fast.</div>
+  </div>
+
+  <div class="bar">
+    <input type="search" id="q" placeholder="Search commands, e.g. earnings, portfolio, moat" aria-label="Search commands">
+    <label for="en"><input type="checkbox" id="en" checked> Add "answer in English" when copying</label>
+  </div>
+
+  <div id="groups"></div>
+  <p class="empty" id="none" hidden>No command matches that search.</p>
+
+  <footer>Source: github.com/xbtlin/ai-berkshire · Research tools, not financial advice.</footer>
+</div>
+
+<script>
+const GROUPS = [
+  { title: "Research a company", note: "Full analyses that end in a verdict.", items: [
+    ["/investment-research", "Full deep dive using the four-masters method, with a Pass / Fail / Gray Zone verdict and price bands.", "/investment-research Rheinmetall", "high"],
+    ["/investment-team", "Same idea with 4 agents in parallel. Adds the Aggressive / Moderate / Conservative table.", "/investment-team Rheinmetall", "vhigh"],
+    ["/investment-checklist", "Buffett pre-buy checklist plus the Mirror Test. Can compare several companies at once.", "/investment-checklist Rheinmetall, Leonardo, BAE Systems", "med"],
+    ["/management-deep-dive", "Deep dive on the CEO and leadership team: decisions, incentives, track record.", "/management-deep-dive Rheinmetall", "med"],
+    ["/private-company-research", "For companies that aren't on the stock market and have little public data.", "/private-company-research SpaceX", "high"],
+    ["/deep-company-series", "Writes a long article series that explains one company in depth, like a short book in 3–8 chapters. It's meant to be published (originally on WeChat), so each article stands alone and is heavily fact-checked.", "/deep-company-series Rheinmetall", "vhigh", false, [
+      ["How long", "Simple companies get 3 articles (about 30,000 words in total). Complex ones get up to 8 (about 120,000 words). It picks the number based on how many big questions the company raises."],
+      ["The chapters", "1. What most people get wrong about the company · 2. Its moat · 3. Its main profit engine · 4. Hidden assets (stakes, subsidiaries) · 5. Whether today's big trend (like AI) makes it a winner or loser · 6. The financials, Buffett-style · 7. Whether management can be trusted · 8. What price is worth paying and which signals mean sell. Simple companies get these merged into 3 articles."],
+      ["Each article", "Opens with a surprising number, gives both sides of every big claim, and ends with a 5–8 point recap and a teaser for the next part."],
+      ["Use it when", "You want to understand a company thoroughly, or write about it for other people."],
+      ["Skip it when", "You just need a verdict. Use /investment-research for one report, /earnings-review for a quarter's results, or /industry-research for a whole sector. This one uses far more of your limit than any of those."],
+    ]],
+  ]},
+  { title: "Earnings reports", note: "Use these when a company publishes quarterly or annual results.", items: [
+    ["/earnings-review", "Reads the actual earnings report in detail, working from the original filings.", "/earnings-review Rheinmetall 2026Q3", "med", true],
+    ["/earnings-team", "Same, with 4 agents plus a finished article.", "/earnings-team Rheinmetall 2026Q3", "vhigh"],
+  ]},
+  { title: "Find companies and industries", note: "Narrow a market down before you research anything in depth.", items: [
+    ["/quality-screen", "7 quick checks that drop weak companies. Run this first to save usage.", "/quality-screen Rheinmetall, Hensoldt, Renk", "med"],
+    ["/industry-research", "Maps a whole industry and its value chain.", "/industry-research European defence", "high"],
+    ["/industry-funnel", "Narrows an industry from the whole market down to its 3 best companies.", "/industry-funnel European defence", "high"],
+    ["/bottleneck-hunter", "Finds the companies that control supply-chain bottlenecks.", "/bottleneck-hunter drones", "high"],
+    ["/era-alpha", "Looks for long-term, high-growth winners of a big trend.", "/era-alpha AI infrastructure", "high"],
+  ]},
+  { title: "Manage what you own", note: "Discipline after you've bought.", items: [
+    ["/thesis-tracker", "Writes down why you own a stock and checks that reason over time.", "/thesis-tracker Rheinmetall", "med", true],
+    ["/thesis-drift", "Compares two reports to separate real changes from changes in wording.", "/thesis-drift Rheinmetall old-report.md new-report.md", "med"],
+    ["/news-pulse", "Explains why a stock moved today.", "/news-pulse Rheinmetall", "low"],
+    ["/portfolio-review", "Reviews your holdings, position sizes and rebalancing.", "/portfolio-review Rheinmetall 60%, Cash 40%", "med"],
+    ["/income-investment", "For dividend and income stocks.", "/income-investment Allianz", "med"],
+  ]},
+  { title: "Quick tools", note: "Small, focused jobs.", items: [
+    ["/dyp-ask", "Ask one question and get an answer the way Duan Yongping would reason it.", "/dyp-ask Is Rheinmetall's moat real?", "low"],
+    ["/financial-data", "Fetches a number and checks it against 2 or more sources.", "/financial-data Rheinmetall free cash flow 2025", "low"],
+    ["/wechat-article", "Turns research into a written article with author, editor and reader agents.", "/wechat-article Rheinmetall", "high"],
+  ]},
+];
+const COST = { low: ["Low", "c-low"], med: ["Medium", "c-med"], high: ["High", "c-high"], vhigh: ["Very high", "c-vhigh"] };
+
+const root = document.getElementById("groups");
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+root.innerHTML = GROUPS.map(g => `
+  <section>
+    <h2>${esc(g.title)}</h2>
+    <p>${esc(g.note)}</p>
+    <div class="list">${g.items.map(([name, what, ex, cost, mine, more]) => `
+      <div class="row" data-text="${esc((name + " " + what + " " + ex + " " + g.title).toLowerCase())}">
+        <div class="name">${esc(name)}${mine ? '<br><span class="mine">Useful for your holding</span>' : ""}</div>
+        <div class="body">
+          <p class="what">${esc(what)}</p>
+          ${more ? `<dl class="more">${more.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>` : ""}
+          <div class="ex"><code>${esc(ex)}</code><button class="copy" type="button" data-cmd="${esc(ex)}">Copy</button></div>
+        </div>
+        <span class="cost ${COST[cost][1]}">${COST[cost][0]}</span>
+      </div>`).join("")}
+    </div>
+  </section>`).join("");
+
+const en = document.getElementById("en");
+try { const v = localStorage.getItem("berkshire-en"); if (v !== null) en.checked = v === "1"; } catch (e) {}
+en.addEventListener("change", () => { try { localStorage.setItem("berkshire-en", en.checked ? "1" : "0"); } catch (e) {} });
+
+root.addEventListener("click", async e => {
+  const btn = e.target.closest(".copy");
+  if (!btn) return;
+  const text = btn.dataset.cmd + (en.checked ? " (answer in English)" : "");
+  try {
+    await navigator.clipboard.writeText(text);
+    btn.textContent = "Copied"; btn.classList.add("done");
+  } catch (err) {
+    const code = btn.previousElementSibling;
+    const r = document.createRange(); r.selectNodeContents(code);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    btn.textContent = "Press Ctrl+C";
+  }
+  setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1600);
+});
+
+const q = document.getElementById("q");
+q.addEventListener("input", () => {
+  const term = q.value.trim().toLowerCase();
+  let shown = 0;
+  document.querySelectorAll("section").forEach(sec => {
+    let any = false;
+    sec.querySelectorAll(".row").forEach(row => {
+      const hit = !term || row.dataset.text.includes(term);
+      row.hidden = !hit; if (hit) { any = true; shown++; }
+    });
+    sec.hidden = !any;
+  });
+  document.getElementById("none").hidden = shown > 0;
+});
+</script>
+</body>
+</html>
