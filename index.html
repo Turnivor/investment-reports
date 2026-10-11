@@ -137,6 +137,12 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
 .verdict .px { font-family: var(--f-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .verdict .scn.mini { width: 100%; }
 .verdict .home { font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; margin-top: -4px; }
+.verdict .live { font-family: var(--f-mono); font-size: 12px; line-height: 1.5; color: var(--muted); font-variant-numeric: tabular-nums; }
+.verdict .live:empty { display: none; }
+.verdict .live b { font-weight: 500; color: var(--ink); }
+.verdict .live .flag { display: block; color: var(--good); }
+.rmeta .now:empty { display: none; }
+.rmeta .now b { font-weight: 500; color: var(--ink); }
 .none { padding: 28px 0; color: var(--muted); font-family: var(--f-mono); font-size: 14px; }
 
 @media (max-width: 760px) {
@@ -147,6 +153,41 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
   .row .what { grid-column: 1 / -1; grid-row: 2; }
   .row .verdict { grid-column: 1 / -1; grid-row: 3; }
   .row .what h2 { font-size: 24px; }
+}
+
+/* ---------- Scorecard: one line per company verdict, then against now ---------- */
+.slist {
+  position: relative; margin-top: 26px; border: 1px solid var(--rule); border-radius: 3px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, 0) 140px), var(--surface);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .045), 0 22px 40px -30px #000;
+  animation: rise .6s cubic-bezier(.2, .7, .2, 1) .3s both;
+}
+.slist::before, .slist::after { content: ""; position: absolute; width: 20px; height: 20px; pointer-events: none; }
+.slist::before { left: -1px; top: -1px; border-left: 1px solid var(--accent); border-top: 1px solid var(--accent); border-top-left-radius: 3px; }
+.slist::after { right: -1px; bottom: -1px; border-right: 1px solid var(--accent); border-bottom: 1px solid var(--accent); border-bottom-right-radius: 3px; }
+.shead, .srow { display: grid; gap: 6px 22px; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1fr) 84px minmax(0, 1.2fr); padding: 18px 22px; }
+.shead { align-items: end; padding-block: 14px 10px; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule); }
+.srow { align-items: start; transition: background-color .15s ease; }
+.srow + .srow { border-top: 1px solid var(--rule); }
+.srow:hover { background: rgba(201, 165, 92, .035); }
+.srow > * { min-width: 0; }
+.srow .s-co a { font-family: var(--f-body); font-weight: 500; font-size: 23px; line-height: 1.15; color: var(--ink); text-decoration: none; }
+.srow .s-co a:hover { color: var(--accent); }
+.srow small { display: block; font-family: var(--f-mono); font-size: 12px; line-height: 1.5; color: var(--muted); font-variant-numeric: tabular-nums; }
+.srow .s-px { font-family: var(--f-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.srow .s-px i { font-style: normal; color: var(--muted); padding-inline: 3px; }
+.srow .s-d { font-family: var(--f-body); font-weight: 500; font-size: 24px; line-height: 1.15; font-variant-numeric: lining-nums tabular-nums; color: var(--muted); }
+.srow .s-out b { display: block; font-family: var(--f-mono); font-weight: 500; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.srow .s-out span { font-size: 15.5px; line-height: 1.4; color: var(--muted); }
+.srow.right .s-d, .srow.right .s-out b { color: var(--good); }
+.srow.wrong .s-d, .srow.wrong .s-out b { color: var(--bad); }
+.srow [data-l]::before { content: attr(data-l); display: none; font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.snone { padding: 26px 22px; margin: 0; color: var(--muted); font-family: var(--f-mono); font-size: 14px; }
+@media (max-width: 860px) {
+  .shead { display: none; }
+  .srow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 18px 16px; }
+  .srow .s-co, .srow .s-out { grid-column: 1 / -1; }
+  .srow [data-l]::before { display: block; }
 }
 
 .about { margin-top: 36px; display: grid; gap: 8px; max-width: 70ch; color: var(--muted); font-size: 16px; }
@@ -292,7 +333,8 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
   <nav class="nav" aria-label="Site">
     <a class="brand" href="./" aria-label="Officium Advocati Diaboli, home" title="Officium Advocati Diaboli"><span class="sigil" aria-hidden="true"></span></a>
     <ul>
-      <li><a href="./" aria-current="page">Reports</a></li>
+      <li><a href="./" id="navReports" aria-current="page">Reports</a></li>
+      <li><a href="#scorecard" id="navScore">Scorecard</a></li>
       <li><a href="commands.html">Commands</a></li>
     </ul>
   </nav>
@@ -320,7 +362,25 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
     <div class="about">
       <h3>How to read these</h3>
       <p>Verdicts reflect the price on the research date, not today. The age under each date shows how old a verdict is, and anything older than 90 days is marked as needing a refresh. Each report lists its sources, the assumptions behind every valuation, and the questions it could not answer.</p>
-      <p>The bar under a verdict shows the report's bear, base and bull values as dots, and the price on the research date as a dark line.</p>
+      <p>The bars under a verdict show how far the report's bear, base and bull values sit below or above the price on the research date.</p>
+      <p>"Now" is the latest price, saved once each weekday at 16:00 UTC, and how far it sits above or below the price on the research date. The <a href="#scorecard">scorecard</a> checks every company verdict against it.</p>
+    </div>
+  </section>
+
+  <section id="scoreView" hidden>
+    <header class="mast">
+      <div class="mast-text">
+      <h1>Scorecard</h1>
+      <p>Every company verdict, checked against what the price did afterwards. It marks the research, not anyone's returns.</p>
+      </div>
+    </header>
+    <div class="tally" id="scoreTally" aria-label="Verdicts by outcome"></div>
+    <div class="slist" id="score"></div>
+    <div class="about">
+      <h3>How a verdict is judged</h3>
+      <p>An <b>Avoid</b> held up if the price fell. A <b>Favour</b> held up if it rose. A <b>Wait or hold</b> held up if the shares got cheaper while waiting, and did not if they got more expensive. A move of less than 5% either way counts as little change.</p>
+      <p>Nothing is judged in its first 90 days, because a few weeks of price movement says little about a verdict built on three-year scenarios. With this few reports it is a learning log, not a statistic. Industry and comparison reports have no single price, so they are left out.</p>
+      <p>Prices come from Yahoo Finance, in each share's own currency, saved once each weekday at 16:00 UTC. Markets still trading at that hour, such as New York, show the price at that moment rather than the close.</p>
     </div>
   </section>
 
@@ -358,9 +418,11 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
 <script>
 /* To add a report: put the .md in reports/, then add one entry here.
    Optional fields: pdf, bands {cur, bear, base, bull, price, zone, zoneLabel, note}, next {text, until}.
+   For a single company add sym (its Yahoo Finance symbol, in the same currency as the bands) so the site can show
+   today's price and score the verdict; without bands also add quote {cur, price} for the price at research.
    Every line in `reasons`, `watch` and `next` must come from the report itself. */
 const REPORTS = [
-  { id: "hdfc-bank", file: "reports/HDFC-Bank/HDFC-Bank-research-20261011.md", date: "2026-10-11", ticker: "HDB", venue: "NYSE / NSE", kind: "Company",
+  { id: "hdfc-bank", file: "reports/HDFC-Bank/HDFC-Bank-research-20261011.md", date: "2026-10-11", ticker: "HDB", sym: "HDFCBANK.NS", venue: "NYSE / NSE", kind: "Company",
     title: "HDFC Bank", px: "₹707 · $22.28",
     blurb: "India's largest private bank at about its lowest valuation in a decade, with a deposit problem, a governance cloud and a new outsider CEO all at once.",
     verdict: "Small staged buy · better < ₹600", tone: "warn",
@@ -416,7 +478,7 @@ const REPORTS = [
     ],
     next: { text: "Q2 FY27 bank results in the second half of October 2026.", until: "2026-10-31" } },
 
-  { id: "xylem", file: "reports/Xylem/Xylem-research-20261011.md", date: "2026-10-11", ticker: "XYL", venue: "NYSE", kind: "Company",
+  { id: "xylem", file: "reports/Xylem/Xylem-research-20261011.md", date: "2026-10-11", ticker: "XYL", sym: "XYL", venue: "NYSE", kind: "Company",
     title: "Xylem", px: "$102.71",
     blurb: "The largest pure water-technology company. Margins are rising, but organic growth is 0 to 3% and return on equity is below 9%.",
     verdict: "Hold · buy < $85", tone: "warn",
@@ -436,7 +498,7 @@ const REPORTS = [
     bands: { cur: "$", bear: 62.8, base: 109.5, bull: 142.5, price: 102.71, zone: 85, zoneLabel: "Margin of safety below $85",
       note: "3-year scenario targets, discounted to today at 10%." } },
 
-  { id: "pentair", file: "reports/Pentair/Pentair-research-20261011.md", date: "2026-10-11", ticker: "PNR", venue: "NYSE", kind: "Company",
+  { id: "pentair", file: "reports/Pentair/Pentair-research-20261011.md", date: "2026-10-11", ticker: "PNR", sym: "PNR", venue: "NYSE", kind: "Company",
     title: "Pentair", px: "$52.47",
     blurb: "Pool, filtration and pump maker with 25% margins. Down 53% in a year after pool distributors cut inventory and guidance was cut.",
     verdict: "Hold · buy < $47", tone: "warn",
@@ -491,7 +553,7 @@ const REPORTS = [
     ],
     next: { text: "Q3 results for Pentair (23 Oct) and Xylem (27 Oct), then Veralto and A. O. Smith in late October and November.", until: "2026-11-30" } },
 
-  { id: "oklo", file: "reports/Oklo/Oklo-research-20261009.md", date: "2026-10-09", ticker: "OKLO", venue: "NYSE", kind: "Company",
+  { id: "oklo", file: "reports/Oklo/Oklo-research-20261009.md", date: "2026-10-09", ticker: "OKLO", sym: "OKLO", venue: "NYSE", kind: "Company",
     title: "Oklo", px: "$34.44",
     blurb: "Advanced nuclear developer with $3B of cash and no power revenue yet. The price implies 7–8 GW of reactors running by 2036.",
     verdict: "Avoid · speculative < $20", tone: "bad",
@@ -530,7 +592,7 @@ const REPORTS = [
     next: { text: "No fixed date. Watch the next cost updates from the Darlington and Kemmerer projects." } },
 
   { id: "rheinmetall", file: "reports/Rheinmetall/Rheinmetall-research-20261006.md", pdf: "reports/Rheinmetall/Rheinmetall-research-20261006.pdf",
-    date: "2026-10-06", ticker: "RHM", venue: "XETRA", kind: "Company",
+    date: "2026-10-06", ticker: "RHM", sym: "RHM.DE", venue: "XETRA", kind: "Company",
     title: "Rheinmetall", px: "€953",
     blurb: "Europe's ammunition and land-systems champion. €80bn backlog, but negative free cash flow in H1 2026.",
     verdict: "Gray zone · buy < €700", tone: "warn",
@@ -551,7 +613,7 @@ const REPORTS = [
       note: "3-year scenario targets, discounted to today at 9%." } },
 
   { id: "flutter", file: "reports/FLUT/FLUT-pre-earnings-20260226.md", pdf: "reports/FLUT/FLUT_Analysis_20260226.pdf",
-    date: "2026-02-26", ticker: "FLUT", venue: "NYSE", kind: "Pre-earnings trade",
+    date: "2026-02-26", ticker: "FLUT", sym: "FLUT", quote: { cur: "$", price: 119.84 }, venue: "NYSE", kind: "Pre-earnings trade",
     title: "Flutter Entertainment", px: "$119.84",
     blurb: "Deeply oversold into Q4 results after UK and US tax hits. The stock fell after 3 of its last 4 earnings beats.",
     verdict: "Hold · wait for guidance", tone: "warn",
@@ -605,6 +667,26 @@ function homeLine(r) {
   const own = h.code === "EUR" ? "" : `, 1 ${h.code} = ${h.rate} lei`;
   return `<p class="home-line">In your money: ${money(r.bands.cur, r.bands.price)} ≈ ${h.eur ? h.eur + " ≈ " : ""}${h.lei} a share.</p>
       <p class="note">National Bank of Romania rates of ${fmtDate(h.day)} (1 EUR = ${h.eurRate} lei${own}). The gains and losses above are in the share's own currency; in lei they also move with the exchange rate. Romanian inflation was ${INFLATION.rate} a year in ${INFLATION.asOf}, so a lei return has to beat that to gain buying power.</p>`;
+}
+
+/* ---------- Latest prices ----------
+   prices.json is rewritten each weekday at 16:00 UTC by tools/fetch_prices.py (see .github/workflows/prices.yml). */
+let PRICES = {};
+function live(r) {
+  const at = r.bands ? { cur: r.bands.cur, price: r.bands.price } : r.quote, q = r.sym && PRICES[r.sym];
+  if (!at || !q || q.currency !== CUR_CODE[at.cur]) return null;
+  return { cur: at.cur, then: at.price, now: q.price, date: q.date, d: (q.price / at.price - 1) * 100,
+    under: r.bands && r.bands.zone && q.price <= r.bands.zone ? r.bands.zone : null };
+}
+const exact = (cur, v) => cur + v.toLocaleString("en-GB", Number.isInteger(v) ? {} : { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const pct = d => Math.abs(d).toFixed(Math.abs(d) < 10 ? 1 : 0) + "%";
+const versus = d => Math.abs(d) < .05 ? "level with" : `${pct(d)} ${d > 0 ? "above" : "below"}`;
+function fillLive() {
+  document.querySelectorAll("[data-live]").forEach(el => {
+    const L = live(byId[el.dataset.live]);
+    el.innerHTML = !L ? "" : `Now <b>${exact(L.cur, L.now)}</b> · <b>${versus(L.d)}</b> the report price`
+      + (L.under && el.classList.contains("live") ? `<span class="flag">Below the ${money(L.cur, L.under)} level</span>` : "");
+  });
 }
 
 /* ---------- Price band ---------- */
@@ -722,7 +804,7 @@ function drawRows() {
     <span class="when"><span class="date">${fmtDate(r.date)}</span><span class="age${stale ? " stale" : ""}">${ageText(n)}${stale ? " · needs a refresh" : ""}</span></span>
     <span class="tick"><b>${esc(r.ticker)}</b><span>${esc(r.venue)}</span></span>
     <span class="what"><span class="kind">${esc(r.kind)}</span><h2>${esc(r.title)}</h2><p>${esc(r.blurb)}</p>${next}</span>
-    <span class="verdict"><span class="chip ${r.tone}">${esc(r.verdict)}</span><span class="px">${esc(r.px)}</span>${hs ? `<span class="home">${hs}</span>` : ""}${r.bands ? band(r.bands, true) : ""}</span>
+    <span class="verdict"><span class="chip ${r.tone}">${esc(r.verdict)}</span><span class="px">${esc(r.px)}</span>${hs ? `<span class="home">${hs}</span>` : ""}${r.bands ? band(r.bands, true) : ""}<span class="live" data-live="${r.id}"></span></span>
   </a>`;
   };
   // one section per report type, in the same order as the Type filter
@@ -733,6 +815,7 @@ function drawRows() {
     return `<div class="sect"><i class="rn" aria-hidden="true">${ROMAN[n] || n + 1}</i><h2>${esc(SECTION_NAMES[k] || k)}</h2><span class="ct">${group.length} report${group.length === 1 ? "" : "s"}</span></div>` + group.map(rowHtml).join("");
   }).join("");
   $("#none").hidden = list.length > 0;
+  fillLive();
 }
 
 function resetFilters() { DIMS.forEach(d => state[d.key] = []); openMenu = null; saveState(); drawFilters(); drawRows(); }
@@ -824,12 +907,13 @@ function summaryCard(r) {
 
 async function openReport(id) {
   const r = byId[id], n = daysOld(r.date), stale = n > STALE_DAYS;
-  $("#home").hidden = true; $("#readerView").hidden = false;
+  $("#home").hidden = true; $("#scoreView").hidden = true; $("#readerView").hidden = false;
   document.title = `${r.title} · Officium Advocati Diaboli`;
   $("#crumb").textContent = `${r.ticker} · ${fmtDate(r.date)}`;
   $("#rKind").textContent = `${r.kind} · ${r.venue}`;
   $("#rTitle").textContent = r.title;
-  $("#rMeta").innerHTML = `<span>${fmtDate(r.date)}</span><span class="chip ${stale ? "warn" : "plain"}">${ageText(n)}${stale ? " · needs a refresh" : ""}</span><span>Price at research ${esc(r.px)}</span><span class="chip ${r.tone}">${esc(r.verdict)}</span>`;
+  $("#rMeta").innerHTML = `<span>${fmtDate(r.date)}</span><span class="chip ${stale ? "warn" : "plain"}">${ageText(n)}${stale ? " · needs a refresh" : ""}</span><span>Price at research ${esc(r.px)}</span><span class="now" data-live="${r.id}"></span><span class="chip ${r.tone}">${esc(r.verdict)}</span>`;
+  fillLive();
   $("#sum").innerHTML = summaryCard(r);
   $("#readBtn").addEventListener("click", () => $("#prose").scrollIntoView({ behavior: "smooth", block: "start" }));
   $("#prose").innerHTML = '<div class="status">Loading report…</div>';
@@ -880,14 +964,63 @@ $("#tocList").addEventListener("click", e => {
 });
 
 function showHome() {
-  $("#readerView").hidden = true; $("#home").hidden = false;
+  $("#readerView").hidden = true; $("#scoreView").hidden = true; $("#home").hidden = false;
   document.title = "Officium Advocati Diaboli";
+}
+
+/* ---------- Scorecard ---------- */
+function judge(r, L) {
+  const young = daysOld(r.date) <= STALE_DAYS, flat = Math.abs(L.d) < 5, up = L.d > 0;
+  const said = r.tone === "bad" ? "an Avoid" : r.tone === "good" ? "a Favour" : null;
+  const call = flat ? "flat" : (r.tone === "good" ? up : !up) ? "right" : "wrong";
+  const why = flat ? "Within 5% of the report price."
+    : said ? `It ${up ? "rose" : "fell"} after ${said}.`
+    : up ? "The shares got more expensive while waiting." : "The shares got cheaper while waiting.";
+  if (young) return { cls: "", label: "Too early", why: `${why} Judged once the verdict is ${STALE_DAYS} days old.` };
+  return { cls: call === "flat" ? "" : call, label: call === "right" ? "Held up" : call === "wrong" ? "Did not hold" : "Little change", why };
+}
+function drawScore() {
+  const list = REPORTS.filter(r => r.sym && (r.bands || r.quote)).sort((a, b) => a.date.localeCompare(b.date));
+  const rows = list.map(r => ({ r, L: live(r) })).filter(x => x.L).map(x => ({ ...x, j: judge(x.r, x.L) }));
+  const count = l => rows.filter(x => x.j.label === l).length;
+  const asOf = rows.map(x => x.L.date).sort().pop();
+  $("#scoreTally").innerHTML = `
+    <div class="tcell"><b>${rows.length}</b><span>Verdicts tracked</span></div>
+    <div class="tcell good"><b>${count("Held up")}</b><span>Held up</span></div>
+    <div class="tcell bad"><b>${count("Did not hold")}</b><span>Did not hold</span></div>
+    <div class="tcell"><b>${count("Too early") + count("Little change")}</b><span>Too early or flat</span></div>
+    <div class="tcell last"><b>${asOf ? fmtDate(asOf) : "—"}</b><span>Prices as of</span></div>`;
+  const where = (b, v) => !b ? "" : v < b.bear ? "below the bear value" : v < b.base ? "between bear and base" : v < b.bull ? "between base and bull" : "above the bull value";
+  $("#score").innerHTML = !rows.length ? `<p class="snone">Prices have not loaded. Reload the page to try again.</p>` : `
+    <div class="shead" aria-hidden="true"><span>Report</span><span>Verdict then</span><span>Price then → now</span><span>Since</span><span>So far</span></div>
+    ${rows.map(({ r, L, j }) => `
+    <div class="srow ${j.cls}">
+      <div class="s-co"><a href="#${r.id}">${esc(r.title)}</a><small>${fmtDate(r.date)} · ${ageText(daysOld(r.date)).toLowerCase()}</small></div>
+      <div data-l="Verdict then"><span class="chip ${r.tone}">${esc(r.verdict)}</span></div>
+      <div data-l="Price then → now"><span class="s-px">${exact(L.cur, L.then)}<i>→</i>${exact(L.cur, L.now)}</span>${r.bands ? `<small>Now ${where(r.bands, L.now)}</small>` : ""}</div>
+      <div data-l="Since"><span class="s-d">${L.d >= 0 ? "+" : "−"}${pct(L.d)}</span></div>
+      <div class="s-out"><b>${j.label}</b><span>${j.why}</span></div>
+    </div>`).join("")}`;
+}
+function showScore() {
+  $("#home").hidden = true; $("#readerView").hidden = true; $("#scoreView").hidden = false;
+  document.title = "Scorecard · Officium Advocati Diaboli";
+  drawScore(); window.scrollTo(0, 0);
 }
 
 function route() {
   const id = location.hash.replace("#", "");
-  if (byId[id]) openReport(id); else showHome();
+  if (byId[id]) openReport(id); else if (id === "scorecard") showScore(); else showHome();
+  const [on, off] = id === "scorecard" ? ["#navScore", "#navReports"] : ["#navReports", "#navScore"];
+  $(on).setAttribute("aria-current", "page"); $(off).removeAttribute("aria-current");
 }
+// "Reports" from the scorecard or a report: go back to the list without reloading the page
+$("#navReports").addEventListener("click", e => {
+  if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+  e.preventDefault();
+  if (location.hash) { try { history.pushState(null, "", location.pathname + location.search); } catch (err) {} }
+  route(); window.scrollTo(0, 0);
+});
 $("#backBtn").addEventListener("click", () => {
   if (location.hash) { try { history.pushState(null, "", location.pathname + location.search); } catch (e) {} }
   showHome(); window.scrollTo(0, 0);
@@ -903,6 +1036,12 @@ function drawProgress() {
 window.addEventListener("scroll", drawProgress, { passive: true });
 window.addEventListener("hashchange", route);
 route();
+fetch("prices.json", { cache: "no-cache" }).then(res => res.ok ? res.json() : null).then(doc => {
+  if (!doc) return;
+  PRICES = doc.prices || {};
+  fillLive();
+  if (!$("#scoreView").hidden) drawScore();
+}).catch(() => {});
 </script>
 </body>
 </html>

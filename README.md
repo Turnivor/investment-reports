@@ -30,6 +30,7 @@ Charts: [`charts/`](charts/)
 |---|---|
 | [`index.html`](index.html) | Reports page: the list, filters, and the reader with a summary card |
 | [`commands.html`](commands.html) | [Command cheat sheet](https://turnivor.github.io/investment-reports/commands.html) for the ai-berkshire commands |
+| [`prices.json`](prices.json) | Latest prices, rewritten each weekday at 16:00 UTC by [`tools/fetch_prices.py`](tools/fetch_prices.py) through a GitHub Action. Feeds the "Now" line on each card and the scorecard |
 | [`site.css`](site.css) | Shared look for both pages (colours, fonts, top menu) |
 | [`og.png`](og.png) | Preview image shown when the link is shared |
 | [`brand/`](brand/) | Emblem, seal and browser-tab icons |

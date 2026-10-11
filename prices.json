@@ -1,0 +1,36 @@
+{
+  "updated": "2026-10-11T15:10:10Z",
+  "source": "Yahoo Finance",
+  "prices": {
+    "FLUT": {
+      "price": 79.78,
+      "currency": "USD",
+      "date": "2026-10-09"
+    },
+    "HDFCBANK.NS": {
+      "price": 707.25,
+      "currency": "INR",
+      "date": "2026-10-09"
+    },
+    "OKLO": {
+      "price": 34.7,
+      "currency": "USD",
+      "date": "2026-10-09"
+    },
+    "PNR": {
+      "price": 52.47,
+      "currency": "USD",
+      "date": "2026-10-09"
+    },
+    "RHM.DE": {
+      "price": 939.1,
+      "currency": "EUR",
+      "date": "2026-10-09"
+    },
+    "XYL": {
+      "price": 102.71,
+      "currency": "USD",
+      "date": "2026-10-09"
+    }
+  }
+}
