@@ -264,8 +264,24 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
 .sum ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 17px; line-height: 1.45; }
 .sum .nextline { font-size: 17px; line-height: 1.45; margin: 0; }
 .sum .stale { font-family: var(--f-mono); font-size: 13px; color: var(--warn); background: var(--warn-soft); border-radius: 5px; padding: 8px 12px; margin: 0; }
-.sum .cals { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 12px 0 0; }
-.sum .cals span { flex-basis: 100%; font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.sum .plan { grid-column: 1 / -1; border-top: 1px solid var(--rule); padding-top: 18px; gap: 20px; }
+.sum .plan > h3 { margin: 0; }
+.sum .plan h4 { font-family: var(--f-mono); font-weight: 500; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 0 0 7px; }
+.sum .plan p { margin: 0; font-size: 16.5px; line-height: 1.45; }
+.sum .plan ul { font-size: 16.5px; }
+.p-two, .p-three { display: grid; gap: 20px 36px; }
+.p-two { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.p-three { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.p-dates { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.p-dates li { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 2px 14px; }
+.p-dates time { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
+.p-dates b { display: block; font-family: var(--f-display); font-weight: 600; font-size: 17px; line-height: 1.3; }
+.sum .plan .p-dates p { font-size: 15.5px; color: var(--muted); margin: 1px 0 0; }
+.p-dates .cal { display: inline-block; margin-top: 7px; }
+.p-dates .gone { opacity: .55; }
+.p-dates .was { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.sum .plan small { display: block; margin-top: 12px; font-family: var(--f-mono); font-size: 12px; line-height: 1.5; color: var(--muted); }
+@media (max-width: 520px) { .p-dates li { grid-template-columns: minmax(0, 1fr); } }
 .cal {
   font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); text-decoration: none; white-space: nowrap;
   background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, 0)), var(--raised);
@@ -700,14 +716,53 @@ function calLink(title, day, details, label) {
     + "&dates=" + ymd(day) + "/" + ymd(plusDays(day, 1)) + "&details=" + encodeURIComponent(details);
   return `<a class="cal" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}</a>`;
 }
-function calendar(r) {
-  const here = location.origin + location.pathname + "#" + r.id, links = [];
-  if (r.next && r.next.until && !nextPassed(r))
-    links.push(calLink(`${r.title}: checkpoint`, r.next.until, `${r.next.text}\n\n${here}`, `Checkpoint · ${fmtDate(r.next.until)}`));
-  const refresh = plusDays(r.date, STALE_DAYS + 1);
-  if (new Date(refresh + "T23:59:59") > new Date())
-    links.push(calLink(`${r.title}: refresh the verdict`, refresh, `The verdict of ${fmtDate(r.date)} (${r.verdict}) turns ${STALE_DAYS} days old.\n\n${here}`, `Refresh due · ${fmtDate(refresh)}`));
-  return links.length ? `<p class="cals"><span>Add to your Google Calendar</span>${links.join("")}</p>` : "";
+const isAhead = day => new Date(day + "T23:59:59") > new Date();
+// the dated checkpoints of a report: its own calendar, or else its single next checkpoint
+const datesOf = r => r.calendar && r.calendar.length ? r.calendar
+  : r.next && r.next.until ? [{ date: r.next.until, what: "Checkpoint", check: r.next.text }] : [];
+// the notes a reminder carries: what to check, where the report stood, its own rules, and where to go afterwards
+function eventNotes(r, intro) {
+  const b = r.bands, p = r.plan, lines = [...intro, ""];
+  lines.push(`WHERE THE REPORT STOOD (${fmtDate(r.date)})`, `Verdict: ${r.verdict}`,
+    b ? `Price then ${money(b.cur, b.price)} · bear ${money(b.cur, b.bear)} · base ${money(b.cur, b.base)} · bull ${money(b.cur, b.bull)}` : `Price then ${r.px}`);
+  if (b && b.zoneLabel) lines.push(b.zoneLabel);
+  if (p && p.holding) lines.push("", "IF YOU HOLD IT", p.holding);
+  if (p && p.add) lines.push("", "SIGNALS TO ADD", ...p.add.map(x => "• " + x));
+  if (p && p.sell) lines.push("", "SIGNALS TO SELL", ...p.sell.map(x => "• " + x));
+  if (!p) lines.push("", "SIGNALS TO WATCH", ...r.watch.map(x => "• " + x));
+  lines.push("", "AFTERWARDS", "Report: " + new URL("#" + r.id, location.href).href);
+  if (r.pdf) lines.push("PDF: " + new URL(r.pdf, location.href).href);
+  lines.push("To update the report, copy the request on its page into Claude Code.", "", "Research notes, not investment advice.");
+  return lines.join("\n");
+}
+function checkpointLink(r, c) {
+  const intro = [c.approx ? `Date not confirmed. The report says: ${c.approx}.` : "", c.check ? "WHAT TO CHECK" : "", c.check || ""].filter(Boolean);
+  return calLink(`${r.title}: ${c.what}${c.approx ? " (date to confirm)" : ""}`, c.date, eventNotes(r, intro), "Add to calendar");
+}
+function refreshLink(r, day) {
+  return calLink(`${r.title}: refresh the verdict`, day, eventNotes(r, [`The verdict of ${fmtDate(r.date)} turns ${STALE_DAYS} days old. Rerun the research before relying on it.`]), "Add to calendar");
+}
+// the report's own plan for someone following the share: its rules, and its dates with a reminder for each
+function planBlock(r) {
+  const p = r.plan, refresh = plusDays(r.date, STALE_DAYS + 1);
+  const rows = datesOf(r).map(c => [c.date, `
+        <li class="${isAhead(c.date) ? "" : "gone"}"><time datetime="${esc(c.date)}">${c.approx ? "≈ " : ""}${fmtDate(c.date)}</time><div><b>${esc(c.what)}</b>${c.check ? `<p>${esc(c.check)}</p>` : ""}${isAhead(c.date) ? checkpointLink(r, c) : `<span class="was">Passed</span>`}</div></li>`]);
+  if (isAhead(refresh)) rows.push([refresh, `
+        <li><time datetime="${refresh}">${fmtDate(refresh)}</time><div><b>Refresh the verdict</b><p>It turns ${STALE_DAYS} days old.</p>${refreshLink(r, refresh)}</div></li>`]);
+  const dates = rows.sort((a, b) => a[0].localeCompare(b[0])).map(x => x[1]);
+  if (!p && !dates.length) return "";
+  const list = xs => `<ul>${xs.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  return `
+    <div class="plan">
+      <h3>${p ? "The report's plan" : "Dates from the report"}</h3>
+      ${p ? `<div class="p-two">${p.none ? `<div><h4>If you don't own it</h4><p>${esc(p.none)}</p></div>` : ""}${p.holding ? `<div><h4>If you own it</h4><p>${esc(p.holding)}</p></div>` : ""}</div>` : ""}
+      <div class="p-three">
+        ${dates.length ? `<div><h4>Dates</h4><ol class="p-dates">${dates.join("")}</ol></div>` : ""}
+        ${p && p.add ? `<div><h4>Signals to add</h4>${list(p.add)}</div>` : ""}
+        ${p && p.sell ? `<div><h4>Signals to sell</h4>${list(p.sell)}</div>` : ""}
+      </div>
+      ${dates.length ? `<small>"Add to calendar" opens a draft in your own Google Calendar. Its notes carry what to check, the report's rules and links to the report${r.pdf ? " and its PDF" : ""}. A date marked ≈ is not confirmed; change it in the draft if you know better.</small>` : ""}
+    </div>`;
 }
 
 /* ---------- Updates ----------
@@ -721,7 +776,7 @@ function summaryCard(r) {
   const n = daysOld(r.date), stale = n > STALE_DAYS, passed = nextPassed(r), ups = updatesOf(r);
   const owed = updateOwed(r) ? `<p class="owed">This checkpoint has passed and no update has been filed since.<code id="askText">${esc(updateRequest(r))}</code><button class="btn" type="button" id="askBtn">Copy the update request</button><small>Paste it into Claude Code to run the review. Nothing runs from this page.</small></p>` : "";
   // the value chart makes the right column long, so the checkpoint moves left to keep the two in balance
-  const next = r.next ? `<div><h3>Next checkpoint${passed ? ' <span class="chip plain">Passed</span>' : ""}</h3><p class="nextline">${esc(r.next.text)}</p>${owed}${calendar(r)}</div>` : "";
+  const next = r.next ? `<div><h3>Next checkpoint${passed ? ' <span class="chip plain">Passed</span>' : ""}</h3><p class="nextline">${esc(r.next.text)}</p>${owed}</div>` : "";
   return `
     <div>
       <div><h3>The short version</h3><h2>${esc(r.headline)}</h2></div>
@@ -731,9 +786,10 @@ function summaryCard(r) {
     </div>
     <div>
       ${r.bands ? `<div><h3>What the shares could be worth vs the price at research</h3>${band(r.bands, false)}<div class="band">${homeLine(r)}</div></div>` : ""}
-      <div><h3>Signals to watch</h3><ul>${r.watch.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      ${r.plan && (r.plan.add || r.plan.sell) ? "" : `<div><h3>Signals to watch</h3><ul>${r.watch.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`}
       ${r.bands ? "" : next}
     </div>
+    ${planBlock(r)}
     ${ups.length ? `<div class="upd"><h3>Since the report</h3><ol>${ups.map(u => `
       <li><time datetime="${esc(u.date)}">${fmtDate(u.date)}</time><div><b>${esc(u.title)}</b><p>${esc(u.text)}</p>${u.was ? `<span class="was">Verdict before this update: ${esc(u.was)}</span>` : ""}</div></li>`).join("")}</ol></div>` : ""}
     <div class="acts">

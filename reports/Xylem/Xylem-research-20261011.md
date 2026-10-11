@@ -1,6 +1,7 @@
 ---
 {
   "id": "xylem",
+  "pdf": "Xylem-research-20261011.pdf",
   "date": "2026-10-11",
   "ticker": "XYL",
   "sym": "XYL",
@@ -34,6 +35,28 @@
     "text": "Q3 2026 results on 27 October 2026. They show whether organic growth is recovering toward 3%.",
     "until": "2026-10-27"
   },
+  "plan": {
+    "none": "Wait. Interesting below about $85 (25% under the base value, about 15 times 2026 earnings).",
+    "holding": "Hold. The business is intact and the multiple has already fallen by a third.",
+    "add": [
+      "Price near $85",
+      "Organic growth back to 4% or more with the margin intact",
+      "The CEO buying shares with his own money"
+    ],
+    "sell": [
+      "Organic growth still at or below 2% through 2027 once the 80/20 exits are done",
+      "Adjusted EBITDA margin stalls below 23%",
+      "Another large deal paid with shares",
+      "Net debt above 2.5 times EBITDA"
+    ]
+  },
+  "calendar": [
+    {
+      "date": "2026-10-27",
+      "what": "Q3 2026 results",
+      "check": "They show whether organic growth is recovering toward 3%."
+    }
+  ],
   "bands": {
     "cur": "$",
     "bear": 62.8,

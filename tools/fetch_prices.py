@@ -74,7 +74,12 @@ def alerts(entries, old, new, today):
         was, now = old.get(r.get("sym")), new.get(r.get("sym"))
         if zone and was and now and was["price"] > zone >= now["price"]:
             lines.append(f"**Price:** {link} is at {cur}{now['price']:g}, at or under its {cur}{zone:g} level from the report.")
-        if nxt.get("until") and due(date.fromisoformat(nxt["until"])):
+        dated = r.get("calendar") or []
+        for c in dated:
+            if due(date.fromisoformat(c["date"])):
+                rough = f" (date not confirmed; the report says: {c['approx']})" if c.get("approx") else ""
+                lines.append(f"**Checkpoint:** {link}: {c['what']}{rough}." + (f" {c['check']}" if c.get("check") else ""))
+        if nxt.get("until") and nxt["until"] not in {c["date"] for c in dated} and due(date.fromisoformat(nxt["until"])):
             lines.append(f"**Checkpoint:** {link}. {nxt['text']}")
         if due(date.fromisoformat(r["date"]) + timedelta(days=STALE_DAYS + 1)):
             lines.append(f"**Refresh:** the {link} verdict is now over {STALE_DAYS} days old." + (" The scorecard judges it from today." if r.get("sym") else ""))

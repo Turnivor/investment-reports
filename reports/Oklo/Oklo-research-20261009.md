@@ -1,6 +1,7 @@
 ---
 {
   "id": "oklo",
+  "pdf": "Oklo-research-20261009.pdf",
   "date": "2026-10-09",
   "ticker": "OKLO",
   "sym": "OKLO",
@@ -32,6 +33,23 @@
   ],
   "next": {
     "text": "No fixed date. Next milestones are first isotope revenue (target early 2027) and binding power contracts with Meta and Switch (by 2027)."
+  },
+  "plan": {
+    "none": "Don't buy at $34. If you want exposure to the AI-nuclear theme, a small \"lottery-ticket\" position (≤1–2% of the portfolio) only below ~$20, and only if Aurora-INL is on schedule.",
+    "holding": "Treat it as venture capital. Trim to a size you can afford to lose entirely. Don't average down just because it's 80% off the peak.",
+    "add": [
+      "Binding PPA with a disclosed price ≥ $90/MWh",
+      "Aurora-INL capex disclosed below ~$6,000/kW",
+      "Aurora-INL fuel loaded / critical",
+      "Price below ~$20 with the schedule intact"
+    ],
+    "sell": [
+      "Aurora-INL slips beyond 2029",
+      "DOE authorization stalls",
+      "Meta/Switch don't convert to binding PPAs by 2027",
+      "First disclosed capex > $10,000/kW",
+      "ATM usage accelerates while milestones slip"
+    ]
   },
   "bands": {
     "cur": "$",

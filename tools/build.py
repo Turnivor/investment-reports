@@ -8,6 +8,7 @@ signals, checkpoint and value range, written as JSON. This script reads those bl
 
 Run it after adding or changing a report:  python tools/build.py
 It stops with a message if a block is missing something. Standard library only.
+Every report must also have its PDF; python tools/make_pdf.py makes the missing ones and then runs this build.
 
 Exchange rates are the National Bank of Romania reference rates (lei per 1 unit) of the last banking day on or
 before each report's date. They are fetched once and kept in tools/fx.json, so later runs need no network.
@@ -26,6 +27,8 @@ BNR = "https://curs.bnr.ro/files/xml/years/nbrfxrates{}.xml"
 CURRENCIES = {"$": "USD", "€": "EUR", "₹": "INR", "£": "GBP"}  # symbol used in a report -> National Bank code
 TONES = ("bad", "warn", "good")
 START, END = "<!-- reports:start -->", "<!-- reports:end -->"
+
+REQUIRE_PDF = True  # tools/make_pdf.py turns this off for the build it runs before printing
 
 problems = []
 
@@ -90,8 +93,22 @@ def check(r, path):
         problems.append(f"{where}: sym needs either bands or quote, so the site knows the price at research")
     if r.get("pdf") and not (path.parent / r["pdf"]).exists():
         problems.append(f"{where}: pdf {r['pdf']} is not next to the report")
+    if REQUIRE_PDF and not r.get("pdf"):
+        problems.append(f"{where}: no PDF yet; run  python tools/make_pdf.py  to make it")
     for u in r.get("updates") or []:
         need(u, ["date", "title", "text"], "updates.")
+    plan = r.get("plan")
+    if plan:
+        for key in ("none", "holding"):
+            if key in plan and not isinstance(plan[key], str):
+                problems.append(f"{where}: plan.{key} must be one line of text")
+        for key in ("add", "sell"):
+            if key in plan and not (isinstance(plan[key], list) and plan[key]):
+                problems.append(f"{where}: plan.{key} must be a list of signals")
+    for c in r.get("calendar") or []:
+        need(c, ["date", "what"], "calendar.")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(c.get("date", ""))):
+            problems.append(f"{where}: calendar.date must look like 2026-10-27 (add approx when the report only gives a rough time)")
 
 
 def bnr_rates(day, codes):

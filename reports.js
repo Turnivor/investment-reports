@@ -4,6 +4,7 @@ window.SITE_DATA = {
   {
    "id": "xylem",
    "file": "reports/Xylem/Xylem-research-20261011.md",
+   "pdf": "reports/Xylem/Xylem-research-20261011.pdf",
    "date": "2026-10-11",
    "ticker": "XYL",
    "sym": "XYL",
@@ -37,6 +38,28 @@ window.SITE_DATA = {
     "text": "Q3 2026 results on 27 October 2026. They show whether organic growth is recovering toward 3%.",
     "until": "2026-10-27"
    },
+   "plan": {
+    "none": "Wait. Interesting below about $85 (25% under the base value, about 15 times 2026 earnings).",
+    "holding": "Hold. The business is intact and the multiple has already fallen by a third.",
+    "add": [
+     "Price near $85",
+     "Organic growth back to 4% or more with the margin intact",
+     "The CEO buying shares with his own money"
+    ],
+    "sell": [
+     "Organic growth still at or below 2% through 2027 once the 80/20 exits are done",
+     "Adjusted EBITDA margin stalls below 23%",
+     "Another large deal paid with shares",
+     "Net debt above 2.5 times EBITDA"
+    ]
+   },
+   "calendar": [
+    {
+     "date": "2026-10-27",
+     "what": "Q3 2026 results",
+     "check": "They show whether organic growth is recovering toward 3%."
+    }
+   ],
    "bands": {
     "cur": "$",
     "bear": 62.8,
@@ -51,6 +74,7 @@ window.SITE_DATA = {
   {
    "id": "water-screen",
    "file": "reports/Water/Xylem-vs-Pentair-quality-screen-20261011.md",
+   "pdf": "reports/Water/Xylem-vs-Pentair-quality-screen-20261011.pdf",
    "date": "2026-10-11",
    "ticker": "XYL vs PNR",
    "venue": "NYSE",
@@ -74,11 +98,25 @@ window.SITE_DATA = {
    "next": {
     "text": "Pentair Q3 results expected 23 October 2026, Xylem Q3 results on 27 October 2026.",
     "until": "2026-10-27"
-   }
+   },
+   "calendar": [
+    {
+     "date": "2026-10-23",
+     "approx": "Expected 23 October 2026",
+     "what": "Pentair Q3 results",
+     "check": "Pool inventory back to normal, no new guidance cut, 2027 pool sales near $1.45bn."
+    },
+    {
+     "date": "2026-10-27",
+     "what": "Xylem Q3 results",
+     "check": "Organic growth back toward 3%, margin on track for 23.1 to 23.5%."
+    }
+   ]
   },
   {
    "id": "water",
    "file": "reports/industry/WaterTechnology-funnel-20261011.md",
+   "pdf": "reports/industry/WaterTechnology-funnel-20261011.pdf",
    "date": "2026-10-11",
    "ticker": "WATER",
    "venue": "Industry",
@@ -108,6 +146,7 @@ window.SITE_DATA = {
   {
    "id": "pentair",
    "file": "reports/Pentair/Pentair-research-20261011.md",
+   "pdf": "reports/Pentair/Pentair-research-20261011.pdf",
    "date": "2026-10-11",
    "ticker": "PNR",
    "sym": "PNR",
@@ -141,6 +180,31 @@ window.SITE_DATA = {
     "text": "Q3 2026 results, expected 23 October 2026. They show whether the pool destock is over.",
     "until": "2026-10-23"
    },
+   "plan": {
+    "none": "Wait for the Q3 results on 23 Oct. Interesting below about $47 (25% under the base value, about 10 times 2026 earnings), or at today's price once the destock is confirmed finished.",
+    "holding": "Hold. The price already reflects a poor outcome, and selling at 11 times earnings during a channel correction has historically been the wrong moment in this industry.",
+    "add": [
+     "Q3 confirms channel inventory is normal",
+     "2027 pool sales guided at or above $1.45bn",
+     "Insiders buying shares",
+     "The new CFO resets guidance conservatively and then meets it"
+    ],
+    "sell": [
+     "A third pool guidance cut",
+     "Pool margin guided below 30% for 2027",
+     "Further admitted share loss",
+     "Net debt staying above 2.5 times EBITDA into 2028",
+     "A dividend freeze after 50 years of increases"
+    ]
+   },
+   "calendar": [
+    {
+     "date": "2026-10-23",
+     "approx": "Expected 23 October 2026",
+     "what": "Q3 2026 results",
+     "check": "They show whether the pool destock is over."
+    }
+   ],
    "bands": {
     "cur": "$",
     "bear": 30.3,
@@ -155,6 +219,7 @@ window.SITE_DATA = {
   {
    "id": "india-fin-funnel",
    "file": "reports/industry/IndiaFinancials-funnel-20261011.md",
+   "pdf": "reports/industry/IndiaFinancials-funnel-20261011.pdf",
    "date": "2026-10-11",
    "ticker": "INDIA FIN",
    "venue": "Industry",
@@ -184,6 +249,7 @@ window.SITE_DATA = {
   {
    "id": "india-fin",
    "file": "reports/industry/IndiaFinancials-industry-20261011.md",
+   "pdf": "reports/industry/IndiaFinancials-industry-20261011.pdf",
    "date": "2026-10-11",
    "ticker": "INDIA FIN",
    "venue": "Industry",
@@ -213,6 +279,7 @@ window.SITE_DATA = {
   {
    "id": "hdfc-bank",
    "file": "reports/HDFC-Bank/HDFC-Bank-research-20261011.md",
+   "pdf": "reports/HDFC-Bank/HDFC-Bank-research-20261011.pdf",
    "date": "2026-10-11",
    "ticker": "HDB",
    "sym": "HDFCBANK.NS",
@@ -246,6 +313,50 @@ window.SITE_DATA = {
     "text": "Q2 FY27 results in mid-October 2026, then Anup Bagchi takes over as CEO on 27 October 2026.",
     "until": "2026-10-27"
    },
+   "plan": {
+    "none": "A small starter position is defensible at ₹707 / $22. Stage it: one part after the Q2 FY27 results (mid-October), one after the new CEO's first full quarter (results around January 2027), one held back for ₹600 or a clear improvement. Keep it smaller than an ICICI Bank position until the governance question closes.",
+    "holding": "Hold; no reason to add above ~₹720 before CASA turns.",
+    "add": [
+     "CASA ratio rises for two consecutive quarters",
+     "NIM back above 3.5%",
+     "Loan/deposit ratio below 92%",
+     "Class action dismissed or settled for a small sum",
+     "Price ≤ ₹600"
+    ],
+    "sell": [
+     "A regulator (RBI, SEBI, SEC) substantiates misconduct at senior level",
+     "ROE below 12% for a full year",
+     "Gross NPA above 2%",
+     "Several senior departures in the new CEO's first year",
+     "Price above ~2.5x book without ROE above 16%"
+    ]
+   },
+   "calendar": [
+    {
+     "date": "2026-10-13",
+     "what": "Class-action lead-plaintiff deadline"
+    },
+    {
+     "date": "2026-10-15",
+     "approx": "Mid-October 2026",
+     "what": "Q2 FY27 results",
+     "check": "Watch NIM against 3.26%, CASA, and anything said about the 85–90% loan/deposit target."
+    },
+    {
+     "date": "2026-10-27",
+     "what": "Anup Bagchi takes over as CEO"
+    },
+    {
+     "date": "2027-01-15",
+     "approx": "January 2027",
+     "what": "Q3 results, the first quarter under the new CEO"
+    },
+    {
+     "date": "2027-04-15",
+     "approx": "April 2027",
+     "what": "FY27 results and whatever strategy reset comes with them"
+    }
+   ],
    "bands": {
     "cur": "₹",
     "bear": 505,
@@ -260,6 +371,7 @@ window.SITE_DATA = {
   {
    "id": "oklo",
    "file": "reports/Oklo/Oklo-research-20261009.md",
+   "pdf": "reports/Oklo/Oklo-research-20261009.pdf",
    "date": "2026-10-09",
    "ticker": "OKLO",
    "sym": "OKLO",
@@ -292,6 +404,23 @@ window.SITE_DATA = {
    "next": {
     "text": "No fixed date. Next milestones are first isotope revenue (target early 2027) and binding power contracts with Meta and Switch (by 2027)."
    },
+   "plan": {
+    "none": "Don't buy at $34. If you want exposure to the AI-nuclear theme, a small \"lottery-ticket\" position (≤1–2% of the portfolio) only below ~$20, and only if Aurora-INL is on schedule.",
+    "holding": "Treat it as venture capital. Trim to a size you can afford to lose entirely. Don't average down just because it's 80% off the peak.",
+    "add": [
+     "Binding PPA with a disclosed price ≥ $90/MWh",
+     "Aurora-INL capex disclosed below ~$6,000/kW",
+     "Aurora-INL fuel loaded / critical",
+     "Price below ~$20 with the schedule intact"
+    ],
+    "sell": [
+     "Aurora-INL slips beyond 2029",
+     "DOE authorization stalls",
+     "Meta/Switch don't convert to binding PPAs by 2027",
+     "First disclosed capex > $10,000/kW",
+     "ATM usage accelerates while milestones slip"
+    ]
+   },
    "bands": {
     "cur": "$",
     "bear": 3.58,
@@ -306,6 +435,7 @@ window.SITE_DATA = {
   {
    "id": "nuclear",
    "file": "reports/industry/AdvancedNuclear-SMR-industry-20261009.md",
+   "pdf": "reports/industry/AdvancedNuclear-SMR-industry-20261009.pdf",
    "date": "2026-10-09",
    "ticker": "SMR + FUEL",
    "venue": "Industry",
@@ -368,6 +498,28 @@ window.SITE_DATA = {
     "text": "Q3 2026 results, early November 2026. They show whether cash flow is recovering.",
     "until": "2026-11-30"
    },
+   "plan": {
+    "none": "Wait. The framework's margin-of-safety zone starts below about €700, or wait for proof of cash conversion (H2 2026 FCF turning strongly positive).",
+    "holding": "The thesis is intact as long as the backlog keeps growing and FCF recovers in H2. Treat it as a cyclical position, not a forever compounder.",
+    "add": [
+     "Price below €700 with the thesis intact",
+     "H2 2026 FCF > €1.5bn showing that working capital reverses"
+    ],
+    "sell": [
+     "FY2026 cash conversion well below 40%",
+     "Another guidance cut",
+     "A large equity raise",
+     "A durable ceasefire combined with EU budget delays"
+    ]
+   },
+   "calendar": [
+    {
+     "date": "2026-11-05",
+     "approx": "Early November 2026",
+     "what": "Q3 2026 results",
+     "check": "FCF, working capital, order intake. They show whether cash flow is recovering."
+    }
+   ],
    "bands": {
     "cur": "€",
     "bear": 447,
@@ -382,7 +534,7 @@ window.SITE_DATA = {
   {
    "id": "flutter",
    "file": "reports/FLUT/FLUT-pre-earnings-20260226.md",
-   "pdf": "reports/FLUT/FLUT_Analysis_20260226.pdf",
+   "pdf": "reports/FLUT/FLUT-pre-earnings-20260226.pdf",
    "date": "2026-02-26",
    "ticker": "FLUT",
    "sym": "FLUT",

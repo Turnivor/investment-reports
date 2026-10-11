@@ -1,6 +1,7 @@
 ---
 {
   "id": "india-fin",
+  "pdf": "IndiaFinancials-industry-20261011.pdf",
   "date": "2026-10-11",
   "ticker": "INDIA FIN",
   "venue": "Industry",

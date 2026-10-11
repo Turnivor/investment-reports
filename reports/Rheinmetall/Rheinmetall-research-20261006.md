@@ -35,6 +35,28 @@
     "text": "Q3 2026 results, early November 2026. They show whether cash flow is recovering.",
     "until": "2026-11-30"
   },
+  "plan": {
+    "none": "Wait. The framework's margin-of-safety zone starts below about €700, or wait for proof of cash conversion (H2 2026 FCF turning strongly positive).",
+    "holding": "The thesis is intact as long as the backlog keeps growing and FCF recovers in H2. Treat it as a cyclical position, not a forever compounder.",
+    "add": [
+      "Price below €700 with the thesis intact",
+      "H2 2026 FCF > €1.5bn showing that working capital reverses"
+    ],
+    "sell": [
+      "FY2026 cash conversion well below 40%",
+      "Another guidance cut",
+      "A large equity raise",
+      "A durable ceasefire combined with EU budget delays"
+    ]
+  },
+  "calendar": [
+    {
+      "date": "2026-11-05",
+      "approx": "Early November 2026",
+      "what": "Q3 2026 results",
+      "check": "FCF, working capital, order intake. They show whether cash flow is recovering."
+    }
+  ],
   "bands": {
     "cur": "€",
     "bear": 447,

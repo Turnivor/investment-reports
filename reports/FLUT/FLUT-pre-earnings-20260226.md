@@ -1,7 +1,7 @@
 ---
 {
   "id": "flutter",
-  "pdf": "FLUT_Analysis_20260226.pdf",
+  "pdf": "FLUT-pre-earnings-20260226.pdf",
   "date": "2026-02-26",
   "ticker": "FLUT",
   "sym": "FLUT",

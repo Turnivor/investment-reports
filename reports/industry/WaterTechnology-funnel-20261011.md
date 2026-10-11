@@ -1,6 +1,7 @@
 ---
 {
   "id": "water",
+  "pdf": "WaterTechnology-funnel-20261011.pdf",
   "date": "2026-10-11",
   "ticker": "WATER",
   "venue": "Industry",

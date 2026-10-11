@@ -1,6 +1,7 @@
 ---
 {
   "id": "pentair",
+  "pdf": "Pentair-research-20261011.pdf",
   "date": "2026-10-11",
   "ticker": "PNR",
   "sym": "PNR",
@@ -34,6 +35,31 @@
     "text": "Q3 2026 results, expected 23 October 2026. They show whether the pool destock is over.",
     "until": "2026-10-23"
   },
+  "plan": {
+    "none": "Wait for the Q3 results on 23 Oct. Interesting below about $47 (25% under the base value, about 10 times 2026 earnings), or at today's price once the destock is confirmed finished.",
+    "holding": "Hold. The price already reflects a poor outcome, and selling at 11 times earnings during a channel correction has historically been the wrong moment in this industry.",
+    "add": [
+      "Q3 confirms channel inventory is normal",
+      "2027 pool sales guided at or above $1.45bn",
+      "Insiders buying shares",
+      "The new CFO resets guidance conservatively and then meets it"
+    ],
+    "sell": [
+      "A third pool guidance cut",
+      "Pool margin guided below 30% for 2027",
+      "Further admitted share loss",
+      "Net debt staying above 2.5 times EBITDA into 2028",
+      "A dividend freeze after 50 years of increases"
+    ]
+  },
+  "calendar": [
+    {
+      "date": "2026-10-23",
+      "approx": "Expected 23 October 2026",
+      "what": "Q3 2026 results",
+      "check": "They show whether the pool destock is over."
+    }
+  ],
   "bands": {
     "cur": "$",
     "bear": 30.3,

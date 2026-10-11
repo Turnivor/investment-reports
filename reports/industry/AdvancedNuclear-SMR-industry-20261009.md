@@ -1,6 +1,7 @@
 ---
 {
   "id": "nuclear",
+  "pdf": "AdvancedNuclear-SMR-industry-20261009.pdf",
   "date": "2026-10-09",
   "ticker": "SMR + FUEL",
   "venue": "Industry",

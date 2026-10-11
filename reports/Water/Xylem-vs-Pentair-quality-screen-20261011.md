@@ -1,6 +1,7 @@
 ---
 {
   "id": "water-screen",
+  "pdf": "Xylem-vs-Pentair-quality-screen-20261011.pdf",
   "date": "2026-10-11",
   "ticker": "XYL vs PNR",
   "venue": "NYSE",
@@ -24,7 +25,20 @@
   "next": {
     "text": "Pentair Q3 results expected 23 October 2026, Xylem Q3 results on 27 October 2026.",
     "until": "2026-10-27"
-  }
+  },
+  "calendar": [
+    {
+      "date": "2026-10-23",
+      "approx": "Expected 23 October 2026",
+      "what": "Pentair Q3 results",
+      "check": "Pool inventory back to normal, no new guidance cut, 2027 pool sales near $1.45bn."
+    },
+    {
+      "date": "2026-10-27",
+      "what": "Xylem Q3 results",
+      "check": "Organic growth back toward 3%, margin on track for 23.1 to 23.5%."
+    }
+  ]
 }
 ---
 

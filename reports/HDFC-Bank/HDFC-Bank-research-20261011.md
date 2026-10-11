@@ -1,6 +1,7 @@
 ---
 {
   "id": "hdfc-bank",
+  "pdf": "HDFC-Bank-research-20261011.pdf",
   "date": "2026-10-11",
   "ticker": "HDB",
   "sym": "HDFCBANK.NS",
@@ -34,6 +35,50 @@
     "text": "Q2 FY27 results in mid-October 2026, then Anup Bagchi takes over as CEO on 27 October 2026.",
     "until": "2026-10-27"
   },
+  "plan": {
+    "none": "A small starter position is defensible at ₹707 / $22. Stage it: one part after the Q2 FY27 results (mid-October), one after the new CEO's first full quarter (results around January 2027), one held back for ₹600 or a clear improvement. Keep it smaller than an ICICI Bank position until the governance question closes.",
+    "holding": "Hold; no reason to add above ~₹720 before CASA turns.",
+    "add": [
+      "CASA ratio rises for two consecutive quarters",
+      "NIM back above 3.5%",
+      "Loan/deposit ratio below 92%",
+      "Class action dismissed or settled for a small sum",
+      "Price ≤ ₹600"
+    ],
+    "sell": [
+      "A regulator (RBI, SEBI, SEC) substantiates misconduct at senior level",
+      "ROE below 12% for a full year",
+      "Gross NPA above 2%",
+      "Several senior departures in the new CEO's first year",
+      "Price above ~2.5x book without ROE above 16%"
+    ]
+  },
+  "calendar": [
+    {
+      "date": "2026-10-13",
+      "what": "Class-action lead-plaintiff deadline"
+    },
+    {
+      "date": "2026-10-15",
+      "approx": "Mid-October 2026",
+      "what": "Q2 FY27 results",
+      "check": "Watch NIM against 3.26%, CASA, and anything said about the 85–90% loan/deposit target."
+    },
+    {
+      "date": "2026-10-27",
+      "what": "Anup Bagchi takes over as CEO"
+    },
+    {
+      "date": "2027-01-15",
+      "approx": "January 2027",
+      "what": "Q3 results, the first quarter under the new CEO"
+    },
+    {
+      "date": "2027-04-15",
+      "approx": "April 2027",
+      "what": "FY27 results and whatever strategy reset comes with them"
+    }
+  ],
   "bands": {
     "cur": "₹",
     "bear": 505,
