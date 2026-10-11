@@ -6,6 +6,9 @@
 
 > **AI research limitations:** "India is the next China" is one of the most repeated stories in investing, so an AI summary drifts toward the optimistic consensus. This report leans on hard numbers (reported profits, book values, penetration ratios, actual 5- and 10-year share returns) and labels forecasts as forecasts. Company figures come mostly from Screener.in and Q1 FY27 (April–June 2026) results coverage, which are secondary sources. Not investment advice.
 
+> **Currency and your money:** this report is written in Indian rupees. HDFC Bank share ₹707 ≈ €6.51 ≈ 34.8 lei · HDFC Bank ADR $22.28 ≈ €19.86 ≈ 106 lei · ICICI Bank ADR $27.89 ≈ €24.86 ≈ 133 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, ₹100 = 4.92 lei. ADR prices are in US dollars: 1 USD = 4.7612 lei. Romanian inflation was 6.2% a year in August 2026 (INS). The National Bank of Romania forecasts 6.1% for end-2026 and 3.4% for end-2027. Figures in lei and euros are conversions at that day's rate and move with it.
+
+
 ---
 
 ## 0. The short answer to the thesis

@@ -5,6 +5,9 @@
 > Companion reports: [Pentair research](../Pentair/Pentair-research-20261011.md) · [Xylem vs Pentair quality screen](../Water/Xylem-vs-Pentair-quality-screen-20261011.md) · [Water technology funnel](../industry/WaterTechnology-funnel-20261011.md)
 > **Educational research only. Not investment advice.**
 
+> **Currency and your money:** this report is written in US dollars. Price $103 ≈ €91.55 ≈ 489 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, 1 USD = 4.7612 lei. Figures in lei and euros are conversions at that day's rate and move with it.
+
+
 ---
 
 ## 0. Information richness rating and AI limitations
@@ -271,6 +274,13 @@ Starting profit is 2026 adjusted net income of about $1,313m ($5.625 × 233.49M 
 
 > **Duan Yongping's question: if the market closed for five years, would you hold at this price?**
 > Yes, without losing sleep. The business will be bigger and more profitable in five years. But "safe to hold" and "cheap enough to buy more" are different answers, and at $103 only the first is true.
+
+### In your money: what this means in lei
+
+- **Price:** one share $103 ≈ €91.55 ≈ 489 lei; the margin-of-safety level of $85 ≈ €75.77 ≈ 405 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, 1 USD = 4.7612 lei.
+- **Return:** The base case is +4.1% a year over ten years in dollars, in a range of +1.0% to +6.4%. A return in lei is that figure plus or minus the change in the lei price of the dollar. Between 26 Feb and 9 Oct 2026 the leu lost 10.2% against the dollar and 4.8% against the euro (BNR reference rates), which shows how much the exchange rate alone can move a lei result.
+- **Inflation:** Romanian inflation was 6.2% a year in August 2026 (INS). The National Bank of Romania forecasts 6.1% for end-2026 and 3.4% for end-2027. The base case is below current inflation and only slightly above the end-2027 forecast, before any exchange-rate effect.
+
 
 ---
 

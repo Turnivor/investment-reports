@@ -6,6 +6,9 @@
 
 > Not investment advice. This is an AI-assisted research exercise. Do your own work before you put money in.
 
+> **Currency and your money:** this report is written in US dollars. Price $34.44 ≈ €30.70 ≈ 164 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, 1 USD = 4.7612 lei. Figures in lei and euros are conversions at that day's rate and move with it.
+
+
 ---
 
 ## 0. Information Richness Rating & AI Research Disclaimer
@@ -323,6 +326,13 @@ At about $0.25–0.30B of net income per operating GW, that means **~7–8 GW op
 
 > **Buffett's question:** *If r is off by 2 points, does the conclusion flip?* No. At 9%, 10% or 11.5%, the bull case returns roughly 0% a year.
 > **Duan Yongping's question:** *If the market closed for 5 years, would you hold at this price?* No. In 5 years Oklo will probably have 1–2 small units running, will have issued several billion dollars more stock, and will still not have proven fleet economics.
+
+### In your money: what this means in lei
+
+- **Price:** one share $34.44 ≈ €30.70 ≈ 164 lei; the "speculative only" level of $20 ≈ €17.83 ≈ 95.2 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, 1 USD = 4.7612 lei.
+- **Return:** At a 10% discount rate the base case is −12.5% a year over ten years in dollars and the bull case −0.4%. A return in lei is that figure plus or minus the change in the lei price of the dollar. Between 26 Feb and 9 Oct 2026 the leu lost 10.2% against the dollar and 4.8% against the euro (BNR reference rates), which shows how much the exchange rate alone can move a lei result.
+- **Inflation:** Romanian inflation was 6.2% a year in August 2026 (INS). The National Bank of Romania forecasts 6.1% for end-2026 and 3.4% for end-2027. Both cases lose buying power in lei against either figure.
+
 
 ---
 

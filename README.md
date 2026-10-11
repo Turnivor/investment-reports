@@ -44,6 +44,7 @@ GitHub Pages serves the site from `main` / root. There is no build step.
    - **Summary card:** `headline`, `reasons` (3 lines), `watch` (signals), `next` (`text`, plus `until` if it has a date)
    - **Optional:** `pdf`, and `bands` (`cur`, `bear`, `base`, `bull`, `price`, `zone`, `zoneLabel`, `note`) for the value-range bar
 3. Every line in the summary must come from the report itself.
+   - **Currency:** add the National Bank of Romania rates for the research date to the `FX` table (lei per 1 unit) so the card can show the price in euros and lei, and refresh `INFLATION` if a newer figure is out.
 4. Add a row to the table above, commit and push.
 
 The age tag ("12 days old", "needs a refresh" after 90 days) is worked out from `date`, so it needs no upkeep.

@@ -4,6 +4,9 @@
 > Framework: AI Berkshire `/investment-research` (Buffett · Munger · Duan Yongping · Li Lu). Written in English at the reader's request.
 > **Educational research only. Not investment advice.**
 
+> **Currency and your money:** this report is written in euros. Price €953 ≈ 5,101 lei. National Bank of Romania reference rates of 6 Oct 2026: 1 EUR = 5.3527 lei. Figures in lei and euros are conversions at that day's rate and move with it.
+
+
 ---
 
 ## 0. Information richness rating and AI limitations
@@ -215,6 +218,13 @@ The 2030 plan (€50bn sales × 20% margin) implies an operating result of about
 | Margin of safety | **< €700** | Close to the bear-case value. Base case ≥ ~7% over 10 years. |
 | Gray zone | **€700 – €1,100** | Fair if consensus is roughly right. Little cushion if it isn't. **Today's €953 is here.** |
 | Expensive | **> €1,400** | Requires the bull case |
+
+### In your money: what this means in lei
+
+- **Price:** one share €953 ≈ 5,101 lei; the margin-of-safety level of €700 ≈ 3,747 lei. National Bank of Romania reference rates of 6 Oct 2026: 1 EUR = 5.3527 lei.
+- **Return:** The base case is +3.1% a year over ten years in euros (at a 9% discount rate), in a range of −3.6% to +9.1%. A return in lei is that figure plus or minus the change in the lei price of the euro. Between 26 Feb and 9 Oct 2026 the leu lost 10.2% against the dollar and 4.8% against the euro (BNR reference rates), which shows how much the exchange rate alone can move a lei result.
+- **Inflation:** Romanian inflation was 6.2% a year in August 2026 (INS). The National Bank of Romania forecasts 6.1% for end-2026 and 3.4% for end-2027. The base case is below current inflation and about level with the end-2027 forecast, before any exchange-rate effect.
+
 
 ---
 

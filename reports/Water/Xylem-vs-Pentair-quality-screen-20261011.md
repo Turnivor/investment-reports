@@ -5,6 +5,9 @@
 > Companion reports: [Xylem research](../Xylem/Xylem-research-20261011.md) · [Pentair research](../Pentair/Pentair-research-20261011.md) · [Water technology funnel](../industry/WaterTechnology-funnel-20261011.md)
 > **Educational research only. Not investment advice.**
 
+> **Currency and your money:** this report is written in US dollars. Xylem $103 ≈ €91.55 ≈ 489 lei · Pentair $52.47 ≈ €46.77 ≈ 250 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, 1 USD = 4.7612 lei. Romanian inflation was 6.2% a year in August 2026 (INS). The National Bank of Romania forecasts 6.1% for end-2026 and 3.4% for end-2027. Figures in lei and euros are conversions at that day's rate and move with it.
+
+
 ---
 
 ## 1. What this screen does

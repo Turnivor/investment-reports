@@ -16,6 +16,9 @@ Layer 3  Fine analysis        10 → 3 finalists
 Layer 4  Finalists            ICICI Bank · HDFC Bank · HDFC AMC
 ```
 
+> **Currency and your money:** this report is written in Indian rupees. HDFC Bank ADR $22.28 ≈ €19.86 ≈ 106 lei · ICICI Bank ADR $27.89 ≈ €24.86 ≈ 133 lei · HDFC AMC share ₹2,262 ≈ €20.84 ≈ 111 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, ₹100 = 4.92 lei. ADR prices are in US dollars: 1 USD = 4.7612 lei. Romanian inflation was 6.2% a year in August 2026 (INS). The National Bank of Romania forecasts 6.1% for end-2026 and 3.4% for end-2027. Figures in lei and euros are conversions at that day's rate and move with it.
+
+
 ---
 
 ## 1. Layer 1 — Market scan (52 names)

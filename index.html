@@ -93,6 +93,12 @@
 .verdict { display: grid; gap: 7px; justify-items: start; min-width: 0; }
 .verdict .px { font-family: var(--f-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .verdict .band { width: 100%; }
+.sect { display: flex; align-items: baseline; gap: 12px; padding: 84px 0 12px; border-bottom: 1px solid var(--accent); }
+.sect:first-child { padding-top: 24px; }
+.row:has(+ .sect) { border-bottom-color: transparent; }
+.sect h2 { font-family: var(--f-display); font-weight: 600; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.sect span { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.verdict .home { font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; margin-top: -4px; }
 .none { padding: 28px 0; color: var(--muted); font-family: var(--f-mono); font-size: 14px; }
 
 @media (max-width: 760px) {
@@ -141,6 +147,7 @@
 .scn .s-val { text-align: right; white-space: nowrap; }
 .scn .s-val b { font-weight: 500; display: inline-block; min-width: 4.2ch; text-align: right; }
 @media (max-width: 520px) { .scn { gap: 6px 10px; } .scn .s-name { font-size: 0; } .scn .s-name b { font-size: 12.5px; } .scn .s-axis span:first-child, .scn .s-axis span:last-child { visibility: hidden; } }
+.band .home-line { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); margin: 6px 0 0; font-variant-numeric: tabular-nums; }
 .band .zone-line { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); margin: 0; }
 .band .note { font-family: var(--f-mono); font-size: 12px; color: var(--muted); margin: 0; }
 
@@ -522,6 +529,32 @@ const ageText = n => n === 0 ? "Today" : n === 1 ? "1 day old" : `${n} days old`
 const isStale = r => daysOld(r.date) > STALE_DAYS;
 const money = (cur, v) => cur + v.toLocaleString("en-GB", { maximumFractionDigits: v < 100 ? 2 : 0 });
 
+/* ---------- Home currency (lei, with euros alongside) ----------
+   Official National Bank of Romania reference rates, lei per 1 unit, on the last
+   banking day on or before each report's date. Add a date when adding a report. */
+const FX = {
+  "2026-02-26": { EUR: 5.0955, USD: 4.3204, INR: 0.0475 },
+  "2026-10-06": { EUR: 5.3527, USD: 4.7616, INR: 0.0494 },
+  "2026-10-09": { EUR: 5.3414, USD: 4.7612, INR: 0.0492 },
+};
+const CUR_CODE = { "$": "USD", "€": "EUR", "₹": "INR" };
+const INFLATION = { rate: "6.2%", asOf: "August 2026" };   // Romanian annual CPI, INS
+function home(r) {
+  const b = r.bands, code = b && CUR_CODE[b.cur];
+  const day = Object.keys(FX).sort().reverse().find(d => d <= r.date);
+  if (!code || !day || !FX[day][code]) return null;
+  const ron = b.price * FX[day][code], eur = ron / FX[day].EUR;
+  const lei = ron.toLocaleString("en-GB", { maximumFractionDigits: ron < 100 ? 1 : 0 }) + " lei";
+  return { code, day, lei, eur: code === "EUR" ? null : "€" + eur.toLocaleString("en-GB", eur < 100 ? { minimumFractionDigits: 2, maximumFractionDigits: 2 } : { maximumFractionDigits: 0 }), rate: FX[day][code], eurRate: FX[day].EUR };
+}
+function homeShort(r) { const h = home(r); return h ? `≈ ${h.eur ? h.eur + " · " : ""}${h.lei}` : ""; }
+function homeLine(r) {
+  const h = home(r); if (!h) return "";
+  const own = h.code === "EUR" ? "" : `, 1 ${h.code} = ${h.rate} lei`;
+  return `<p class="home-line">In your money: ${money(r.bands.cur, r.bands.price)} ≈ ${h.eur ? h.eur + " ≈ " : ""}${h.lei} a share.</p>
+      <p class="note">National Bank of Romania rates of ${fmtDate(h.day)} (1 EUR = ${h.eurRate} lei${own}). The gains and losses above are in the share's own currency; in lei they also move with the exchange rate. Romanian inflation was ${INFLATION.rate} a year in ${INFLATION.asOf}, so a lei return has to beat that to gain buying power.</p>`;
+}
+
 /* ---------- Price band ---------- */
 function band(b, compact) {
   const max = Math.max(b.bull, b.price, b.zone || 0) * 1.06;
@@ -570,6 +603,7 @@ const DIMS = [
   { key: "kind", label: "Type", options: [...new Set(REPORTS.map(r => r.kind))].sort().map(k => [k, k]) },
   { key: "year", label: "Year", options: [...new Set(REPORTS.map(r => r.date.slice(0, 4)))].sort().reverse().map(y => [y, y]) },
 ];
+const SECTION_NAMES = { "Company": "Companies", "Comparison": "Comparisons", "Industry": "Industries", "Pre-earnings trade": "Pre-earnings trades" };
 const SORTS = [["new", "Newest first"], ["old", "Oldest first"], ["az", "Name A–Z"]];
 const valueOf = (r, key) => key === "year" ? r.date.slice(0, 4) : r[key];
 
@@ -617,16 +651,23 @@ function drawRows() {
     .filter(matches)
     .sort((a, b) => state.sort === "az" ? a.title.localeCompare(b.title)
       : state.sort === "old" ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
-  $("#rows").innerHTML = list.map(r => {
+  const rowHtml = r => {
     const n = daysOld(r.date), stale = n > STALE_DAYS;
     const next = r.next && !nextPassed(r) && r.next.until ? `<span class="next"><b>Next:</b> ${esc(r.next.text.split(". ")[0].replace(/\.$/, ""))}</span>` : "";
+    const hs = homeShort(r);
     return `
   <a class="row" href="#${r.id}" data-id="${r.id}">
     <span class="when"><span class="date">${fmtDate(r.date)}</span><span class="age${stale ? " stale" : ""}">${ageText(n)}${stale ? " · needs a refresh" : ""}</span></span>
     <span class="tick"><b>${esc(r.ticker)}</b><span>${esc(r.venue)}</span></span>
     <span class="what"><span class="kind">${esc(r.kind)}</span><h2>${esc(r.title)}</h2><p>${esc(r.blurb)}</p>${next}</span>
-    <span class="verdict"><span class="chip ${r.tone}">${esc(r.verdict)}</span><span class="px">${esc(r.px)}</span>${r.bands ? band(r.bands, true) : ""}</span>
+    <span class="verdict"><span class="chip ${r.tone}">${esc(r.verdict)}</span><span class="px">${esc(r.px)}</span>${hs ? `<span class="home">${hs}</span>` : ""}${r.bands ? band(r.bands, true) : ""}</span>
   </a>`;
+  };
+  // one section per report type, in the same order as the Type filter
+  const kinds = DIMS.find(d => d.key === "kind").options.map(([k]) => k).filter(k => list.some(r => r.kind === k));
+  $("#rows").innerHTML = kinds.length < 2 ? list.map(rowHtml).join("") : kinds.map(k => {
+    const group = list.filter(r => r.kind === k);
+    return `<div class="sect"><h2>${esc(SECTION_NAMES[k] || k)}</h2><span>${group.length} report${group.length === 1 ? "" : "s"}</span></div>` + group.map(rowHtml).join("");
   }).join("");
   $("#none").hidden = list.length > 0;
 }
@@ -704,7 +745,7 @@ function summaryCard(r) {
       ${stale ? `<p class="stale">This verdict is ${n} days old and was based on ${esc(r.px)}. The price and the facts have probably moved. Treat it as history until it is refreshed.</p>` : ""}
     </div>
     <div>
-      ${r.bands ? `<div><h3>What the shares could be worth vs the price at research</h3>${band(r.bands, false)}</div>` : ""}
+      ${r.bands ? `<div><h3>What the shares could be worth vs the price at research</h3>${band(r.bands, false)}<div class="band">${homeLine(r)}</div></div>` : ""}
       <div><h3>Signals to watch</h3><ul>${r.watch.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
       ${r.next ? `<div><h3>Next checkpoint${passed ? ' <span class="chip plain">Passed</span>' : ""}</h3><p class="nextline">${esc(r.next.text)}</p></div>` : ""}
     </div>

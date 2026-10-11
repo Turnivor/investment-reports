@@ -7,6 +7,9 @@
 
 > **AI research limitations:** Financials are taken from Screener.in (consolidated) and results coverage, not from the bank's filings directly; consolidated and standalone figures differ and are labelled. The governance question cannot be resolved from public information. Valuation outputs are produced by the repo's calculation tools from stated assumptions. Not investment advice.
 
+> **Currency and your money:** this report is written in Indian rupees. Share price ₹707 ≈ €6.51 ≈ 34.8 lei · ADR $22.28 ≈ €19.86 ≈ 106 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, ₹100 = 4.92 lei. ADR prices are in US dollars: 1 USD = 4.7612 lei. Figures in lei and euros are conversions at that day's rate and move with it.
+
+
 ---
 
 ## 0. Verdict in one paragraph
@@ -250,6 +253,13 @@ ADR equivalents use 3 shares per ADR at ~₹95.5 per dollar and will drift with 
 >
 > **Duan Yongping's question:** *Would you hold it at this price if the market closed for five years?*
 > Yes, as a small holding. A 7% earnings yield, a 2% dividend, low loss rates and strong capital make it a business one can own through a closed market. It is not one to bet heavily on, because the thing that would make it excellent again is outside anyone's ability to verify today.
+
+### In your money: what this means in lei
+
+- **Price:** one share ₹707 ≈ €6.51 ≈ 34.8 lei; one ADR (3 shares), the instrument a European investor would buy, $22.28 ≈ €19.86 ≈ 106 lei; the "clearly attractive" level of $19 per ADR ≈ €16.94 ≈ 90.5 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, 1 USD = 4.7612 lei.
+- **Return:** The base case is about +8.0% a year over ten years in dollars, in a range of +4.3% to +12.1%. A return in lei is that figure plus or minus the change in the lei price of the dollar. Between 26 Feb and 9 Oct 2026 the leu lost 10.2% against the dollar and 4.8% against the euro (BNR reference rates), which shows how much the exchange rate alone can move a lei result.
+- **Inflation:** Romanian inflation was 6.2% a year in August 2026 (INS). The National Bank of Romania forecasts 6.1% for end-2026 and 3.4% for end-2027. The base case is above both figures; the bear case (+4.3%) is below current inflation. The dollar figure already assumes the rupee loses about 3% a year against the dollar.
+
 
 ---
 

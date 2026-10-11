@@ -5,6 +5,9 @@
 
 ![FLUT technical chart, Aug 2025 – Feb 2026](../../charts/FLUT_20260226110914_chart.png)
 
+> **Currency and your money:** this report is written in US dollars. Price $120 ≈ €102 ≈ 518 lei. National Bank of Romania reference rates of 26 Feb 2026: 1 EUR = 5.0955 lei, 1 USD = 4.3204 lei. This was a short-term trade note, so no inflation comparison is given. Figures in lei and euros are conversions at that day's rate and move with it.
+
+
 ## 1. Price snapshot
 
 | Metric | Value |

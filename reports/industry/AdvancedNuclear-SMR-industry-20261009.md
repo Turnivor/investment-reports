@@ -6,6 +6,9 @@
 
 > **AI research limitations:** "AI needs nuclear" is one of the loudest narratives in the market, so an AI summary drifts toward the optimistic consensus. This report deliberately leans on *hard* numbers: signed contracts, permits actually issued, and disclosed construction costs. Forecasts are labeled as estimates. Not investment advice.
 
+> **Currency and your money:** this report is written in US dollars. Oklo $34.44 ≈ €30.70 ≈ 164 lei. National Bank of Romania reference rates of 9 Oct 2026: 1 EUR = 5.3414 lei, 1 USD = 4.7612 lei. Romanian inflation was 6.2% a year in August 2026 (INS). The National Bank of Romania forecasts 6.1% for end-2026 and 3.4% for end-2027. Figures in lei and euros are conversions at that day's rate and move with it.
+
+
 ---
 
 ## 1. Investment Logic Chain and Validation
