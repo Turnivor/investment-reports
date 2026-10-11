@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Calendar button test · Officium Advocati Diaboli</title>
+<link rel="icon" type="image/png" href="brand/favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+/* A temporary page for trying, on a real phone, which kind of link opens the calendar app with the event filled in.
+   Delete it once the report page uses the one that works. */
+.t-wrap { max-width: 560px; margin-inline: auto; padding-block: 28px 40px; display: grid; gap: 18px; }
+.t-wrap h1 { font-family: var(--f-title); font-weight: 500; font-size: 24px; letter-spacing: .06em; text-transform: uppercase; margin: 0; }
+.t-wrap p { margin: 0; color: var(--muted); font-size: 17px; }
+.t-wrap p b { color: var(--ink); font-weight: 500; }
+.t-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.t-list a {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 14px; align-items: center; text-decoration: none; color: var(--ink);
+  padding: 16px 18px; border: 1px solid var(--rule); border-radius: 3px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, 0) 70%), var(--surface);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .045);
+}
+.t-list a:active { border-color: var(--accent); }
+.t-list .n { grid-row: 1 / 3; font-family: var(--f-body); font-weight: 500; font-size: 34px; line-height: 1; color: var(--accent); }
+.t-list b { font-family: var(--f-body); font-weight: 500; font-size: 19px; line-height: 1.2; }
+.t-list span { font-family: var(--f-mono); font-size: 12px; line-height: 1.45; color: var(--muted); }
+.t-note { font-family: var(--f-mono); font-size: 12.5px; line-height: 1.5; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 14px; overflow-wrap: anywhere; }
+.t-flag { font-family: var(--f-mono); font-size: 13px; line-height: 1.5; color: var(--warn); background: var(--warn-soft); border-radius: 3px; padding: 10px 12px; }
+</style>
+</head>
+<body>
+<div class="wrap t-wrap">
+  <h1>Calendar button test</h1>
+  <p>Tap each button and see what your phone does. <b>Nothing is saved unless you press Save in your calendar</b>, so you can cancel every time. Then tell Claude which numbers opened your calendar app with a "Test reminder" event already filled in.</p>
+  <p class="t-flag" id="came" hidden></p>
+  <p class="t-flag" id="inapp" hidden>This page is open inside another app's built-in browser. Try the buttons here first, then tap 6 and try them again in Chrome.</p>
+  <ol class="t-list" id="list"></ol>
+  <p class="t-note" id="ua"></p>
+</div>
+<script>
+const day = new Date(Date.now() + 864e5), next = new Date(Date.now() + 2 * 864e5);
+const ymd = d => d.toISOString().slice(0, 10).replaceAll("-", "");
+const title = "Test reminder (delete me)", notes = "Test from the reports site.\nLine two of the notes.";
+const here = location.origin + location.pathname;
+const q = "action=TEMPLATE&text=" + encodeURIComponent(title) + "&dates=" + ymd(day) + "/" + ymd(next) + "&details=" + encodeURIComponent(notes);
+const back = n => encodeURIComponent(here + "?fell-back=" + n);
+const utc = d => Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+const tests = [
+  ["Calendar file", "The file the Add to calendar button uses.", "calendar/pentair-2026-10-23-q3-2026-results.ics"],
+  ["Google link, as it is now", "calendar.google.com, render.", "https://calendar.google.com/calendar/render?" + q],
+  ["Google link, older address", "www.google.com, event.", "https://www.google.com/calendar/event?" + q],
+  ["Ask Android for the Google Calendar app", "An Android-only link aimed at the app.", "intent://calendar.google.com/calendar/render?" + q + "#Intent;scheme=https;package=com.google.android.calendar;S.browser_fallback_url=" + back(4) + ";end"],
+  ["Ask Android to create an event", "An Android-only link for any calendar app.", "intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/event;S.title=" + encodeURIComponent(title) + ";S.description=" + encodeURIComponent(notes) + ";l.beginTime=" + utc(day) + ";l.endTime=" + utc(next) + ";B.allDay=true;S.browser_fallback_url=" + back(5) + ";end"],
+  ["Open this page in Chrome", "Only matters inside Messenger or another app.", "intent://" + location.host + location.pathname + "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" + back(6) + ";end"],
+];
+document.getElementById("list").innerHTML = tests.map(([name, hint, url], i) =>
+  `<li><a href="${url.replace(/&/g, "&amp;").replace(/"/g, "&quot;")}"><span class="n">${i + 1}</span><b>${name}</b><span>${hint}</span></a></li>`).join("");
+const fell = new URLSearchParams(location.search).get("fell-back");
+if (fell) { const el = document.getElementById("came"); el.hidden = false; el.textContent = `Button ${fell} was not accepted by this phone and came back here. That counts as "did not work".`; }
+const ua = navigator.userAgent;
+if (/FBAN|FBAV|FB_IAB|Messenger|Instagram|Line\/|TikTok|; wv\)/i.test(ua)) document.getElementById("inapp").hidden = false;
+document.getElementById("ua").textContent = "This browser: " + ua;
+</script>
+</body>
+</html>
