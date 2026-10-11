@@ -10,6 +10,9 @@ Personal stock and industry research, made with Claude Code and the [ai-berkshir
 
 | Date | Report | Type | Verdict |
 |---|---|---|---|
+| 2026-10-11 | [HDFC Bank (HDB)](reports/HDFC-Bank/HDFC-Bank-research-20261011.md) | Company | Small staged buy; better < ₹600 |
+| 2026-10-11 | [India financial services funnel](reports/industry/IndiaFinancials-funnel-20261011.md) | Industry | Favor ICICI Bank, HDFC Bank, HDFC AMC |
+| 2026-10-11 | [India financial services](reports/industry/IndiaFinancials-industry-20261011.md) | Industry | Favor private banks and asset managers |
 | 2026-10-11 | [Xylem (XYL)](reports/Xylem/Xylem-research-20261011.md) | Company | Hold; buy < $85 |
 | 2026-10-11 | [Pentair (PNR)](reports/Pentair/Pentair-research-20261011.md) | Company | Hold; buy < $47 |
 | 2026-10-11 | [Xylem vs Pentair quality screen](reports/Water/Xylem-vs-Pentair-quality-screen-20261011.md) | Comparison | Both pass; Pentair cheaper |

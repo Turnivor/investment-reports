@@ -287,6 +287,62 @@
    Optional fields: pdf, bands {cur, bear, base, bull, price, zone, zoneLabel, note}, next {text, until}.
    Every line in `reasons`, `watch` and `next` must come from the report itself. */
 const REPORTS = [
+  { id: "hdfc-bank", file: "reports/HDFC-Bank/HDFC-Bank-research-20261011.md", date: "2026-10-11", ticker: "HDB", venue: "NYSE / NSE", kind: "Company",
+    title: "HDFC Bank", px: "₹707 · $22.28",
+    blurb: "India's largest private bank at about its lowest valuation in a decade, with a deposit problem, a governance cloud and a new outsider CEO all at once.",
+    verdict: "Small staged buy · better < ₹600", tone: "warn",
+    headline: "Fairly priced to modestly cheap. Worth a small, staged position, not a big bet.",
+    reasons: [
+      "13.8 times earnings and 1.8 times book for a bank with 1.17% bad loans and 19.6% capital. Return on equity is an ordinary 14%.",
+      "The deposit repair is behind plan: loans are about 97% of deposits against guidance of 85 to 90%, and cheap deposits fell to 31.6% of the total.",
+      "The base case returns about 8% a year in dollars over ten years, in a range of roughly 4% to 12%.",
+    ],
+    watch: [
+      "Cheap-deposit (CASA) share rising for two quarters in a row",
+      "Net interest margin back above 3.5%",
+      "A regulator substantiating misconduct at senior level",
+      "Several senior departures in the new CEO's first year",
+    ],
+    next: { text: "Q2 FY27 results in mid-October 2026, then Anup Bagchi takes over as CEO on 27 October 2026.", until: "2026-10-27" },
+    bands: { cur: "₹", bear: 673, base: 983, bull: 1328, price: 707, zone: 600, zoneLabel: "Clearly attractive below ₹600",
+      note: "3-year scenario targets in rupees, not discounted and before currency effects." } },
+
+  { id: "india-fin-funnel", file: "reports/industry/IndiaFinancials-funnel-20261011.md", date: "2026-10-11", ticker: "INDIA FIN", venue: "Industry", kind: "Industry",
+    title: "India Financial Services Funnel", px: "52 companies",
+    blurb: "52 Indian financial companies filtered down to three. Only two can be bought directly from Europe; the rest need an India ETF.",
+    verdict: "Favor ICICI · HDFC Bank · HDFC AMC", tone: "good",
+    headline: "Three finalists: ICICI Bank as the core, HDFC Bank as the re-rating, HDFC AMC as the growth pick.",
+    reasons: [
+      "10 of 52 names passed five tests adapted for financial companies: price, return on equity, earnings quality, funding strength and moat.",
+      "Foreign individuals cannot buy on Indian exchanges, so the reachable version is the IBN and HDB ADRs plus a low-cost India ETF.",
+      "Exchanges, brokers and payment apps were dropped on price: 47 to 129 times earnings on revenue a regulator can rewrite.",
+    ],
+    watch: [
+      "ICICI Bank: margin below 4.1%, loans still growing far faster than deposits",
+      "HDFC Bank: cheap-deposit share, margin, outcome of the US class action",
+      "HDFC AMC: fee rules from the regulator, monthly SIP flows",
+      "Oil price and the rupee",
+    ],
+    next: { text: "Q2 FY27 results for HDFC AMC (15 October) and the two banks (second half of October 2026).", until: "2026-10-31" } },
+
+  { id: "india-fin", file: "reports/industry/IndiaFinancials-industry-20261011.md", date: "2026-10-11", ticker: "INDIA FIN", venue: "Industry", kind: "Industry",
+    title: "India Financial Services", px: "45+ companies",
+    blurb: "The demand story is real. The returns go to cheap deposits, lending skill and regulated toll booths, and the rupee takes some back.",
+    verdict: "Favor private banks · AMCs", tone: "good",
+    headline: "The thesis is two thirds right: demand is proven, but growth does not automatically reach shareholders.",
+    reasons: [
+      "Penetration is low: bank credit about 57% of GDP, mutual funds about 21% of GDP against 74% globally, insurance 3.7% against 7.3%.",
+      "HDFC Bank grew profit 19% a year for five years while its share price fell 3% a year. The growth had already been paid for.",
+      "The market is split: large banks at 10 to 17 times earnings, exchanges and fintech at 33 to 130 times.",
+    ],
+    watch: [
+      "Oil near $100 and the rupee near record lows",
+      "Retail bad loans rising for three straight quarters",
+      "New rules on options trading, unsecured loans or payment fees",
+      "Large-bank valuations back above 3 times book without higher returns",
+    ],
+    next: { text: "Q2 FY27 bank results in the second half of October 2026.", until: "2026-10-31" } },
+
   { id: "xylem", file: "reports/Xylem/Xylem-research-20261011.md", date: "2026-10-11", ticker: "XYL", venue: "NYSE", kind: "Company",
     title: "Xylem", px: "$102.71",
     blurb: "The largest pure water-technology company. Margins are rising, but organic growth is 0 to 3% and return on equity is below 9%.",
@@ -440,7 +496,7 @@ const REPORTS = [
     next: { text: "Q4 and full-year 2025 results, 26 February 2026 after the close. This report was written before them.", until: "2026-02-26" } },
 ];
 const byId = Object.fromEntries(REPORTS.map(r => [r.id, r]));
-const LINK_MAP = [["Xylem-research", "xylem"], ["Pentair-research", "pentair"], ["Xylem-vs-Pentair", "water-screen"], ["WaterTechnology-funnel", "water"], ["Oklo-research", "oklo"], ["AdvancedNuclear-SMR-industry", "nuclear"], ["Rheinmetall-research", "rheinmetall"], ["FLUT", "flutter"]];
+const LINK_MAP = [["HDFC-Bank-research", "hdfc-bank"], ["IndiaFinancials-funnel", "india-fin-funnel"], ["IndiaFinancials-industry", "india-fin"], ["Xylem-research", "xylem"], ["Pentair-research", "pentair"], ["Xylem-vs-Pentair", "water-screen"], ["WaterTechnology-funnel", "water"], ["Oklo-research", "oklo"], ["AdvancedNuclear-SMR-industry", "nuclear"], ["Rheinmetall-research", "rheinmetall"], ["FLUT", "flutter"]];
 const TONES = [["bad", "Avoid"], ["warn", "Wait or hold"], ["good", "Favour"]];
 const STALE_DAYS = 90;
 
