@@ -1,3 +1,46 @@
+---
+{
+  "id": "rheinmetall",
+  "pdf": "Rheinmetall-research-20261006.pdf",
+  "date": "2026-10-06",
+  "ticker": "RHM",
+  "sym": "RHM.DE",
+  "venue": "XETRA",
+  "kind": "Company",
+  "title": "Rheinmetall",
+  "px": "€953",
+  "blurb": "Europe's ammunition and land-systems champion. €80bn backlog, but negative free cash flow in H1 2026.",
+  "verdict": "Gray zone · buy < €700",
+  "tone": "warn",
+  "headline": "Gray zone. A good business at a fair price, with no cushion if things go wrong.",
+  "reasons": [
+    "Record €80bn order backlog, up 44%. Ammunition earns a 26–29% margin.",
+    "Free cash flow was –€1.6bn in the first half of 2026, despite record profit.",
+    "€953 already assumes management roughly delivers its 2030 plan of €50bn in sales."
+  ],
+  "watch": [
+    "Cash conversion well below 40% for 2026",
+    "Another cut to guidance",
+    "A large new share issue",
+    "A lasting Ukraine ceasefire together with EU budget delays"
+  ],
+  "next": {
+    "text": "Q3 2026 results, early November 2026. They show whether cash flow is recovering.",
+    "until": "2026-11-30"
+  },
+  "bands": {
+    "cur": "€",
+    "bear": 447,
+    "base": 1101,
+    "bull": 1899,
+    "price": 953,
+    "zone": 700,
+    "zoneLabel": "Margin of safety below €700",
+    "note": "3-year scenario targets, discounted to today at 9%."
+  }
+}
+---
+
 # Rheinmetall (XETRA: RHM): Four-Masters Investment Research
 
 > Research date: 2026-10-06 · Price at research: **€953.00** (StockAnalysis, close 6 Oct 2026) · Currency: EUR

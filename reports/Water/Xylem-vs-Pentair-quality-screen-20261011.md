@@ -1,3 +1,33 @@
+---
+{
+  "id": "water-screen",
+  "date": "2026-10-11",
+  "ticker": "XYL vs PNR",
+  "venue": "NYSE",
+  "kind": "Comparison",
+  "title": "Xylem vs Pentair: Quality Screen",
+  "px": "2 companies",
+  "blurb": "Seven pass-or-fail quality tests and a side-by-side comparison. Both pass. Pentair has the better numbers, Xylem the steadier business.",
+  "verdict": "Both pass · Pentair cheaper",
+  "tone": "warn",
+  "headline": "Both pass. Xylem is steadier at a fair price. Pentair is more profitable at a low price.",
+  "reasons": [
+    "Pentair passes all seven tests outright. Xylem passes two on a technicality: low recent ROE and 35% more shares after Evoqua.",
+    "Free cash flow per share from 2020 to 2025: Xylem +5% ($3.55 to $3.74), Pentair +49% ($3.08 to $4.59).",
+    "Pentair is cheaper on every measure (11.2 vs 18.3 times 2026 earnings) and ranks first at every discount rate tested."
+  ],
+  "watch": [
+    "Xylem: organic growth back toward 3%, margin on track for 23.1 to 23.5%",
+    "Pentair: pool inventory back to normal, no new guidance cut",
+    "Pentair: 2027 pool sales near $1.45bn"
+  ],
+  "next": {
+    "text": "Pentair Q3 results expected 23 October 2026, Xylem Q3 results on 27 October 2026.",
+    "until": "2026-10-27"
+  }
+}
+---
+
 # Xylem vs Pentair: Quality Screen and Head-to-Head Comparison
 
 > Screen date: 2026-10-11 · Prices: Xylem **$102.71**, Pentair **$52.47** (close 9 Oct 2026) · Currency: USD

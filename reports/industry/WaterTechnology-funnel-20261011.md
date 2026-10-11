@@ -1,3 +1,34 @@
+---
+{
+  "id": "water",
+  "date": "2026-10-11",
+  "ticker": "WATER",
+  "venue": "Industry",
+  "kind": "Industry",
+  "title": "Water Technology Funnel",
+  "px": "82 companies",
+  "blurb": "82 water companies worldwide filtered down to three. Pentair reaches the final three. Xylem is eliminated on return on equity.",
+  "verdict": "Favor VLTO · AOS · PNR",
+  "tone": "good",
+  "headline": "Three finalists: Veralto as the core, A. O. Smith as the satellite, Pentair as the turnaround.",
+  "reasons": [
+    "Only 8 of 82 companies passed the five tests on P/E, ROE, cash conversion, leverage and moat.",
+    "Xylem is eliminated at stage 2: ROE of 8.4% against a 15% bar, while passing the other four tests.",
+    "Water shares lagged in 2026: the large US water funds are between -3.3% and +1.6% against +14.2% for the S&P 500."
+  ],
+  "watch": [
+    "Veralto: liabilities/assets above 65%, acquisition multiples",
+    "A. O. Smith: North American volumes, China losses",
+    "Pentair: a third guidance cut, pool margin below 30%",
+    "US water funding, after the infrastructure law money ended on 30 Sep 2026"
+  ],
+  "next": {
+    "text": "Q3 results for Pentair (23 Oct) and Xylem (27 Oct), then Veralto and A. O. Smith in late October and November.",
+    "until": "2026-11-30"
+  }
+}
+---
+
 # Water Technology and Equipment: Industry Funnel (82 companies to 3)
 
 > Funnel date: 2026-10-11 · Prices: close 9 Oct 2026 · Market caps in USD

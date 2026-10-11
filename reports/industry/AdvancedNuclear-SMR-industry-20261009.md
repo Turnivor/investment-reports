@@ -1,3 +1,33 @@
+---
+{
+  "id": "nuclear",
+  "date": "2026-10-09",
+  "ticker": "SMR + FUEL",
+  "venue": "Industry",
+  "kind": "Industry",
+  "title": "Advanced Nuclear & SMR Value Chain",
+  "px": "30 companies",
+  "blurb": "Demand and permits are real; small-reactor costs are not proven yet. Value is flowing to fuel bottlenecks and existing fleets.",
+  "verdict": "Favor BWXT · CCJ · CEG",
+  "tone": "good",
+  "headline": "Favour fuel bottlenecks and existing plants over reactor start-ups.",
+  "reasons": [
+    "Demand and permits are real: contracts are signed and permits have been issued.",
+    "Small-reactor build costs are unproven. Darlington came in at about C$17,400 per kW.",
+    "The widest moats are BWXT (US Navy reactors) and Cameco (uranium plus Westinghouse)."
+  ],
+  "watch": [
+    "Any small reactor disclosing an all-in cost below $8,000 per kW for its second unit or later",
+    "Binding power contracts with big tech that state a price",
+    "Cuts to AI spending",
+    "A major nuclear incident, which could hit the whole sector overnight"
+  ],
+  "next": {
+    "text": "No fixed date. Watch the next cost updates from the Darlington and Kemmerer projects."
+  }
+}
+---
+
 # Advanced Nuclear & SMR Value Chain — Industry Investment Research
 
 **Date:** 2026-10-09 · **Framework:** value-chain scan + Buffett / Munger / Duan Yongping / Li Lu

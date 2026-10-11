@@ -1,3 +1,34 @@
+---
+{
+  "id": "india-fin",
+  "date": "2026-10-11",
+  "ticker": "INDIA FIN",
+  "venue": "Industry",
+  "kind": "Industry",
+  "title": "India Financial Services",
+  "px": "45+ companies",
+  "blurb": "The demand story is real. The returns go to cheap deposits, lending skill and regulated toll booths, and the rupee takes some back.",
+  "verdict": "Favor private banks · AMCs",
+  "tone": "good",
+  "headline": "The thesis is two thirds right: demand is proven, but growth does not automatically reach shareholders.",
+  "reasons": [
+    "Penetration is low: bank credit about 57% of GDP, mutual funds about 21% of GDP against 74% globally, insurance 3.7% against 7.3%.",
+    "HDFC Bank grew profit 19% a year for five years while its share price fell 3% a year. The growth had already been paid for.",
+    "The market is split: large banks at 10 to 17 times earnings, exchanges and fintech at 33 to 130 times."
+  ],
+  "watch": [
+    "Oil near $100 and the rupee near record lows",
+    "Retail bad loans rising for three straight quarters",
+    "New rules on options trading, unsecured loans or payment fees",
+    "Large-bank valuations back above 3 times book without higher returns"
+  ],
+  "next": {
+    "text": "Q2 FY27 bank results in the second half of October 2026.",
+    "until": "2026-10-31"
+  }
+}
+---
+
 # India Financial Services — Industry Investment Research
 
 **Date:** 2026-10-11 · **Framework:** value-chain scan + Buffett / Munger / Duan Yongping / Li Lu

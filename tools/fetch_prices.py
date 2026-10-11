@@ -1,7 +1,7 @@
 """Fetch the latest price for every report that names a Yahoo Finance symbol and save them to prices.json.
 
 The site reads prices.json to show "now" prices on the report cards and to fill the scorecard.
-Symbols come from the `sym: "..."` fields of the REPORTS list in index.html, so there is one list to keep.
+Symbols, levels and checkpoint dates come from reports.js, which tools/build.py makes from the reports themselves.
 Standard library only. A symbol that fails keeps its previous price; the file is rewritten only when a price changed.
 
 It also works out alerts: a share that has just dropped to or under its report's level, a checkpoint date that has
@@ -32,21 +32,11 @@ def fetch(sym):
     return {"price": round(float(meta["regularMarketPrice"]), 4), "currency": meta["currency"], "date": day}
 
 
-def reports(html):
-    """The fields the alerts need from each entry of the REPORTS list in index.html."""
-    body = html.split("const REPORTS = [", 1)[1].split("\n];", 1)[0]
-    out = []
-    for chunk in re.split(r'\n  \{ id: "', body)[1:]:
-        def grab(pattern):
-            m = re.search(pattern, chunk)
-            return m.group(1) if m else None
-        zone = grab(r"\bzone: ([0-9.]+)")
-        out.append({
-            "id": chunk.split('"', 1)[0], "title": grab(r'\btitle: "([^"]+)"'), "date": grab(r'\bdate: "([0-9-]{10})"'),
-            "sym": grab(r'\bsym: "([^"]+)"'), "cur": grab(r'bands: \{ cur: "([^"]+)"'), "zone": float(zone) if zone else None,
-            "next": grab(r'next: \{ text: "((?:[^"\\]|\\.)*)"'), "until": grab(r'\buntil: "([0-9-]{10})"'),
-        })
-    return out
+def reports():
+    """The list of reports, from reports.js (made by tools/build.py)."""
+    text = (ROOT / "reports.js").read_text(encoding="utf-8")
+    start = "window.SITE_DATA = "
+    return json.loads(text[text.index(start) + len(start):].rstrip().rstrip(";"))["reports"]
 
 
 def alerts(entries, old, new, today):
@@ -56,21 +46,23 @@ def alerts(entries, old, new, today):
     lines = []
     for r in entries:
         link = f"[{r['title']}]({SITE}#{r['id']})"
-        was, now = old.get(r["sym"]), new.get(r["sym"])
-        if r["zone"] and was and now and was["price"] > r["zone"] >= now["price"]:
-            lines.append(f"**Price:** {link} is at {r['cur']}{now['price']:g}, at or under its {r['cur']}{r['zone']:g} level from the report.")
-        if r["until"] and due(date.fromisoformat(r["until"])):
-            lines.append(f"**Checkpoint:** {link}. {r['next']}")
-        if r["date"] and due(date.fromisoformat(r["date"]) + timedelta(days=STALE_DAYS + 1)):
-            lines.append(f"**Refresh:** the {link} verdict is now over {STALE_DAYS} days old." + (" The scorecard judges it from today." if r["sym"] else ""))
+        bands, nxt = r.get("bands") or {}, r.get("next") or {}
+        zone, cur = bands.get("zone"), bands.get("cur", "")
+        was, now = old.get(r.get("sym")), new.get(r.get("sym"))
+        if zone and was and now and was["price"] > zone >= now["price"]:
+            lines.append(f"**Price:** {link} is at {cur}{now['price']:g}, at or under its {cur}{zone:g} level from the report.")
+        if nxt.get("until") and due(date.fromisoformat(nxt["until"])):
+            lines.append(f"**Checkpoint:** {link}. {nxt['text']}")
+        if due(date.fromisoformat(r["date"]) + timedelta(days=STALE_DAYS + 1)):
+            lines.append(f"**Refresh:** the {link} verdict is now over {STALE_DAYS} days old." + (" The scorecard judges it from today." if r.get("sym") else ""))
     return lines
 
 
 def main():
-    html = (ROOT / "index.html").read_text(encoding="utf-8")
-    syms = sorted(set(re.findall(r'\bsym: "([A-Za-z0-9.^=-]+)"', html)))
+    entries = reports()
+    syms = sorted({r["sym"] for r in entries if r.get("sym")})
     if not syms:
-        sys.exit("No symbols found in index.html")
+        sys.exit("No report names a symbol")
     old = json.loads(OUT.read_text(encoding="utf-8")).get("prices", {}) if OUT.exists() else {}
     prices, failed = {}, []
     for sym in syms:
@@ -84,7 +76,7 @@ def main():
                 prices[sym] = old[sym]
 
     today = datetime.now(timezone.utc).date()
-    found = alerts(reports(html), old, prices, today)
+    found = alerts(entries, old, prices, today)
     for line in found:
         print("ALERT", line)
     if found and os.environ.get("ALERT_DIR"):

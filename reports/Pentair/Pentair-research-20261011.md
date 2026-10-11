@@ -1,3 +1,45 @@
+---
+{
+  "id": "pentair",
+  "date": "2026-10-11",
+  "ticker": "PNR",
+  "sym": "PNR",
+  "venue": "NYSE",
+  "kind": "Company",
+  "title": "Pentair",
+  "px": "$52.47",
+  "blurb": "Pool, filtration and pump maker with 25% margins. Down 53% in a year after pool distributors cut inventory and guidance was cut.",
+  "verdict": "Hold · buy < $47",
+  "tone": "warn",
+  "headline": "Hold or wait. Cheap, but trust has to be re-earned.",
+  "reasons": [
+    "Pool sales fell 42% in Q2 2026 as distributors cut about $170m of inventory. Full-year EPS guidance was cut to $4.60 to $4.80.",
+    "Management admitted a modest loss of share in pool replacement equipment, and there were three people in the CFO seat in 2026.",
+    "The price is 11 times 2026 earnings with an 8% free cash flow yield. The base case is worth about $63 today, the bear case about $30."
+  ],
+  "watch": [
+    "A third pool guidance cut",
+    "Pool margin guided below 30% for 2027",
+    "Further admitted share loss",
+    "Net debt staying above 2.5 times EBITDA into 2028"
+  ],
+  "next": {
+    "text": "Q3 2026 results, expected 23 October 2026. They show whether the pool destock is over.",
+    "until": "2026-10-23"
+  },
+  "bands": {
+    "cur": "$",
+    "bear": 30.3,
+    "base": 63.1,
+    "bull": 84.6,
+    "price": 52.47,
+    "zone": 47,
+    "zoneLabel": "Margin of safety below $47",
+    "note": "3-year scenario targets, discounted to today at 10%."
+  }
+}
+---
+
 # Pentair (NYSE: PNR): Four-Masters Investment Research
 
 > Research date: 2026-10-11 · Price at research: **$52.47** (close 9 Oct 2026, StockAnalysis and MarketBeat) · Currency: USD

@@ -1,3 +1,45 @@
+---
+{
+  "id": "hdfc-bank",
+  "date": "2026-10-11",
+  "ticker": "HDB",
+  "sym": "HDFCBANK.NS",
+  "venue": "NYSE / NSE",
+  "kind": "Company",
+  "title": "HDFC Bank",
+  "px": "₹707 · $22.28",
+  "blurb": "India's largest private bank at about its lowest valuation in a decade, with a deposit problem, a governance cloud and a new outsider CEO all at once.",
+  "verdict": "Small staged buy · better < ₹600",
+  "tone": "warn",
+  "headline": "Fairly priced to modestly cheap. Worth a small, staged position, not a big bet.",
+  "reasons": [
+    "13.8 times earnings and 1.8 times book for a bank with 1.17% bad loans and 19.6% capital. Return on equity is an ordinary 14%.",
+    "The deposit repair is behind plan: loans are about 97% of deposits against guidance of 85 to 90%, and cheap deposits fell to 31.6% of the total.",
+    "The base case returns about 8% a year in dollars over ten years, in a range of roughly 4% to 12%."
+  ],
+  "watch": [
+    "Cheap-deposit (CASA) share rising for two quarters in a row",
+    "Net interest margin back above 3.5%",
+    "A regulator substantiating misconduct at senior level",
+    "Several senior departures in the new CEO's first year"
+  ],
+  "next": {
+    "text": "Q2 FY27 results in mid-October 2026, then Anup Bagchi takes over as CEO on 27 October 2026.",
+    "until": "2026-10-27"
+  },
+  "bands": {
+    "cur": "₹",
+    "bear": 505,
+    "base": 739,
+    "bull": 997,
+    "price": 707,
+    "zone": 600,
+    "zoneLabel": "Clearly attractive below ₹600",
+    "note": "3-year scenario targets in rupees, discounted to today at 10%, before currency effects."
+  }
+}
+---
+
 # HDFC Bank (NSE: HDFCBANK · NYSE: HDB) — Investment Research
 
 **Date:** 2026-10-11 · **Framework:** Buffett / Munger / Duan Yongping / Li Lu

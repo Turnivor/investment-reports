@@ -1,3 +1,45 @@
+---
+{
+  "id": "xylem",
+  "date": "2026-10-11",
+  "ticker": "XYL",
+  "sym": "XYL",
+  "venue": "NYSE",
+  "kind": "Company",
+  "title": "Xylem",
+  "px": "$102.71",
+  "blurb": "The largest pure water-technology company. Margins are rising, but organic growth is 0 to 3% and return on equity is below 9%.",
+  "verdict": "Hold · buy < $85",
+  "tone": "warn",
+  "headline": "Hold or wait. A good business at a fair price, with no cushion.",
+  "reasons": [
+    "Return on equity has been 8.6 to 8.9% for three years, after 59 million new shares were issued to buy Evoqua in 2023.",
+    "Organic growth was 0% in Q1 2026 and +1% in Q2. Full-year guidance was trimmed to 2 to 3%.",
+    "The base case is worth about $109 today against a price of $102.71. Free cash flow yield is 4%."
+  ],
+  "watch": [
+    "Organic growth still at or below 2% through 2027",
+    "Adjusted EBITDA margin stalling below 23%",
+    "Another large deal paid with shares",
+    "Net debt above 2.5 times EBITDA"
+  ],
+  "next": {
+    "text": "Q3 2026 results on 27 October 2026. They show whether organic growth is recovering toward 3%.",
+    "until": "2026-10-27"
+  },
+  "bands": {
+    "cur": "$",
+    "bear": 62.8,
+    "base": 109.5,
+    "bull": 142.5,
+    "price": 102.71,
+    "zone": 85,
+    "zoneLabel": "Margin of safety below $85",
+    "note": "3-year scenario targets, discounted to today at 10%."
+  }
+}
+---
+
 # Xylem (NYSE: XYL): Four-Masters Investment Research
 
 > Research date: 2026-10-11 · Price at research: **$102.71** (close 9 Oct 2026, StockAnalysis and Finviz) · Currency: USD

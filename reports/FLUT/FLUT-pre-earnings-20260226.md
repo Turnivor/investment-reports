@@ -1,3 +1,39 @@
+---
+{
+  "id": "flutter",
+  "pdf": "FLUT_Analysis_20260226.pdf",
+  "date": "2026-02-26",
+  "ticker": "FLUT",
+  "sym": "FLUT",
+  "quote": {
+    "cur": "$",
+    "price": 119.84
+  },
+  "venue": "NYSE",
+  "kind": "Pre-earnings trade",
+  "title": "Flutter Entertainment",
+  "px": "$119.84",
+  "blurb": "Deeply oversold into Q4 results after UK and US tax hits. The stock fell after 3 of its last 4 earnings beats.",
+  "verdict": "Hold · wait for guidance",
+  "tone": "warn",
+  "headline": "Hold. Oversold, but the reaction depended on guidance, not on the results.",
+  "reasons": [
+    "Extremely oversold: RSI near 20, and 62% below the all-time high.",
+    "Two tax hits: UK online gaming duty rising from 21% to 40%, and a new US cap on deducting gambling losses.",
+    "In 3 of the previous 4 quarters, the stock was flat or fell after results, even after big beats."
+  ],
+  "watch": [
+    "2026 guidance on the UK and US tax hits",
+    "Support around $105–$115",
+    "Whether a beat is followed by a selloff again"
+  ],
+  "next": {
+    "text": "Q4 and full-year 2025 results, 26 February 2026 after the close. This report was written before them.",
+    "until": "2026-02-26"
+  }
+}
+---
+
 # Flutter Entertainment (FLUT): Pre-Earnings Deep Dive
 
 > NYSE: FLUT · LSE: FLTR · Research date: **2026-02-26** (earnings day) · Price at research: **$119.84**

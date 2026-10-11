@@ -1,3 +1,34 @@
+---
+{
+  "id": "india-fin-funnel",
+  "date": "2026-10-11",
+  "ticker": "INDIA FIN",
+  "venue": "Industry",
+  "kind": "Industry",
+  "title": "India Financial Services Funnel",
+  "px": "52 companies",
+  "blurb": "52 Indian financial companies filtered down to three. Only two can be bought directly from Europe; the rest need an India ETF.",
+  "verdict": "Favor ICICI · HDFC Bank · HDFC AMC",
+  "tone": "good",
+  "headline": "Three finalists: ICICI Bank as the core, HDFC Bank as the re-rating, HDFC AMC as the growth pick.",
+  "reasons": [
+    "10 of 52 names passed five tests adapted for financial companies: price, return on equity, earnings quality, funding strength and moat.",
+    "Foreign individuals cannot buy on Indian exchanges, so the reachable version is the IBN and HDB ADRs plus a low-cost India ETF.",
+    "Exchanges, brokers and payment apps were dropped on price: 47 to 129 times earnings on revenue a regulator can rewrite."
+  ],
+  "watch": [
+    "ICICI Bank: margin below 4.1%, loans still growing far faster than deposits",
+    "HDFC Bank: cheap-deposit share, margin, outcome of the US class action",
+    "HDFC AMC: fee rules from the regulator, monthly SIP flows",
+    "Oil price and the rupee"
+  ],
+  "next": {
+    "text": "Q2 FY27 results for HDFC AMC (15 October) and the two banks (second half of October 2026).",
+    "until": "2026-10-31"
+  }
+}
+---
+
 # India Financial Services — Funnel Screen: from the whole market to 3
 
 **Date:** 2026-10-11 · **Method:** four-layer value funnel (scan → 5 hard tests → structured analysis → Buffett / Munger / Duan Yongping / Li Lu deep dive)

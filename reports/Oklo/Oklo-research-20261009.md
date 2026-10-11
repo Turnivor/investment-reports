@@ -1,3 +1,44 @@
+---
+{
+  "id": "oklo",
+  "date": "2026-10-09",
+  "ticker": "OKLO",
+  "sym": "OKLO",
+  "venue": "NYSE",
+  "kind": "Company",
+  "title": "Oklo",
+  "px": "$34.44",
+  "blurb": "Advanced nuclear developer with $3B of cash and no power revenue yet. The price implies 7–8 GW of reactors running by 2036.",
+  "verdict": "Avoid · speculative < $20",
+  "tone": "bad",
+  "headline": "Avoid at $34. The price is far above every scenario in the report.",
+  "reasons": [
+    "No power revenue yet. About $3.0B of cash and securities, raised by selling shares.",
+    "The price assumes about 7–8 GW of reactors running by 2036. The report's bull case is about 3 GW.",
+    "Even in the bull case, buying at $34.44 returns roughly 0% a year over 10 years."
+  ],
+  "watch": [
+    "Aurora-INL, the first plant, slipping beyond 2029",
+    "Meta and Switch deals not becoming binding power contracts by 2027",
+    "First disclosed build cost above $10,000 per kW",
+    "Share sales speeding up while milestones slip"
+  ],
+  "next": {
+    "text": "No fixed date. Next milestones are first isotope revenue (target early 2027) and binding power contracts with Meta and Switch (by 2027)."
+  },
+  "bands": {
+    "cur": "$",
+    "bear": 3.58,
+    "base": 3.68,
+    "bull": 12.84,
+    "price": 34.44,
+    "zone": 20,
+    "zoneLabel": "Speculative only below $20",
+    "note": "Scenario values for 2036, discounted to today at 10%."
+  }
+}
+---
+
 # Oklo Inc. (NYSE: OKLO) — Investment Research Report
 
 **Framework:** Buffett · Munger · Duan Yongping · Li Lu
