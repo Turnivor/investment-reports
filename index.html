@@ -128,6 +128,20 @@
 .band .key .k-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
 .band .key .k-price { width: 3px; height: 14px; border-radius: 2px; background: var(--ink); }
 .band .key .k-zone { width: 14px; height: 10px; background: var(--good-soft); border: 1px dashed var(--good); border-radius: 2px; }
+.scn { display: grid; grid-template-columns: auto minmax(70px, 1fr) auto; gap: 8px 14px; align-items: center; font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+.scn .s-axis { display: grid; grid-template-columns: 1fr auto 1fr; font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.scn .s-axis span:last-child { text-align: right; }
+.scn .s-name { color: var(--muted); }
+.scn .s-name b { font-weight: 500; color: var(--ink); }
+.scn .s-bar { position: relative; height: 16px; }
+.scn .s-bar::before { content: ""; position: absolute; left: 50%; top: -4px; bottom: -4px; width: 1px; background: var(--muted); }
+.scn .s-bar i { position: absolute; top: 3px; height: 10px; min-width: 2px; }
+.scn .s-bar i.up { background: var(--good); border-radius: 0 4px 4px 0; }
+.scn .s-bar i.down { background: var(--bad); border-radius: 4px 0 0 4px; }
+.scn .s-val { text-align: right; white-space: nowrap; }
+.scn .s-val b { font-weight: 500; display: inline-block; min-width: 4.2ch; text-align: right; }
+@media (max-width: 520px) { .scn { gap: 6px 10px; } .scn .s-name { font-size: 0; } .scn .s-name b { font-size: 12.5px; } .scn .s-axis span:first-child, .scn .s-axis span:last-child { visibility: hidden; } }
+.band .zone-line { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); margin: 0; }
 .band .note { font-family: var(--f-mono); font-size: 12px; color: var(--muted); margin: 0; }
 
 /* ---------- Reader ---------- */
@@ -304,8 +318,8 @@ const REPORTS = [
       "Several senior departures in the new CEO's first year",
     ],
     next: { text: "Q2 FY27 results in mid-October 2026, then Anup Bagchi takes over as CEO on 27 October 2026.", until: "2026-10-27" },
-    bands: { cur: "₹", bear: 673, base: 983, bull: 1328, price: 707, zone: 600, zoneLabel: "Clearly attractive below ₹600",
-      note: "3-year scenario targets in rupees, not discounted and before currency effects." } },
+    bands: { cur: "₹", bear: 505, base: 739, bull: 997, price: 707, zone: 600, zoneLabel: "Clearly attractive below ₹600",
+      note: "3-year scenario targets in rupees, discounted to today at 10%, before currency effects." } },
 
   { id: "india-fin-funnel", file: "reports/industry/IndiaFinancials-funnel-20261011.md", date: "2026-10-11", ticker: "INDIA FIN", venue: "Industry", kind: "Industry",
     title: "India Financial Services Funnel", px: "52 companies",
@@ -523,28 +537,29 @@ function band(b, compact) {
     </div>`;
   if (compact) return `<div class="band compact" role="img" aria-label="${esc(summary)}">${track}</div>`;
 
-  // direct labels above the track; scenarios that sit close together share one label
-  const groups = [];
-  pts.forEach(([n, v]) => {
-    const p = v / max * 100, last = groups[groups.length - 1];
-    if (last && p - last.to < 9) { last.names.push(n); last.to = p; } else groups.push({ names: [n], from: p, to: p });
-  });
-  const lbl = (text, p) => {
-    const shift = p < 8 ? "0" : p > 92 ? "-100%" : "-50%";
-    return `<span style="left:${p.toFixed(2)}%;transform:translateX(${shift})">${text}</span>`;
+  // full view: one row per scenario, drawn as a gain or loss against the research price
+  const rows = [["Bear", "if it goes badly", b.bear], ["Base", "as expected", b.base], ["Bull", "if it goes well", b.bull]]
+    .map(([n, gloss, v]) => ({ n, gloss, v, d: (v / b.price - 1) * 100 }));
+  const reach = Math.max(...rows.map(r => Math.abs(r.d)), 10);
+  const signed = d => (d >= 0 ? "+" : "−") + Math.abs(d).toFixed(0) + "%";
+  const row = r => {
+    const w = (Math.abs(r.d) / reach * 50).toFixed(2);
+    const fill = r.d >= 0 ? `left:50%;width:${w}%` : `right:50%;width:${w}%`;
+    const tip = `${r.n} case: ${money(b.cur, r.v)}, ${signed(r.d)} against the price at research`;
+    return `
+      <span class="s-name"><b>${r.n}</b> ${r.gloss}</span>
+      <span class="s-bar" title="${esc(tip)}"><i class="${r.d >= 0 ? "up" : "down"}" style="${fill}"></i></span>
+      <span class="s-val">${money(b.cur, r.v)} <b>${signed(r.d)}</b></span>`;
   };
   return `
-    <div class="band" role="img" aria-label="${esc(summary)}">
-      <div class="lbls" aria-hidden="true">${groups.map(g => lbl(g.names.join(" · "), (g.from + g.to) / 2)).join("")}</div>
-      ${track}
-      <div class="lbls" aria-hidden="true">${lbl("Price " + money(b.cur, b.price), b.price / max * 100)}</div>
+    <div class="scn" role="img" aria-label="${esc(summary)}">
+      <span></span>
+      <span class="s-axis" aria-hidden="true"><span>worth less</span><span>price ${money(b.cur, b.price)}</span><span>worth more</span></span>
+      <span></span>
+      ${rows.map(row).join("")}
     </div>
     <div class="band">
-      <ul class="key">
-        ${pts.map(([n, v]) => `<li><i class="k-dot"></i>${n} ${money(b.cur, v)}</li>`).join("")}
-        <li><i class="k-price"></i>Price at research ${money(b.cur, b.price)}</li>
-        ${b.zone ? `<li><i class="k-zone"></i>${esc(b.zoneLabel)}</li>` : ""}
-      </ul>
+      ${b.zone ? `<p class="zone-line">${esc(b.zoneLabel)}. Price at research: ${money(b.cur, b.price)}.</p>` : ""}
       ${b.note ? `<p class="note">${esc(b.note)}</p>` : ""}
     </div>`;
 }
@@ -689,7 +704,7 @@ function summaryCard(r) {
       ${stale ? `<p class="stale">This verdict is ${n} days old and was based on ${esc(r.px)}. The price and the facts have probably moved. Treat it as history until it is refreshed.</p>` : ""}
     </div>
     <div>
-      ${r.bands ? `<div><h3>Value range vs price at research</h3>${band(r.bands, false)}</div>` : ""}
+      ${r.bands ? `<div><h3>What the shares could be worth vs the price at research</h3>${band(r.bands, false)}</div>` : ""}
       <div><h3>Signals to watch</h3><ul>${r.watch.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
       ${r.next ? `<div><h3>Next checkpoint${passed ? ' <span class="chip plain">Passed</span>' : ""}</h3><p class="nextline">${esc(r.next.text)}</p></div>` : ""}
     </div>

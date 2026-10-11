@@ -202,6 +202,8 @@ Starting EPS ₹51.35, price ₹707.
 | Base: steady repair | 11% | 14x | ₹70.23 | ₹983 | +39.1% |
 | Bear: stuck, or a governance hit | 6% | 11x | ₹61.16 | ₹673 | −4.8% |
 
+In today's money (discounted at 10% a year for three years) those targets are about ₹997, ₹739 and ₹505, which is +41%, +5% and −29% against the ₹707 price. This is the fairer comparison: the base case is worth only slightly more than the price today.
+
 A foreign holder should take roughly 9–12% off each three-year figure for rupee depreciation at the historical trend, and add about 6% for dividends.
 
 ### 7.4 Ten-year discounted view (US dollars)
