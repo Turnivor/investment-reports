@@ -144,6 +144,145 @@ window.SITE_DATA = {
    }
   },
   {
+   "id": "video-games",
+   "file": "reports/industry/VideoGames-industry-20261011.md",
+   "pdf": "reports/industry/VideoGames-industry-20261011.pdf",
+   "date": "2026-10-11",
+   "ticker": "GAMES",
+   "venue": "Industry",
+   "kind": "Industry",
+   "title": "Video Games",
+   "px": "80 companies",
+   "blurb": "A $214bn industry about to get its biggest launch ever. The profit goes to a few owners of long-lived franchises and to the platforms that take 30%. The two sector funds are down 16 to 17% in a year while the S&P 500 is up 16%.",
+   "verdict": "Selective · NetEase · Nintendo",
+   "tone": "warn",
+   "headline": "GTA VI lifts the industry's sales, not its economics. The cheap franchise owners are in Asia; the famous one is fully priced.",
+   "reasons": [
+    "The market grows about 6% a year and player numbers 3 to 4%. Mobile in-app spending fell 2% in the first half of 2026 while downloads fell 12%.",
+    "Profit is concentrated: Capcom, NetEase, Tencent and Konami earn operating margins of 31 to 42%. Take-Two, Ubisoft, Embracer and Roblox report losses.",
+    "Over five years the winners were owners of old franchises with strict budgets (Konami +272%, Capcom +199% in yen). Growth stories and serial acquirers lost 32 to 92%."
+   ],
+   "watch": [
+    "Memory chip costs pushing console prices higher again",
+    "GTA VI sales falling short and dragging console spending with them",
+    "New rules in China on game approvals or spending",
+    "AI tools that let small teams build large games",
+    "Another large buyout that resets what franchises are worth"
+   ],
+   "next": {
+    "text": "Take-Two results on 5 November 2026 and the GTA VI launch on 19 November.",
+    "until": "2026-11-19"
+   },
+   "calendar": [
+    {
+     "date": "2026-10-29",
+     "what": "Roblox Q3 2026 results",
+     "check": "Bookings were guided down 14 to 18%. Is the decline slowing, and is full-year guidance restored?"
+    },
+    {
+     "date": "2026-11-05",
+     "what": "Take-Two Q2 fiscal 2027 results",
+     "check": "Is the $8.0 to $8.2bn bookings guidance raised ahead of GTA VI?"
+    },
+    {
+     "date": "2026-11-19",
+     "what": "GTA VI launch",
+     "check": "First sales figures, and whether console sales pick up with it."
+    }
+   ]
+  },
+  {
+   "id": "take-two",
+   "file": "reports/Take-Two/Take-Two-research-20261011.md",
+   "pdf": "reports/Take-Two/Take-Two-research-20261011.pdf",
+   "date": "2026-10-11",
+   "ticker": "TTWO",
+   "sym": "TTWO",
+   "benchmark": {
+    "sym": "ESPO",
+    "name": "Video games",
+    "fund": "VanEck Video Gaming and eSports ETF",
+    "day": "2026-10-09",
+    "price": 100.11
+   },
+   "venue": "NASDAQ",
+   "kind": "Company",
+   "title": "Take-Two Interactive",
+   "px": "$213.44",
+   "blurb": "Owner of Rockstar (Grand Theft Auto), 2K (NBA 2K) and Zynga. GTA VI launches on 19 November 2026 after two delays. The shares are down about 17% this year.",
+   "verdict": "Wait · buy < $126",
+   "tone": "warn",
+   "headline": "Wait. A great franchise, priced as if the launch and everything after it go right.",
+   "reasons": [
+    "GTA VI is on track for 19 November 2026. Fiscal 2027 guidance is net bookings of $8.0 to $8.2bn, up about 20%, which implies roughly 35 to 38 million copies by March.",
+    "At $213.44 the company is valued at $39.9bn: 31 times this year's expected adjusted earnings and 21 times next year's. Free cash flow last year was 1.2% of that value.",
+    "The base case is worth about $168 today, the bull case about $262 and the bear case about $83. The chief executive sold 30,000 shares at $250 to $255 in August."
+   ],
+   "watch": [
+    "A third delay of GTA VI",
+    "No date for the online mode by the February 2027 results",
+    "First fiscal 2028 guidance below fiscal 2027",
+    "A large acquisition paid for with new shares",
+    "Mobile bookings falling faster than 10% a year"
+   ],
+   "next": {
+    "text": "Q2 fiscal 2027 results on 5 November 2026, then the GTA VI launch on 19 November.",
+    "until": "2026-11-05"
+   },
+   "plan": {
+    "none": "Wait. Do not buy ahead of the launch at $213. Interesting below about $168 (the base value) and attractive below about $126 (25% under it). A fall after a successful launch, as happened after Red Dead Redemption 2 in 2018, would be the moment to look again.",
+    "holding": "Hold, but keep the position small enough that a 40% fall would not hurt, and do not add before the launch. The price already assumes a record launch, so the reward for being right is small next to the cost of being wrong.",
+    "add": [
+     "Price below about $168 with the launch delivered",
+     "The online mode launches and recurrent spending grows above the fiscal 2026 level of $5.2bn",
+     "First fiscal 2028 guidance above fiscal 2027",
+     "Net cash reached and share buybacks restarted",
+     "Insiders buying shares"
+    ],
+    "sell": [
+     "A third delay of GTA VI",
+     "The online mode slips past fiscal 2028 or earns less than GTA Online does now",
+     "Fiscal 2028 guidance below fiscal 2027",
+     "A large acquisition paid for with new shares",
+     "Price above about $262 (the bull value) without higher earnings estimates"
+    ]
+   },
+   "calendar": [
+    {
+     "date": "2026-11-05",
+     "what": "Q2 fiscal 2027 results",
+     "check": "Is the $8.0 to $8.2bn bookings guidance raised, and is there a date for the online mode?"
+    },
+    {
+     "date": "2026-11-19",
+     "what": "GTA VI launch",
+     "check": "Review scores, the technical state of the game, and the first sales figure Take-Two announces."
+    },
+    {
+     "date": "2027-02-04",
+     "approx": "Early February 2027",
+     "what": "Q3 fiscal 2027 results",
+     "check": "The first quarter with GTA VI: copies sold, recurrent spending, and whether full-year guidance moves."
+    },
+    {
+     "date": "2027-05-20",
+     "approx": "Mid to late May 2027",
+     "what": "Fiscal 2027 results and first fiscal 2028 guidance",
+     "check": "Is fiscal 2028 guided above fiscal 2027? That is the test for a post-launch slump."
+    }
+   ],
+   "bands": {
+    "cur": "$",
+    "bear": 82.6,
+    "base": 168.2,
+    "bull": 262.1,
+    "price": 213.44,
+    "zone": 126,
+    "zoneLabel": "Margin of safety below $126",
+    "note": "3-year scenario targets, discounted to today at 10%."
+   }
+  },
+  {
    "id": "pentair",
    "file": "reports/Pentair/Pentair-research-20261011.md",
    "pdf": "reports/Pentair/Pentair-research-20261011.pdf",
@@ -585,6 +724,14 @@ window.SITE_DATA = {
   [
    "WaterTechnology-funnel-20261011",
    "water"
+  ],
+  [
+   "VideoGames-industry-20261011",
+   "video-games"
+  ],
+  [
+   "Take-Two-research-20261011",
+   "take-two"
   ],
   [
    "Pentair-research-20261011",

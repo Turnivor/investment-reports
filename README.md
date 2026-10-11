@@ -14,6 +14,8 @@ Personal stock and industry research, made with Claude Code and the [ai-berkshir
 | 2026-10-11 | [Xylem (XYL)](reports/Xylem/Xylem-research-20261011.md) ([PDF](reports/Xylem/Xylem-research-20261011.pdf)) | Company | Hold · buy < $85 |
 | 2026-10-11 | [Xylem vs Pentair: Quality Screen](reports/Water/Xylem-vs-Pentair-quality-screen-20261011.md) ([PDF](reports/Water/Xylem-vs-Pentair-quality-screen-20261011.pdf)) | Comparison | Both pass · Pentair cheaper |
 | 2026-10-11 | [Water Technology Funnel](reports/industry/WaterTechnology-funnel-20261011.md) ([PDF](reports/industry/WaterTechnology-funnel-20261011.pdf)) | Industry | Favor VLTO · AOS · PNR |
+| 2026-10-11 | [Video Games](reports/industry/VideoGames-industry-20261011.md) ([PDF](reports/industry/VideoGames-industry-20261011.pdf)) | Industry | Selective · NetEase · Nintendo |
+| 2026-10-11 | [Take-Two Interactive (TTWO)](reports/Take-Two/Take-Two-research-20261011.md) ([PDF](reports/Take-Two/Take-Two-research-20261011.pdf)) | Company | Wait · buy < $126 |
 | 2026-10-11 | [Pentair (PNR)](reports/Pentair/Pentair-research-20261011.md) ([PDF](reports/Pentair/Pentair-research-20261011.pdf)) | Company | Hold · buy < $47 |
 | 2026-10-11 | [India Financial Services Funnel](reports/industry/IndiaFinancials-funnel-20261011.md) ([PDF](reports/industry/IndiaFinancials-funnel-20261011.pdf)) | Industry | Favor ICICI · HDFC Bank · HDFC AMC |
 | 2026-10-11 | [India Financial Services](reports/industry/IndiaFinancials-industry-20261011.md) ([PDF](reports/industry/IndiaFinancials-industry-20261011.pdf)) | Industry | Favor private banks · AMCs |

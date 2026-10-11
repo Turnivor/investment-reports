@@ -1,9 +1,14 @@
 {
-  "updated": "2026-10-11T15:43:58Z",
+  "updated": "2026-10-11T16:46:53Z",
   "source": "Yahoo Finance",
   "prices": {
     "BETZ": {
       "price": 16.8146,
+      "currency": "USD",
+      "date": "2026-10-09"
+    },
+    "ESPO": {
+      "price": 100.11,
       "currency": "USD",
       "date": "2026-10-09"
     },
@@ -40,6 +45,11 @@
     "RHM.DE": {
       "price": 939.1,
       "currency": "EUR",
+      "date": "2026-10-09"
+    },
+    "TTWO": {
+      "price": 213.44,
+      "currency": "USD",
       "date": "2026-10-09"
     },
     "XLI": {
