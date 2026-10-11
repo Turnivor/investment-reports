@@ -165,7 +165,7 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
 .slist::before, .slist::after { content: ""; position: absolute; width: 20px; height: 20px; pointer-events: none; }
 .slist::before { left: -1px; top: -1px; border-left: 1px solid var(--accent); border-top: 1px solid var(--accent); border-top-left-radius: 3px; }
 .slist::after { right: -1px; bottom: -1px; border-right: 1px solid var(--accent); border-bottom: 1px solid var(--accent); border-bottom-right-radius: 3px; }
-.shead, .srow { display: grid; gap: 6px 22px; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1fr) 84px minmax(0, 1.2fr); padding: 18px 22px; }
+.shead, .srow { display: grid; gap: 6px 22px; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.05fr) minmax(0, .95fr) minmax(0, .85fr) minmax(0, 1.2fr); padding: 18px 22px; }
 .shead { align-items: end; padding-block: 14px 10px; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule); }
 .srow { align-items: start; transition: background-color .15s ease; }
 .srow + .srow { border-top: 1px solid var(--rule); }
@@ -400,7 +400,8 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
     <div class="slist" id="score"></div>
     <div class="about">
       <h3>How a verdict is judged</h3>
-      <p>An <b>Avoid</b> held up if the price fell. A <b>Favour</b> held up if it rose. A <b>Wait or hold</b> held up if the shares got cheaper while waiting, and did not if they got more expensive. A move of less than 5% either way counts as little change.</p>
+      <p>Each company has a sector benchmark, chosen when its report was filed. An <b>Avoid</b> held up if the share did worse than its sector, and a <b>Favour</b> if it did better. A <b>Wait or hold</b> is a call on the share's own price: it held up if the shares got cheaper while waiting, and did not if they got more expensive. A gap or a move of less than 5 points counts as little change.</p>
+      <p>The benchmarks are funds or indexes that follow the sector (hover a sector name to see which). Some hold the share itself, which narrows the gap. Only price moves are counted, not dividends.</p>
       <p>Nothing is judged in its first 90 days, because a few weeks of price movement says little about a verdict built on three-year scenarios. With this few reports it is a learning log, not a statistic. Industry and comparison reports have no single price, so they are left out.</p>
       <p>Prices come from Yahoo Finance, in each share's own currency, saved once each weekday at 16:00 UTC. Markets still trading at that hour, such as New York, show the price at that moment rather than the close.</p>
     </div>
@@ -486,6 +487,7 @@ function live(r) {
 }
 const exact = (cur, v) => cur + v.toLocaleString("en-GB", Number.isInteger(v) ? {} : { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const pct = d => Math.abs(d).toFixed(Math.abs(d) < 10 ? 1 : 0) + "%";
+const signed = d => Math.abs(d) < .05 ? "0%" : (d > 0 ? "+" : "−") + pct(d);
 const versus = d => Math.abs(d) < .05 ? "level with" : `${pct(d)} ${d > 0 ? "above" : "below"}`;
 function fillLive() {
   document.querySelectorAll("[data-live]").forEach(el => {
@@ -811,19 +813,27 @@ function showHome() {
 }
 
 /* ---------- Scorecard ---------- */
-function judge(r, L) {
-  const young = daysOld(r.date) <= STALE_DAYS, flat = Math.abs(L.d) < 5, up = L.d > 0;
-  const said = r.tone === "bad" ? "an Avoid" : r.tone === "good" ? "a Favour" : null;
+// how the report's sector benchmark has moved since the day the share was researched
+function bench(r) {
+  const b = r.benchmark, q = b && PRICES[b.sym];
+  return q ? { name: b.name, fund: b.fund || b.name, d: (q.price / b.price - 1) * 100 } : null;
+}
+function judge(r, L, B) {
+  const young = daysOld(r.date) <= STALE_DAYS, wait = r.tone === "warn";
+  const said = r.tone === "bad" ? "an Avoid" : "a Favour";
+  const rel = !wait && B;   // an Avoid or a Favour is a call against the sector; a Wait is a call on the share's own price
+  const move = rel ? L.d - B.d : L.d, flat = Math.abs(move) < 5, up = move > 0;
   const call = flat ? "flat" : (r.tone === "good" ? up : !up) ? "right" : "wrong";
-  const why = flat ? "Within 5% of the report price."
-    : said ? `It ${up ? "rose" : "fell"} after ${said}.`
-    : up ? "The shares got more expensive while waiting." : "The shares got cheaper while waiting.";
+  const why = rel ? (flat ? `Within 5 points of ${esc(B.name)}.` : `${pct(move).replace("%", "")} points ${up ? "ahead of" : "behind"} ${esc(B.name)} after ${said}.`)
+    : flat ? "Within 5% of the report price."
+    : wait ? (up ? "The shares got more expensive while waiting." : "The shares got cheaper while waiting.")
+    : `It ${up ? "rose" : "fell"} after ${said}.`;
   if (young) return { cls: "", label: "Too early", why: `${why} Judged once the verdict is ${STALE_DAYS} days old.` };
   return { cls: call === "flat" ? "" : call, label: call === "right" ? "Held up" : call === "wrong" ? "Did not hold" : "Little change", why };
 }
 function drawScore() {
   const list = REPORTS.filter(r => r.sym && (r.bands || r.quote)).sort((a, b) => a.date.localeCompare(b.date));
-  const rows = list.map(r => ({ r, L: live(r) })).filter(x => x.L).map(x => ({ ...x, j: judge(x.r, x.L) }));
+  const rows = list.map(r => ({ r, L: live(r) })).filter(x => x.L).map(x => ({ ...x, B: bench(x.r) })).map(x => ({ ...x, j: judge(x.r, x.L, x.B) }));
   const count = l => rows.filter(x => x.j.label === l).length;
   const asOf = rows.map(x => x.L.date).sort().pop();
   $("#scoreTally").innerHTML = `
@@ -834,13 +844,13 @@ function drawScore() {
     <div class="tcell last"><b>${asOf ? fmtDate(asOf) : "—"}</b><span>Prices as of</span></div>`;
   const where = (b, v) => !b ? "" : v < b.bear ? "below the bear value" : v < b.base ? "between bear and base" : v < b.bull ? "between base and bull" : "above the bull value";
   $("#score").innerHTML = !rows.length ? `<p class="snone">Prices have not loaded. Reload the page to try again.</p>` : `
-    <div class="shead" aria-hidden="true"><span>Report</span><span>Verdict then</span><span>Price then → now</span><span>Since</span><span>So far</span></div>
-    ${rows.map(({ r, L, j }) => `
+    <div class="shead" aria-hidden="true"><span>Report</span><span>Verdict then</span><span>Price then → now</span><span>Since · sector</span><span>So far</span></div>
+    ${rows.map(({ r, L, B, j }) => `
     <div class="srow ${j.cls}">
       <div class="s-co"><a href="#${r.id}">${esc(r.title)}</a><small>${fmtDate(r.date)} · ${ageText(daysOld(r.date)).toLowerCase()}</small></div>
       <div data-l="Verdict then"><span class="chip ${r.tone}">${esc(r.verdict)}</span></div>
       <div data-l="Price then → now"><span class="s-px">${exact(L.cur, L.then)}<i>→</i>${exact(L.cur, L.now)}</span>${r.bands ? `<small>Now ${where(r.bands, L.now)}</small>` : ""}</div>
-      <div data-l="Since"><span class="s-d">${L.d >= 0 ? "+" : "−"}${pct(L.d)}</span></div>
+      <div data-l="Since · sector"><span class="s-d">${signed(L.d)}</span>${B ? `<small title="${esc(B.fund)}">${esc(B.name)} ${signed(B.d)}</small>` : ""}</div>
       <div class="s-out"><b>${j.label}</b><span>${j.why}</span></div>
     </div>`).join("")}`;
 }

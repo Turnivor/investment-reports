@@ -79,6 +79,13 @@ def check(r, path):
         need(q, ["cur", "price"], "quote.")
     if (b or q) and r.get("kind") == "Company" and not r.get("sym"):
         problems.append(f"{where}: a company report needs sym (its Yahoo Finance symbol) for prices and the scorecard")
+    bench = r.get("benchmark")
+    if r.get("sym") and not bench:
+        problems.append(f"{where}: a report with sym needs benchmark (sym, name, fund, day, price) so the scorecard can compare it with its sector")
+    if bench:
+        need(bench, ["sym", "name", "price"], "benchmark.")
+        if not isinstance(bench.get("price"), (int, float)):
+            problems.append(f"{where}: benchmark.price must be a number (python tools/fetch_prices.py --base prints it)")
     if r.get("sym") and not (b or q):
         problems.append(f"{where}: sym needs either bands or quote, so the site knows the price at research")
     if r.get("pdf") and not (path.parent / r["pdf"]).exists():

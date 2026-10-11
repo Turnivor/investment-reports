@@ -4,6 +4,13 @@
   "date": "2026-10-11",
   "ticker": "XYL",
   "sym": "XYL",
+  "benchmark": {
+    "sym": "XLI",
+    "name": "US industrials",
+    "fund": "Industrial Select Sector SPDR ETF",
+    "day": "2026-10-09",
+    "price": 169.25
+  },
   "venue": "NYSE",
   "kind": "Company",
   "title": "Xylem",

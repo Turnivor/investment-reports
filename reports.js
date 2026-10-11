@@ -7,6 +7,13 @@ window.SITE_DATA = {
    "date": "2026-10-11",
    "ticker": "XYL",
    "sym": "XYL",
+   "benchmark": {
+    "sym": "XLI",
+    "name": "US industrials",
+    "fund": "Industrial Select Sector SPDR ETF",
+    "day": "2026-10-09",
+    "price": 169.25
+   },
    "venue": "NYSE",
    "kind": "Company",
    "title": "Xylem",
@@ -104,6 +111,13 @@ window.SITE_DATA = {
    "date": "2026-10-11",
    "ticker": "PNR",
    "sym": "PNR",
+   "benchmark": {
+    "sym": "XLI",
+    "name": "US industrials",
+    "fund": "Industrial Select Sector SPDR ETF",
+    "day": "2026-10-09",
+    "price": 169.25
+   },
    "venue": "NYSE",
    "kind": "Company",
    "title": "Pentair",
@@ -202,6 +216,13 @@ window.SITE_DATA = {
    "date": "2026-10-11",
    "ticker": "HDB",
    "sym": "HDFCBANK.NS",
+   "benchmark": {
+    "sym": "^NSEBANK",
+    "name": "Indian banks",
+    "fund": "Nifty Bank index",
+    "day": "2026-10-09",
+    "price": 55256.65
+   },
    "venue": "NYSE / NSE",
    "kind": "Company",
    "title": "HDFC Bank",
@@ -242,6 +263,13 @@ window.SITE_DATA = {
    "date": "2026-10-09",
    "ticker": "OKLO",
    "sym": "OKLO",
+   "benchmark": {
+    "sym": "NLR",
+    "name": "nuclear and uranium",
+    "fund": "VanEck Uranium and Nuclear ETF",
+    "day": "2026-10-08",
+    "price": 102.38
+   },
    "venue": "NYSE",
    "kind": "Company",
    "title": "Oklo",
@@ -310,6 +338,13 @@ window.SITE_DATA = {
    "date": "2026-10-06",
    "ticker": "RHM",
    "sym": "RHM.DE",
+   "benchmark": {
+    "sym": "EUDF.DE",
+    "name": "European defence",
+    "fund": "WisdomTree Europe Defence UCITS ETF",
+    "day": "2026-10-06",
+    "price": 29.88
+   },
    "venue": "XETRA",
    "kind": "Company",
    "title": "Rheinmetall",
@@ -351,6 +386,13 @@ window.SITE_DATA = {
    "date": "2026-02-26",
    "ticker": "FLUT",
    "sym": "FLUT",
+   "benchmark": {
+    "sym": "BETZ",
+    "name": "betting and gaming",
+    "fund": "Roundhill Sports Betting & iGaming ETF",
+    "day": "2026-02-25",
+    "price": 18.2
+   },
    "quote": {
     "cur": "$",
     "price": 119.84

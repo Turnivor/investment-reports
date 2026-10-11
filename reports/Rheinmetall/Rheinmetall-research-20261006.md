@@ -5,6 +5,13 @@
   "date": "2026-10-06",
   "ticker": "RHM",
   "sym": "RHM.DE",
+  "benchmark": {
+    "sym": "EUDF.DE",
+    "name": "European defence",
+    "fund": "WisdomTree Europe Defence UCITS ETF",
+    "day": "2026-10-06",
+    "price": 29.88
+  },
   "venue": "XETRA",
   "kind": "Company",
   "title": "Rheinmetall",

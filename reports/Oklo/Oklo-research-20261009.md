@@ -4,6 +4,13 @@
   "date": "2026-10-09",
   "ticker": "OKLO",
   "sym": "OKLO",
+  "benchmark": {
+    "sym": "NLR",
+    "name": "nuclear and uranium",
+    "fund": "VanEck Uranium and Nuclear ETF",
+    "day": "2026-10-08",
+    "price": 102.38
+  },
   "venue": "NYSE",
   "kind": "Company",
   "title": "Oklo",

@@ -1,7 +1,17 @@
 {
-  "updated": "2026-10-11T15:10:10Z",
+  "updated": "2026-10-11T15:43:58Z",
   "source": "Yahoo Finance",
   "prices": {
+    "BETZ": {
+      "price": 16.8146,
+      "currency": "USD",
+      "date": "2026-10-09"
+    },
+    "EUDF.DE": {
+      "price": 29.52,
+      "currency": "EUR",
+      "date": "2026-10-09"
+    },
     "FLUT": {
       "price": 79.78,
       "currency": "USD",
@@ -10,6 +20,11 @@
     "HDFCBANK.NS": {
       "price": 707.25,
       "currency": "INR",
+      "date": "2026-10-09"
+    },
+    "NLR": {
+      "price": 103.35,
+      "currency": "USD",
       "date": "2026-10-09"
     },
     "OKLO": {
@@ -27,9 +42,19 @@
       "currency": "EUR",
       "date": "2026-10-09"
     },
+    "XLI": {
+      "price": 169.25,
+      "currency": "USD",
+      "date": "2026-10-09"
+    },
     "XYL": {
       "price": 102.71,
       "currency": "USD",
+      "date": "2026-10-09"
+    },
+    "^NSEBANK": {
+      "price": 55256.65,
+      "currency": "INR",
       "date": "2026-10-09"
     }
   }

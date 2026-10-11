@@ -12,6 +12,7 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -25,11 +26,33 @@ STALE_DAYS = 90  # same as the site
 
 
 def fetch(sym):
-    req = urllib.request.Request(URL.format(sym), headers={"User-Agent": AGENT})
+    req = urllib.request.Request(URL.format(urllib.parse.quote(sym)), headers={"User-Agent": AGENT})
     with urllib.request.urlopen(req, timeout=20) as res:
         meta = json.load(res)["chart"]["result"][0]["meta"]
     day = datetime.fromtimestamp(meta["regularMarketTime"], timezone.utc).strftime("%Y-%m-%d")
     return {"price": round(float(meta["regularMarketPrice"]), 4), "currency": meta["currency"], "date": day}
+
+
+def closes(sym, start, end):
+    """[(day, close)] for each trading day from `start` to `end`, both included."""
+    stamp = lambda d: int(datetime(d.year, d.month, d.day, tzinfo=timezone.utc).timestamp())
+    url = URL.format(urllib.parse.quote(sym)).split("?")[0] + f"?period1={stamp(start)}&period2={stamp(end) + 86400}&interval=1d"
+    with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": AGENT}), timeout=20) as res:
+        result = json.load(res)["chart"]["result"][0]
+    days = [datetime.fromtimestamp(t, timezone.utc).date().isoformat() for t in result.get("timestamp", [])]
+    return [(d, c) for d, c in zip(days, result["indicators"]["quote"][0]["close"]) if c is not None]
+
+
+def benchmark_base(share, bench, day, price):
+    """The benchmark's close on the day the share was researched, for the `benchmark.price` field of a report's card.
+
+    A research price is usually a close from the report date or just before it, so the day is the one of the last
+    few trading days whose close is nearest to that price.
+    """
+    near = closes(share, day - timedelta(days=7), day)[-4:]
+    match = min(near, key=lambda dc: abs(dc[1] - price))[0]
+    level = [c for d, c in closes(bench, day - timedelta(days=10), day) if d <= match][-1]
+    return match, round(level, 2)
 
 
 def reports():
@@ -60,7 +83,7 @@ def alerts(entries, old, new, today):
 
 def main():
     entries = reports()
-    syms = sorted({r["sym"] for r in entries if r.get("sym")})
+    syms = sorted({r["sym"] for r in entries if r.get("sym")} | {r["benchmark"]["sym"] for r in entries if r.get("benchmark")})
     if not syms:
         sys.exit("No report names a symbol")
     old = json.loads(OUT.read_text(encoding="utf-8")).get("prices", {}) if OUT.exists() else {}
@@ -97,4 +120,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:2] == ["--base"]:  # python tools/fetch_prices.py --base RHM.DE EUDF.DE 2026-10-06 953
+        share, bench, day, price = sys.argv[2:6]
+        print(*benchmark_base(share, bench, date.fromisoformat(day), float(price)))
+    else:
+        main()

@@ -5,6 +5,13 @@
   "date": "2026-02-26",
   "ticker": "FLUT",
   "sym": "FLUT",
+  "benchmark": {
+    "sym": "BETZ",
+    "name": "betting and gaming",
+    "fund": "Roundhill Sports Betting & iGaming ETF",
+    "day": "2026-02-25",
+    "price": 18.2
+  },
   "quote": {
     "cur": "$",
     "price": 119.84

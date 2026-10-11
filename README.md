@@ -46,7 +46,7 @@ GitHub Pages serves the site from `main` / root. There is no build step.
 2. Start the file with its card: a block between two `---` lines, written as JSON. Copy one from an existing report and change it.
    - **Always:** `id`, `date`, `ticker`, `venue`, `kind`, `title`, `px`, `blurb`, `verdict`, `tone` (`bad`, `warn` or `good`)
    - **Summary card:** `headline`, `reasons` (3 lines), `watch` (signals), `next` (`text`, plus `until` if it has a date)
-   - **A single company:** `sym` (its Yahoo Finance symbol), so the site can show today's price and score the verdict
+   - **A single company:** `sym` (its Yahoo Finance symbol), so the site can show today's price and score the verdict, and `benchmark` (`sym`, `name`, `fund`, `day`, `price`): a fund or index for its sector, with its level on the research day. `python tools/fetch_prices.py --base <share sym> <benchmark sym> <report date> <research price>` prints that day and level
    - **Optional:** `pdf` (the file name), `bands` (`cur`, `bear`, `base`, `bull`, `price`, `zone`, `zoneLabel`, `note`) for the value range, `quote` (`cur`, `price`) when there are no bands, `updates` (dated notes added after the report)
 3. Every line in the card must come from the report itself.
 4. Run `python tools/build.py`. It rebuilds `reports.js` and the table above, fetches the National Bank of Romania rates for the report's date, and stops with a message if the card is missing something.

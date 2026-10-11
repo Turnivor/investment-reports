@@ -4,6 +4,13 @@
   "date": "2026-10-11",
   "ticker": "HDB",
   "sym": "HDFCBANK.NS",
+  "benchmark": {
+    "sym": "^NSEBANK",
+    "name": "Indian banks",
+    "fund": "Nifty Bank index",
+    "day": "2026-10-09",
+    "price": 55256.65
+  },
   "venue": "NYSE / NSE",
   "kind": "Company",
   "title": "HDFC Bank",
