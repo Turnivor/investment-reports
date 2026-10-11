@@ -1,4 +1,6 @@
 # Saves the latest prices to prices.json each weekday at 16:00 UTC (New York is still trading then, so US prices are mid-session).
+# When a share drops under its report level, a checkpoint date arrives or a verdict turns 90 days old, it opens an issue,
+# which GitHub emails to the repo owner.
 # Can also be started by hand from the Actions tab ("Run workflow").
 name: Update prices
 
@@ -9,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   prices:
@@ -17,6 +20,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Fetch prices
         run: python3 tools/fetch_prices.py
+        env:
+          ALERT_DIR: ${{ runner.temp }}
       - name: Commit if a price changed
         run: |
           if [ -n "$(git status --porcelain prices.json)" ]; then
@@ -25,4 +30,11 @@ jobs:
             git add prices.json
             git commit -m "Update prices"
             git push
+          fi
+      - name: Open an issue if there is an alert
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f "$RUNNER_TEMP/alert_title.txt" ]; then
+            gh issue create --title "$(cat "$RUNNER_TEMP/alert_title.txt")" --body-file "$RUNNER_TEMP/alert_body.md"
           fi
