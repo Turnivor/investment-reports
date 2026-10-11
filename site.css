@@ -1,65 +1,81 @@
-/* Shared look for every page of the Turnivor Research Desk: tokens, base type, top navigation, masthead, chips. */
+/* Shared look for every page of Officium Advocati Diaboli: tokens, base type, top navigation, masthead, chips.
+   One deliberate dark theme: layered graphite greys, warm off-white ink, antique gold as the only accent. */
 :root {
-  --bg: #f3f5f7;
-  --surface: #ffffff;
-  --ink: #14202b;
-  --muted: #5b6875;
-  --rule: #d9dfe5;
-  --accent: #1d5a85;
-  --accent-soft: #e3edf5;
-  --bad: #a3312b;     --bad-soft: #f7e4e2;
-  --warn: #8a5a00;    --warn-soft: #f8edd6;
-  --good: #23704a;    --good-soft: #e0f0e7;
-  --code-bg: #eef1f4;
+  --bg: #111214;
+  --surface: #191b1e;
+  --raised: #212428;
+  --ink: #ebe8e1;
+  --muted: #9c9a93;
+  --rule: #2d3035;
+  --accent: #c9a55c;
+  --accent-soft: #2a2416;
+  --bad: #e2766b;     --bad-soft: #331d1b;
+  --warn: #e0914f;    --warn-soft: #33220f;
+  --good: #82c29a;    --good-soft: #17291e;
+  --code-bg: #1e2024;
+  --f-title: "Cinzel", "Trajan Pro", "Times New Roman", serif;
   --f-display: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --f-body: "Newsreader", Georgia, "Times New Roman", serif;
   --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f151b; --surface: #161e26; --ink: #e4e9ee; --muted: #93a1ae; --rule: #2a3540;
-    --accent: #7db4dc; --accent-soft: #1a2c3b;
-    --bad: #f08a80; --bad-soft: #3a1f1d; --warn: #e6b45a; --warn-soft: #362a12; --good: #7bcf9f; --good-soft: #17301f;
-    --code-bg: #1d2731; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f151b; --surface: #161e26; --ink: #e4e9ee; --muted: #93a1ae; --rule: #2a3540;
-  --accent: #7db4dc; --accent-soft: #1a2c3b;
-  --bad: #f08a80; --bad-soft: #3a1f1d; --warn: #e6b45a; --warn-soft: #362a12; --good: #7bcf9f; --good-soft: #17301f;
-  --code-bg: #1d2731; color-scheme: dark;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
-html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); background: var(--bg); }
 img { max-width: 100%; }
 [hidden] { display: none !important; }
 body {
   margin: 0;
-  background: var(--bg); color: var(--ink);
+  background:
+    radial-gradient(1100px 420px at 50% -120px, #24272c 0%, rgba(36, 39, 44, 0) 70%),
+    var(--bg);
+  background-repeat: no-repeat;
+  color: var(--ink);
   font-family: var(--f-body); font-size: 18px; line-height: 1.6;
   padding-inline: 16px; padding-block: 0 64px;
+  min-height: 100vh;
 }
 .wrap { max-width: 1120px; margin-inline: auto; }
 a { color: var(--accent); }
+::selection { background: var(--accent); color: var(--bg); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
 
 /* ---------- Top navigation ---------- */
-.nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 20px; padding-block: 14px; border-bottom: 1px solid var(--rule); }
-.nav .brand { font-family: var(--f-display); font-weight: 700; font-size: 17px; letter-spacing: .02em; color: var(--ink); text-decoration: none; }
+.nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 20px; padding-block: 16px; border-bottom: 1px solid var(--rule); }
+.nav .brand { display: block; padding: 4px 0; border-radius: 4px; }
+.nav .brand .sigil { width: 84px; transition: filter .15s ease; }
+.nav .brand:hover .sigil { filter: brightness(1.2); }
+
+/* ---------- Emblem: the winged disc, drawn in gold through a mask so it follows the palette ---------- */
+.sigil {
+  display: block; aspect-ratio: 866 / 273;
+  background: linear-gradient(100deg, #e6cd90 0%, var(--accent) 45%, #a17c3a 100%);
+  -webkit-mask: url(brand/emblem.png) center / contain no-repeat;
+  mask: url(brand/emblem.png) center / contain no-repeat;
+}
 .nav ul { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
 .nav ul a {
   display: block; font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
   color: var(--muted); text-decoration: none; padding: 6px 12px; border-radius: 5px; border: 1px solid transparent;
 }
 .nav ul a:hover { color: var(--ink); border-color: var(--rule); }
-.nav ul a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+.nav ul a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); border-color: rgba(201, 165, 92, .28); }
 
 /* ---------- Masthead ---------- */
-.mast { display: grid; gap: 10px; padding-block: 36px 28px; border-bottom: 2px solid var(--ink); }
+.mast { position: relative; display: grid; gap: 12px; padding-block: 44px 32px; }
+.mast::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, var(--accent) 0%, rgba(201, 165, 92, .35) 38%, var(--rule) 100%); }
+.mast.has-seal { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px 48px; }
+.mast-text { display: grid; gap: 12px; min-width: 0; }
+.mast .seal { display: block; width: clamp(240px, 30vw, 380px); height: auto; filter: drop-shadow(0 18px 40px rgba(201, 165, 92, .16)); }
+@media (max-width: 860px) {
+  .mast.has-seal { grid-template-columns: minmax(0, 1fr); }
+  .mast .seal { order: -1; width: 200px; margin-bottom: 6px; }
+}
 .eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.mast h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 6vw, 56px); line-height: 1; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.mast h1 { font-family: var(--f-title); font-weight: 500; font-size: clamp(27px, 5.1vw, 56px); line-height: 1.08; margin: 0; letter-spacing: .06em; text-transform: uppercase; text-wrap: balance; }
+.motto { display: grid; gap: 2px; padding-block: 2px 8px; }
+.motto i { font-family: var(--f-body); font-style: italic; font-weight: 500; font-size: clamp(22px, 3.4vw, 28px); line-height: 1.2; color: var(--accent); }
+.motto span { font-family: var(--f-body); font-size: 17px; color: var(--muted); }
 .mast p { margin: 0; max-width: 62ch; color: var(--muted); font-size: 17px; }
 .disclaimer { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
 
@@ -73,6 +89,7 @@ a { color: var(--accent); }
 .chip.good { color: var(--good); background: var(--good-soft); }
 .chip.plain { color: var(--muted); background: var(--surface); border-color: var(--rule); }
 
-.foot { margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--rule); font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.foot { margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--rule); font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); text-align: center; }
+.foot .sigil { width: 96px; margin: 0 auto 14px; opacity: .75; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }

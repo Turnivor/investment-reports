@@ -3,38 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Turnivor Research Desk</title>
+<title>Officium Advocati Diaboli</title>
 <meta name="description" content="Personal company and industry research using the Buffett, Munger, Duan Yongping and Li Lu framework. Not investment advice.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Turnivor Research Desk">
-<meta property="og:title" content="Turnivor Research Desk">
-<meta property="og:description" content="Company and industry research with a verdict, price bands and signals to watch. Personal research, not investment advice.">
+<meta property="og:site_name" content="Officium Advocati Diaboli">
+<meta property="og:title" content="Officium Advocati Diaboli">
+<meta property="og:description" content="Fortuna vitrea est. Fortune is glass: just when it shines, it shatters. Company and industry research that argues the case against before the money goes in. Not investment advice.">
 <meta property="og:url" content="https://turnivor.github.io/investment-reports/">
 <meta property="og:image" content="https://turnivor.github.io/investment-reports/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d5a85'/%3E%3Cpath d='M7 9h18v3H17.5v12h-3V12H7z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="brand/favicon.png">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
 <link rel="stylesheet" href="site.css">
 <style>
 /* Layout: a ledger of reports (date · ticker · verdict) that opens into a summary card, then a long-form reading column with a sticky contents rail. */
 
-/* ---------- Filters ---------- */
-.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; padding-block: 16px 6px; }
-.fgroup { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.fgroup .flabel, .sortbox label { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
-.fbtn {
-  font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); cursor: pointer;
-  background: var(--surface); border: 1px solid var(--rule); border-radius: 99px; padding: 4px 12px;
+/* ---------- Filters: one dropdown per question (verdict, type, year) plus sorting ---------- */
+.filters { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-block: 18px 8px; }
+.fmenu { position: relative; }
+.fmenu.sort { margin-left: auto; }
+.fmbtn {
+  display: flex; align-items: center; gap: 9px; cursor: pointer;
+  font-family: var(--f-mono); font-size: 12.5px; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 7px 12px;
+  transition: border-color .15s ease, background-color .15s ease;
 }
-.fbtn:hover { color: var(--ink); border-color: var(--muted); }
-.fbtn[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
-.sortbox { margin-left: auto; display: flex; align-items: center; gap: 6px; }
-.sortbox select { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: 5px; padding: 4px 8px; }
-@media (max-width: 760px) { .sortbox { margin-left: 0; } }
+.fmbtn:hover { border-color: var(--muted); }
+.fmbtn .k { color: var(--muted); letter-spacing: .1em; text-transform: uppercase; font-size: 11.5px; }
+.fmbtn .caret { color: var(--muted); font-size: 10px; transition: transform .15s ease; }
+.fmbtn[aria-expanded="true"] { border-color: var(--accent); background: var(--raised); }
+.fmbtn[aria-expanded="true"] .caret { transform: rotate(180deg); color: var(--accent); }
+.fmenu.active .fmbtn { border-color: rgba(201, 165, 92, .55); }
+.fmenu.active .fmbtn .v { color: var(--accent); }
+.fpanel {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 10; min-width: 232px;
+  display: grid; gap: 1px; padding: 6px;
+  background: var(--raised); border: 1px solid var(--rule); border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .5);
+}
+.fmenu.sort .fpanel { left: auto; right: 0; }
+.fopt { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 5px; cursor: pointer; font-family: var(--f-mono); font-size: 13px; color: var(--ink); }
+.fopt:hover { background: var(--surface); }
+.fopt input { accent-color: var(--accent); width: 15px; height: 15px; margin: 0; flex: none; }
+.fopt .n { margin-left: auto; color: var(--muted); font-variant-numeric: tabular-nums; }
+.fclr, .freset {
+  font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); cursor: pointer;
+  background: none; border: 0; padding: 7px 10px; border-radius: 5px; text-align: left;
+}
+.fclr { border-top: 1px solid var(--rule); border-radius: 0 0 5px 5px; margin-top: 4px; }
+.fclr:hover, .freset:hover { color: var(--accent); }
+.fcount { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); padding-left: 6px; }
+@media (max-width: 760px) {
+  .fmenu, .fmenu.sort { position: static; margin-left: 0; }
+  .fpanel, .fmenu.sort .fpanel { left: 0; right: 0; top: 100%; }
+}
 
 /* ---------- Ledger ---------- */
 .ledger-head, .row {
@@ -48,7 +75,8 @@
   text-decoration: none; color: inherit; cursor: pointer;
   transition: background-color .15s ease;
 }
-.row:hover { background: var(--surface); }
+.row:hover { background: linear-gradient(90deg, rgba(201, 165, 92, .06), var(--surface) 30%); }
+.row:hover .what h2 { color: var(--accent); }
 .row .when { display: grid; gap: 3px; }
 .row .date { font-family: var(--f-mono); font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .age { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
@@ -124,7 +152,7 @@
 .rmeta { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
 
 /* ---------- Summary card ---------- */
-.sum { background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--ink); border-radius: 0 0 8px 8px; padding: 22px 24px; display: grid; gap: 22px 36px; grid-template-columns: minmax(0, 1fr); }
+.sum { background: linear-gradient(180deg, var(--raised) 0%, var(--surface) 140px); border: 1px solid var(--rule); border-top: 2px solid var(--accent); border-radius: 0 0 8px 8px; padding: 22px 24px; display: grid; gap: 22px 36px; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 880px) { .sum { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
 .sum > div { min-width: 0; display: grid; gap: 16px; align-content: start; }
 .sum h2 { font-family: var(--f-display); font-weight: 700; font-size: 26px; line-height: 1.15; margin: 0; text-wrap: balance; }
@@ -192,7 +220,7 @@
 <body>
 <div class="wrap">
   <nav class="nav" aria-label="Site">
-    <a class="brand" href="./">Turnivor Research Desk</a>
+    <a class="brand" href="./" aria-label="Officium Advocati Diaboli, home" title="Officium Advocati Diaboli"><span class="sigil" aria-hidden="true"></span></a>
     <ul>
       <li><a href="./" aria-current="page">Reports</a></li>
       <li><a href="commands.html">Commands</a></li>
@@ -200,31 +228,22 @@
   </nav>
 
   <section id="home">
-    <header class="mast">
-      <div class="eyebrow">Equity &amp; industry research · 2026</div>
-      <h1>Turnivor Research Desk</h1>
+    <header class="mast has-seal">
+      <div class="mast-text">
+      <h1>Officium Advocati Diaboli</h1>
+      <div class="motto"><i lang="la">Fortuna vitrea est</i><span>Fortune is glass: just when it shines, it shatters.</span></div>
       <p>Company and industry write-ups built on the Buffett · Munger · Duan Yongping · Li Lu framework. Each one checks the data against two sources, asks what could go wrong, and ends with a price range.</p>
-      <div class="disclaimer">Personal research made with AI help. Not investment advice.</div>
+      </div>
+      <img class="seal" src="brand/seal.png" width="1000" height="536" alt="">
     </header>
 
-    <div class="filters" id="filters">
-      <div class="fgroup" id="fTone" role="group" aria-label="Filter by verdict"><span class="flabel">Verdict</span></div>
-      <div class="fgroup" id="fKind" role="group" aria-label="Filter by type"><span class="flabel">Type</span></div>
-      <div class="sortbox">
-        <label for="sort">Sort</label>
-        <select id="sort">
-          <option value="new">Newest first</option>
-          <option value="old">Oldest first</option>
-          <option value="az">Name A–Z</option>
-        </select>
-      </div>
-    </div>
+    <div class="filters" id="filters" aria-label="Filter and sort the reports"></div>
 
     <div class="ledger-head" aria-hidden="true">
       <span>Date</span><span>Ticker</span><span>Report</span><span>Verdict · price at research</span>
     </div>
     <div class="rows" id="rows"></div>
-    <p class="none" id="none" hidden>No report matches those filters. <button class="fbtn" id="clear" type="button">Show all</button></p>
+    <p class="none" id="none" hidden>No report matches those filters. <button class="freset" id="clear" type="button">Show all</button></p>
 
     <div class="about">
       <h3>How to read these</h3>
@@ -258,7 +277,7 @@
     </div>
   </section>
 
-  <footer class="foot">Personal research made with AI help. Not investment advice. Verify before acting.</footer>
+  <footer class="foot"><span class="sigil" aria-hidden="true"></span>Personal research made with AI help. Not investment advice. Verify before acting.</footer>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
@@ -475,24 +494,56 @@ function band(b, compact) {
 }
 
 /* ---------- Ledger with filters ---------- */
-const state = { tone: null, kind: null, sort: "new" };
-try { const s = JSON.parse(localStorage.getItem("desk-filters") || "{}"); Object.assign(state, s); } catch (e) {}
-const saveState = () => { try { localStorage.setItem("desk-filters", JSON.stringify(state)); } catch (e) {} };
+const DIMS = [
+  { key: "tone", label: "Verdict", options: TONES.filter(([t]) => REPORTS.some(r => r.tone === t)) },
+  { key: "kind", label: "Type", options: [...new Set(REPORTS.map(r => r.kind))].sort().map(k => [k, k]) },
+  { key: "year", label: "Year", options: [...new Set(REPORTS.map(r => r.date.slice(0, 4)))].sort().reverse().map(y => [y, y]) },
+];
+const SORTS = [["new", "Newest first"], ["old", "Oldest first"], ["az", "Name A–Z"]];
+const valueOf = (r, key) => key === "year" ? r.date.slice(0, 4) : r[key];
+
+const state = { tone: [], kind: [], year: [], sort: "new" };
+try {
+  const s = JSON.parse(localStorage.getItem("desk-filters-v2") || "{}");
+  DIMS.forEach(d => { if (Array.isArray(s[d.key])) state[d.key] = s[d.key].filter(v => d.options.some(([o]) => o === v)); });
+  if (SORTS.some(([v]) => v === s.sort)) state.sort = s.sort;
+} catch (e) {}
+const saveState = () => { try { localStorage.setItem("desk-filters-v2", JSON.stringify(state)); } catch (e) {} };
+let openMenu = null;
 
 function nextPassed(r) { return r.next && r.next.until && new Date(r.next.until + "T23:59:59") < new Date(); }
 
+function matches(r) { return DIMS.every(d => state[d.key].length === 0 || state[d.key].includes(valueOf(r, d.key))); }
+
 function drawFilters() {
-  const btn = (group, val, label) => `<button class="fbtn" type="button" data-group="${group}" data-val="${esc(val ?? "")}" aria-pressed="${state[group] === val}">${esc(label)}</button>`;
-  const tones = TONES.filter(([t]) => REPORTS.some(r => r.tone === t));
-  const kinds = [...new Set(REPORTS.map(r => r.kind))];
-  $("#fTone").innerHTML = `<span class="flabel">Verdict</span>` + btn("tone", null, "All") + tones.map(([t, l]) => btn("tone", t, l)).join("");
-  $("#fKind").innerHTML = `<span class="flabel">Type</span>` + btn("kind", null, "All") + kinds.map(k => btn("kind", k, k)).join("");
-  $("#sort").value = state.sort;
+  const menus = DIMS.map(d => {
+    const sel = state[d.key], open = openMenu === d.key;
+    const shown = sel.length === 0 ? "All" : sel.length === 1 ? d.options.find(([v]) => v === sel[0])[1] : `${sel.length} selected`;
+    return `
+    <div class="fmenu${sel.length ? " active" : ""}" data-key="${d.key}">
+      <button class="fmbtn" type="button" aria-haspopup="true" aria-expanded="${open}" aria-controls="fp-${d.key}"><span class="k">${d.label}</span><span class="v">${esc(shown)}</span><span class="caret" aria-hidden="true">▼</span></button>
+      <div class="fpanel" id="fp-${d.key}" role="group" aria-label="${d.label}"${open ? "" : " hidden"}>
+        ${d.options.map(([v, l], i) => `<label class="fopt" for="f-${d.key}-${i}"><input type="checkbox" id="f-${d.key}-${i}" data-key="${d.key}" value="${esc(v)}"${sel.includes(v) ? " checked" : ""}><span>${esc(l)}</span><span class="n">${REPORTS.filter(r => valueOf(r, d.key) === v).length}</span></label>`).join("")}
+        ${sel.length ? `<button class="fclr" type="button" data-clear="${d.key}">Clear ${d.label.toLowerCase()}</button>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+  const any = DIMS.some(d => state[d.key].length), open = openMenu === "sort";
+  const total = REPORTS.filter(matches).length;
+  $("#filters").innerHTML = menus + `
+    ${any ? `<button class="freset" type="button" id="reset">Reset</button>` : ""}
+    <span class="fcount">${total} of ${REPORTS.length} reports</span>
+    <div class="fmenu sort" data-key="sort">
+      <button class="fmbtn" type="button" aria-haspopup="true" aria-expanded="${open}" aria-controls="fp-sort"><span class="k">Sort</span><span class="v">${SORTS.find(([v]) => v === state.sort)[1]}</span><span class="caret" aria-hidden="true">▼</span></button>
+      <div class="fpanel" id="fp-sort" role="group" aria-label="Sort"${open ? "" : " hidden"}>
+        ${SORTS.map(([v, l], i) => `<label class="fopt" for="f-sort-${i}"><input type="radio" name="sort" id="f-sort-${i}" value="${v}"${state.sort === v ? " checked" : ""}><span>${l}</span></label>`).join("")}
+      </div>
+    </div>`;
 }
 
 function drawRows() {
   const list = REPORTS
-    .filter(r => (!state.tone || r.tone === state.tone) && (!state.kind || r.kind === state.kind))
+    .filter(matches)
     .sort((a, b) => state.sort === "az" ? a.title.localeCompare(b.title)
       : state.sort === "old" ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
   $("#rows").innerHTML = list.map(r => {
@@ -509,13 +560,38 @@ function drawRows() {
   $("#none").hidden = list.length > 0;
 }
 
+function resetFilters() { DIMS.forEach(d => state[d.key] = []); openMenu = null; saveState(); drawFilters(); drawRows(); }
+
 $("#filters").addEventListener("click", e => {
-  const b = e.target.closest(".fbtn"); if (!b) return;
-  state[b.dataset.group] = b.dataset.val || null;
-  saveState(); drawFilters(); drawRows();
+  const mb = e.target.closest(".fmbtn");
+  if (mb) {
+    const key = mb.parentElement.dataset.key;
+    openMenu = openMenu === key ? null : key;
+    drawFilters();
+    document.querySelector(`.fmenu[data-key="${key}"] .fmbtn`).focus();
+    return;
+  }
+  const clr = e.target.closest(".fclr");
+  if (clr) { state[clr.dataset.clear] = []; saveState(); drawFilters(); drawRows(); document.querySelector(`.fmenu[data-key="${clr.dataset.clear}"] .fmbtn`).focus(); return; }
+  if (e.target.closest("#reset")) resetFilters();
 });
-$("#sort").addEventListener("change", e => { state.sort = e.target.value; saveState(); drawRows(); });
-$("#clear").addEventListener("click", () => { state.tone = null; state.kind = null; saveState(); drawFilters(); drawRows(); });
+$("#filters").addEventListener("change", e => {
+  const inp = e.target; if (!inp.matches("input")) return;
+  if (inp.name === "sort") state.sort = inp.value;
+  else {
+    const key = inp.dataset.key;
+    state[key] = inp.checked ? [...state[key], inp.value] : state[key].filter(v => v !== inp.value);
+  }
+  saveState(); drawFilters(); drawRows();
+  document.getElementById(inp.id)?.focus();
+});
+document.addEventListener("click", e => { if (openMenu && !e.target.closest(".fmenu")) { openMenu = null; drawFilters(); } });
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape" || !openMenu) return;
+  const key = openMenu; openMenu = null; drawFilters();
+  document.querySelector(`.fmenu[data-key="${key}"] .fmbtn`)?.focus();
+});
+$("#clear").addEventListener("click", resetFilters);
 drawFilters(); drawRows();
 
 /* ---------- Reader ---------- */
@@ -571,7 +647,7 @@ function summaryCard(r) {
 async function openReport(id) {
   const r = byId[id], n = daysOld(r.date), stale = n > STALE_DAYS;
   $("#home").hidden = true; $("#readerView").hidden = false;
-  document.title = `${r.title} · Turnivor Research Desk`;
+  document.title = `${r.title} · Officium Advocati Diaboli`;
   $("#crumb").textContent = `${r.ticker} · ${fmtDate(r.date)}`;
   $("#rKind").textContent = `${r.kind} · ${r.venue}`;
   $("#rTitle").textContent = r.title;
@@ -621,7 +697,7 @@ $("#tocList").addEventListener("click", e => {
 
 function showHome() {
   $("#readerView").hidden = true; $("#home").hidden = false;
-  document.title = "Turnivor Research Desk";
+  document.title = "Officium Advocati Diaboli";
 }
 
 function route() {

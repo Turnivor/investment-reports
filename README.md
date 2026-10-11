@@ -1,4 +1,6 @@
-# Investment Research Reports
+# Officium Advocati Diaboli
+
+*Fortuna vitrea est.* Fortune is glass: just when it shines, it shatters.
 
 Personal stock and industry research, made with Claude Code and the [ai-berkshire](https://github.com/xbtlin/ai-berkshire) framework (Buffett / Munger / Duan Yongping / Li Lu).
 
@@ -27,6 +29,7 @@ Charts: [`charts/`](charts/)
 | [`commands.html`](commands.html) | [Command cheat sheet](https://turnivor.github.io/investment-reports/commands.html) for the ai-berkshire commands |
 | [`site.css`](site.css) | Shared look for both pages (colours, fonts, top menu) |
 | [`og.png`](og.png) | Preview image shown when the link is shared |
+| [`brand/`](brand/) | Emblem, seal and browser-tab icons |
 
 GitHub Pages serves the site from `main` / root. There is no build step.
 
