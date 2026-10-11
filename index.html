@@ -5,64 +5,41 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Turnivor Research Desk</title>
 <meta name="description" content="Personal company and industry research using the Buffett, Munger, Duan Yongping and Li Lu framework. Not investment advice.">
-<style>html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Turnivor Research Desk">
+<meta property="og:title" content="Turnivor Research Desk">
+<meta property="og:description" content="Company and industry research with a verdict, price bands and signals to watch. Personal research, not investment advice.">
+<meta property="og:url" content="https://turnivor.github.io/investment-reports/">
+<meta property="og:image" content="https://turnivor.github.io/investment-reports/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d5a85'/%3E%3Cpath d='M7 9h18v3H17.5v12h-3V12H7z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<link rel="stylesheet" href="site.css">
 <style>
-/* Layout: a ledger of reports (date · ticker · verdict) that opens into a long-form reading column with a sticky contents rail. */
-:root {
-  --bg: #f3f5f7;
-  --surface: #ffffff;
-  --ink: #14202b;
-  --muted: #5b6875;
-  --rule: #d9dfe5;
-  --accent: #1d5a85;
-  --accent-soft: #e3edf5;
-  --bad: #a3312b;     --bad-soft: #f7e4e2;
-  --warn: #8a5a00;    --warn-soft: #f8edd6;
-  --good: #23704a;    --good-soft: #e0f0e7;
-  --code-bg: #eef1f4;
-  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
-  --f-body: "Newsreader", Georgia, "Times New Roman", serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f151b; --surface: #161e26; --ink: #e4e9ee; --muted: #93a1ae; --rule: #2a3540;
-    --accent: #7db4dc; --accent-soft: #1a2c3b;
-    --bad: #f08a80; --bad-soft: #3a1f1d; --warn: #e6b45a; --warn-soft: #362a12; --good: #7bcf9f; --good-soft: #17301f;
-    --code-bg: #1d2731; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f151b; --surface: #161e26; --ink: #e4e9ee; --muted: #93a1ae; --rule: #2a3540;
-  --accent: #7db4dc; --accent-soft: #1a2c3b;
-  --bad: #f08a80; --bad-soft: #3a1f1d; --warn: #e6b45a; --warn-soft: #362a12; --good: #7bcf9f; --good-soft: #17301f;
-  --code-bg: #1d2731; color-scheme: dark;
-}
+/* Layout: a ledger of reports (date · ticker · verdict) that opens into a summary card, then a long-form reading column with a sticky contents rail. */
 
-* { box-sizing: border-box; }
-body {
-  background: var(--bg); color: var(--ink);
-  font-family: var(--f-body); font-size: 18px; line-height: 1.6;
-  padding-inline: 16px; padding-block: 0 64px;
+/* ---------- Filters ---------- */
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; padding-block: 16px 6px; }
+.fgroup { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.fgroup .flabel, .sortbox label { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.fbtn {
+  font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); cursor: pointer;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 99px; padding: 4px 12px;
 }
-.wrap { max-width: 1120px; margin-inline: auto; }
-a { color: var(--accent); }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
-
-/* ---------- Masthead ---------- */
-.mast { display: grid; gap: 10px; padding-block: 40px 28px; border-bottom: 2px solid var(--ink); }
-.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.mast h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 6vw, 56px); line-height: 1; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
-.mast p { margin: 0; max-width: 62ch; color: var(--muted); font-size: 17px; }
-.disclaimer { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.fbtn:hover { color: var(--ink); border-color: var(--muted); }
+.fbtn[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.sortbox { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.sortbox select { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: 5px; padding: 4px 8px; }
+@media (max-width: 760px) { .sortbox { margin-left: 0; } }
 
 /* ---------- Ledger ---------- */
 .ledger-head, .row {
   display: grid; gap: 18px; align-items: baseline;
-  grid-template-columns: 104px 150px minmax(0, 1fr) 190px;
+  grid-template-columns: 112px 140px minmax(0, 1fr) 210px;
 }
 .ledger-head { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-block: 14px 8px; border-bottom: 1px solid var(--rule); }
 .rows { display: grid; }
@@ -72,7 +49,10 @@ a { color: var(--accent); }
   transition: background-color .15s ease;
 }
 .row:hover { background: var(--surface); }
+.row .when { display: grid; gap: 3px; }
 .row .date { font-family: var(--f-mono); font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.age { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.age.stale { color: var(--warn); }
 .row .tick { display: grid; gap: 2px; }
 .row .tick b { font-family: var(--f-mono); font-weight: 500; font-size: 15px; letter-spacing: .04em; }
 .row .tick span { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
@@ -80,29 +60,47 @@ a { color: var(--accent); }
 .row .what h2 { font-family: var(--f-display); font-weight: 600; font-size: 24px; line-height: 1.15; margin: 0; text-wrap: balance; }
 .row .what p { margin: 0; color: var(--muted); font-size: 16.5px; line-height: 1.5; }
 .row .kind { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-.verdict { display: grid; gap: 6px; justify-items: start; }
-.chip {
-  font-family: var(--f-mono); font-size: 12.5px; font-weight: 500; letter-spacing: .02em;
-  padding: 3px 9px; border-radius: 4px; border: 1px solid currentColor;
-}
-.chip.bad  { color: var(--bad);  background: var(--bad-soft); }
-.chip.warn { color: var(--warn); background: var(--warn-soft); }
-.chip.good { color: var(--good); background: var(--good-soft); }
+.row .next { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.row .next b { font-weight: 500; color: var(--ink); }
+.verdict { display: grid; gap: 7px; justify-items: start; min-width: 0; }
 .verdict .px { font-family: var(--f-mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.verdict .band { width: 100%; }
+.none { padding: 28px 0; color: var(--muted); font-family: var(--f-mono); font-size: 14px; }
 
 @media (max-width: 760px) {
   .ledger-head { display: none; }
   .row { grid-template-columns: 1fr auto; gap: 8px 14px; padding-block: 20px; }
-  .row .date { grid-column: 1; grid-row: 1; }
+  .row .when { grid-column: 1; grid-row: 1; }
   .row .tick { grid-column: 2; grid-row: 1; justify-items: end; text-align: right; }
   .row .what { grid-column: 1 / -1; grid-row: 2; }
-  .row .verdict { grid-column: 1 / -1; grid-row: 3; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .row .verdict { grid-column: 1 / -1; grid-row: 3; }
   .row .what h2 { font-size: 22px; }
 }
 
 .about { margin-top: 36px; display: grid; gap: 8px; max-width: 70ch; color: var(--muted); font-size: 16px; }
 .about h3 { font-family: var(--f-display); font-weight: 600; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); margin: 0; }
 .about p { margin: 0; }
+
+/* ---------- Price band (bear · base · bull against the price at research) ---------- */
+.band { display: grid; gap: 6px; }
+.band .lbls { position: relative; height: 16px; font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
+.band .lbls span { position: absolute; top: 0; white-space: nowrap; }
+.band .track { position: relative; height: 12px; border-radius: 6px; background: var(--code-bg); }
+.band .zone { position: absolute; left: 0; top: 0; bottom: 0; background: var(--good-soft); border-radius: 6px 0 0 6px; border-right: 1px dashed var(--good); }
+.band .span { position: absolute; top: 5px; height: 2px; background: var(--accent); }
+.band .dot { position: absolute; top: 1px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px var(--surface); }
+.band .price { position: absolute; top: -5px; bottom: -5px; width: 3px; margin-left: -1.5px; background: var(--ink); border-radius: 2px; box-shadow: 0 0 0 2px var(--surface); }
+.band.compact .track { height: 8px; }
+.band.compact .dot { top: 0; width: 8px; height: 8px; margin-left: -4px; box-shadow: 0 0 0 1.5px var(--bg); }
+.band.compact .span { top: 3px; }
+.band.compact .price { top: -4px; bottom: -4px; box-shadow: 0 0 0 1.5px var(--bg); }
+.band .key { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 4px 0 0; padding: 0; list-style: none; font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.band .key li { display: flex; align-items: center; gap: 6px; }
+.band .key i { flex: none; display: inline-block; }
+.band .key .k-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+.band .key .k-price { width: 3px; height: 14px; border-radius: 2px; background: var(--ink); }
+.band .key .k-zone { width: 14px; height: 10px; background: var(--good-soft); border: 1px dashed var(--good); border-radius: 2px; }
+.band .note { font-family: var(--f-mono); font-size: 12px; color: var(--muted); margin: 0; }
 
 /* ---------- Reader ---------- */
 .bar {
@@ -111,19 +109,33 @@ a { color: var(--accent); }
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
   padding-block: 12px; margin-inline: -16px; padding-inline: 16px;
 }
-.back {
-  font-family: var(--f-mono); font-size: 13px; color: var(--ink);
+.back, .btn {
+  font-family: var(--f-mono); font-size: 13px; color: var(--ink); text-decoration: none;
   background: var(--surface); border: 1px solid var(--rule); border-radius: 5px;
-  padding: 6px 12px; cursor: pointer;
+  padding: 6px 12px; cursor: pointer; display: inline-block;
 }
-.back:hover { border-color: var(--accent); color: var(--accent); }
+.back:hover, .btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.btn.primary:hover { color: var(--surface); opacity: .88; }
 .bar .crumb { font-family: var(--f-mono); font-size: 13px; color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
 
-.rhead { display: grid; gap: 12px; padding-block: 34px 26px; border-bottom: 2px solid var(--ink); }
+.rhead { display: grid; gap: 12px; padding-block: 34px 22px; }
 .rhead h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(30px, 5vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; }
 .rmeta { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
 
-.reader { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 28px; }
+/* ---------- Summary card ---------- */
+.sum { background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--ink); border-radius: 0 0 8px 8px; padding: 22px 24px; display: grid; gap: 22px 36px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 880px) { .sum { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
+.sum > div { min-width: 0; display: grid; gap: 16px; align-content: start; }
+.sum h2 { font-family: var(--f-display); font-weight: 700; font-size: 26px; line-height: 1.15; margin: 0; text-wrap: balance; }
+.sum h3 { font-family: var(--f-mono); font-weight: 500; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.sum ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 17px; line-height: 1.45; }
+.sum .nextline { font-size: 17px; line-height: 1.45; margin: 0; }
+.sum .stale { font-family: var(--f-mono); font-size: 13px; color: var(--warn); background: var(--warn-soft); border-radius: 5px; padding: 8px 12px; margin: 0; }
+.sum .acts { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-top: 1px solid var(--rule); padding-top: 16px; }
+.sum .acts small { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+
+.reader { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 34px; }
 @media (min-width: 1000px) { .reader { grid-template-columns: 230px minmax(0, 1fr); } }
 
 .toc { font-family: var(--f-display); font-size: 15px; }
@@ -148,7 +160,7 @@ a { color: var(--accent); }
 }
 
 /* ---------- Prose (rendered markdown) ---------- */
-.prose { min-width: 0; max-width: 74ch; }
+.prose { min-width: 0; max-width: 74ch; scroll-margin-top: 80px; }
 .prose > *:first-child { margin-top: 0; }
 .prose h2 { font-family: var(--f-display); font-weight: 700; font-size: 28px; line-height: 1.15; margin: 2.2em 0 .6em; padding-top: .6em; border-top: 1px solid var(--rule); text-wrap: balance; scroll-margin-top: 80px; }
 .prose h3 { font-family: var(--f-display); font-weight: 600; font-size: 21px; margin: 1.7em 0 .5em; text-wrap: balance; scroll-margin-top: 80px; }
@@ -156,6 +168,7 @@ a { color: var(--accent); }
 .prose p, .prose ul, .prose ol { margin: 0 0 1em; }
 .prose li { margin-bottom: .35em; }
 .prose strong { font-weight: 600; }
+.prose a { overflow-wrap: anywhere; }
 .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
 .prose blockquote {
   margin: 1.2em 0; padding: 12px 18px; background: var(--accent-soft);
@@ -174,12 +187,18 @@ a { color: var(--accent); }
 .prose td { min-width: 6ch; }
 
 .status { padding: 40px 0; color: var(--muted); font-family: var(--f-mono); font-size: 14px; }
-
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <nav class="nav" aria-label="Site">
+    <a class="brand" href="./">Turnivor Research Desk</a>
+    <ul>
+      <li><a href="./" aria-current="page">Reports</a></li>
+      <li><a href="commands.html">Commands</a></li>
+    </ul>
+  </nav>
+
   <section id="home">
     <header class="mast">
       <div class="eyebrow">Equity &amp; industry research · 2026</div>
@@ -188,15 +207,29 @@ a { color: var(--accent); }
       <div class="disclaimer">Personal research made with AI help. Not investment advice.</div>
     </header>
 
+    <div class="filters" id="filters">
+      <div class="fgroup" id="fTone" role="group" aria-label="Filter by verdict"><span class="flabel">Verdict</span></div>
+      <div class="fgroup" id="fKind" role="group" aria-label="Filter by type"><span class="flabel">Type</span></div>
+      <div class="sortbox">
+        <label for="sort">Sort</label>
+        <select id="sort">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+          <option value="az">Name A–Z</option>
+        </select>
+      </div>
+    </div>
+
     <div class="ledger-head" aria-hidden="true">
       <span>Date</span><span>Ticker</span><span>Report</span><span>Verdict · price at research</span>
     </div>
     <div class="rows" id="rows"></div>
+    <p class="none" id="none" hidden>No report matches those filters. <button class="fbtn" id="clear" type="button">Show all</button></p>
 
     <div class="about">
       <h3>How to read these</h3>
-      <p>Verdicts reflect the price on the research date, not today. Each report lists its sources, the assumptions behind every valuation, and the questions it could not answer.</p>
-      <p>The commands used to make these reports: <a href="commands.html">AI Financial Tool Commands</a>.</p>
+      <p>Verdicts reflect the price on the research date, not today. The age under each date shows how old a verdict is, and anything older than 90 days is marked as needing a refresh. Each report lists its sources, the assumptions behind every valuation, and the questions it could not answer.</p>
+      <p>The bar under a verdict shows the report's bear, base and bull values as dots, and the price on the research date as a dark line.</p>
     </div>
   </section>
 
@@ -210,6 +243,7 @@ a { color: var(--accent); }
       <h1 id="rTitle"></h1>
       <div class="rmeta" id="rMeta"></div>
     </header>
+    <div class="sum" id="sum"></div>
     <div class="reader">
       <nav class="toc" aria-label="Contents">
         <div class="toc-inner">
@@ -223,45 +257,193 @@ a { color: var(--accent); }
       <article class="prose" id="prose"><div class="status">Loading report…</div></article>
     </div>
   </section>
+
+  <footer class="foot">Personal research made with AI help. Not investment advice. Verify before acting.</footer>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
 <script>
+/* To add a report: put the .md in reports/, then add one entry here.
+   Optional fields: pdf, bands {cur, bear, base, bull, price, zone, zoneLabel, note}, next {text, until}.
+   Every line in `reasons`, `watch` and `next` must come from the report itself. */
 const REPORTS = [
   { id: "oklo", file: "reports/Oklo/Oklo-research-20261009.md", date: "2026-10-09", ticker: "OKLO", venue: "NYSE", kind: "Company",
     title: "Oklo", px: "$34.44",
     blurb: "Advanced nuclear developer with $3B of cash and no power revenue yet. The price implies 7–8 GW of reactors running by 2036.",
-    verdict: "Avoid · speculative < $20", tone: "bad" },
+    verdict: "Avoid · speculative < $20", tone: "bad",
+    headline: "Avoid at $34. The price is far above every scenario in the report.",
+    reasons: [
+      "No power revenue yet. About $3.0B of cash and securities, raised by selling shares.",
+      "The price assumes about 7–8 GW of reactors running by 2036. The report's bull case is about 3 GW.",
+      "Even in the bull case, buying at $34.44 returns roughly 0% a year over 10 years.",
+    ],
+    watch: [
+      "Aurora-INL, the first plant, slipping beyond 2029",
+      "Meta and Switch deals not becoming binding power contracts by 2027",
+      "First disclosed build cost above $10,000 per kW",
+      "Share sales speeding up while milestones slip",
+    ],
+    next: { text: "No fixed date. Next milestones are first isotope revenue (target early 2027) and binding power contracts with Meta and Switch (by 2027)." },
+    bands: { cur: "$", bear: 3.58, base: 3.68, bull: 12.84, price: 34.44, zone: 20, zoneLabel: "Speculative only below $20",
+      note: "Scenario values for 2036, discounted to today at 10%." } },
+
   { id: "nuclear", file: "reports/industry/AdvancedNuclear-SMR-industry-20261009.md", date: "2026-10-09", ticker: "SMR + FUEL", venue: "Industry", kind: "Industry",
     title: "Advanced Nuclear & SMR Value Chain", px: "30 companies",
     blurb: "Demand and permits are real; small-reactor costs are not proven yet. Value is flowing to fuel bottlenecks and existing fleets.",
-    verdict: "Favor BWXT · CCJ · CEG", tone: "good" },
-  { id: "rheinmetall", file: "reports/Rheinmetall/Rheinmetall-research-20261006.md", date: "2026-10-06", ticker: "RHM", venue: "XETRA", kind: "Company",
+    verdict: "Favor BWXT · CCJ · CEG", tone: "good",
+    headline: "Favour fuel bottlenecks and existing plants over reactor start-ups.",
+    reasons: [
+      "Demand and permits are real: contracts are signed and permits have been issued.",
+      "Small-reactor build costs are unproven. Darlington came in at about C$17,400 per kW.",
+      "The widest moats are BWXT (US Navy reactors) and Cameco (uranium plus Westinghouse).",
+    ],
+    watch: [
+      "Any small reactor disclosing an all-in cost below $8,000 per kW for its second unit or later",
+      "Binding power contracts with big tech that state a price",
+      "Cuts to AI spending",
+      "A major nuclear incident, which could hit the whole sector overnight",
+    ],
+    next: { text: "No fixed date. Watch the next cost updates from the Darlington and Kemmerer projects." } },
+
+  { id: "rheinmetall", file: "reports/Rheinmetall/Rheinmetall-research-20261006.md", pdf: "reports/Rheinmetall/Rheinmetall-research-20261006.pdf",
+    date: "2026-10-06", ticker: "RHM", venue: "XETRA", kind: "Company",
     title: "Rheinmetall", px: "€953",
     blurb: "Europe's ammunition and land-systems champion. €80bn backlog, but negative free cash flow in H1 2026.",
-    verdict: "Gray zone · buy < €700", tone: "warn" },
-  { id: "flutter", file: "reports/FLUT/FLUT-pre-earnings-20260226.md", date: "2026-02-26", ticker: "FLUT", venue: "NYSE", kind: "Pre-earnings trade",
+    verdict: "Gray zone · buy < €700", tone: "warn",
+    headline: "Gray zone. A good business at a fair price, with no cushion if things go wrong.",
+    reasons: [
+      "Record €80bn order backlog, up 44%. Ammunition earns a 26–29% margin.",
+      "Free cash flow was –€1.6bn in the first half of 2026, despite record profit.",
+      "€953 already assumes management roughly delivers its 2030 plan of €50bn in sales.",
+    ],
+    watch: [
+      "Cash conversion well below 40% for 2026",
+      "Another cut to guidance",
+      "A large new share issue",
+      "A lasting Ukraine ceasefire together with EU budget delays",
+    ],
+    next: { text: "Q3 2026 results, early November 2026. They show whether cash flow is recovering.", until: "2026-11-30" },
+    bands: { cur: "€", bear: 447, base: 1101, bull: 1899, price: 953, zone: 700, zoneLabel: "Margin of safety below €700",
+      note: "3-year scenario targets, discounted to today at 9%." } },
+
+  { id: "flutter", file: "reports/FLUT/FLUT-pre-earnings-20260226.md", pdf: "reports/FLUT/FLUT_Analysis_20260226.pdf",
+    date: "2026-02-26", ticker: "FLUT", venue: "NYSE", kind: "Pre-earnings trade",
     title: "Flutter Entertainment", px: "$119.84",
     blurb: "Deeply oversold into Q4 results after UK and US tax hits. The stock fell after 3 of its last 4 earnings beats.",
-    verdict: "Hold · wait for guidance", tone: "warn" },
+    verdict: "Hold · wait for guidance", tone: "warn",
+    headline: "Hold. Oversold, but the reaction depended on guidance, not on the results.",
+    reasons: [
+      "Extremely oversold: RSI near 20, and 62% below the all-time high.",
+      "Two tax hits: UK online gaming duty rising from 21% to 40%, and a new US cap on deducting gambling losses.",
+      "In 3 of the previous 4 quarters, the stock was flat or fell after results, even after big beats.",
+    ],
+    watch: [
+      "2026 guidance on the UK and US tax hits",
+      "Support around $105–$115",
+      "Whether a beat is followed by a selloff again",
+    ],
+    next: { text: "Q4 and full-year 2025 results, 26 February 2026 after the close. This report was written before them.", until: "2026-02-26" } },
 ];
 const byId = Object.fromEntries(REPORTS.map(r => [r.id, r]));
 const LINK_MAP = [["Oklo-research", "oklo"], ["AdvancedNuclear-SMR-industry", "nuclear"], ["Rheinmetall-research", "rheinmetall"], ["FLUT", "flutter"]];
+const TONES = [["bad", "Avoid"], ["warn", "Wait or hold"], ["good", "Favour"]];
+const STALE_DAYS = 90;
 
 const $ = s => document.querySelector(s);
-const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const fmtDate = d => new Date(d + "T12:00:00").toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+const daysOld = d => Math.max(0, Math.floor((Date.now() - new Date(d + "T00:00:00")) / 864e5));
+const ageText = n => n === 0 ? "Today" : n === 1 ? "1 day old" : `${n} days old`;
+const isStale = r => daysOld(r.date) > STALE_DAYS;
+const money = (cur, v) => cur + v.toLocaleString("en-GB", { maximumFractionDigits: v < 100 ? 2 : 0 });
 
-// Ledger
-$("#rows").innerHTML = REPORTS.map(r => `
+/* ---------- Price band ---------- */
+function band(b, compact) {
+  const max = Math.max(b.bull, b.price, b.zone || 0) * 1.06;
+  const pct = v => (v / max * 100).toFixed(2) + "%";
+  const pts = [["Bear", b.bear], ["Base", b.base], ["Bull", b.bull]];
+  const summary = `Bear ${money(b.cur, b.bear)}, base ${money(b.cur, b.base)}, bull ${money(b.cur, b.bull)}. Price at research ${money(b.cur, b.price)}.`;
+  const track = `
+    <div class="track">
+      ${b.zone ? `<div class="zone" style="width:${pct(b.zone)}" title="${esc(b.zoneLabel)}"></div>` : ""}
+      <div class="span" style="left:${pct(b.bear)};width:${pct(b.bull - b.bear)}"></div>
+      ${pts.map(([n, v]) => `<div class="dot" style="left:${pct(v)}" title="${n} ${money(b.cur, v)}"></div>`).join("")}
+      <div class="price" style="left:${pct(b.price)}" title="Price at research ${money(b.cur, b.price)}"></div>
+    </div>`;
+  if (compact) return `<div class="band compact" role="img" aria-label="${esc(summary)}">${track}</div>`;
+
+  // direct labels above the track; scenarios that sit close together share one label
+  const groups = [];
+  pts.forEach(([n, v]) => {
+    const p = v / max * 100, last = groups[groups.length - 1];
+    if (last && p - last.to < 9) { last.names.push(n); last.to = p; } else groups.push({ names: [n], from: p, to: p });
+  });
+  const lbl = (text, p) => {
+    const shift = p < 8 ? "0" : p > 92 ? "-100%" : "-50%";
+    return `<span style="left:${p.toFixed(2)}%;transform:translateX(${shift})">${text}</span>`;
+  };
+  return `
+    <div class="band" role="img" aria-label="${esc(summary)}">
+      <div class="lbls" aria-hidden="true">${groups.map(g => lbl(g.names.join(" · "), (g.from + g.to) / 2)).join("")}</div>
+      ${track}
+      <div class="lbls" aria-hidden="true">${lbl("Price " + money(b.cur, b.price), b.price / max * 100)}</div>
+    </div>
+    <div class="band">
+      <ul class="key">
+        ${pts.map(([n, v]) => `<li><i class="k-dot"></i>${n} ${money(b.cur, v)}</li>`).join("")}
+        <li><i class="k-price"></i>Price at research ${money(b.cur, b.price)}</li>
+        ${b.zone ? `<li><i class="k-zone"></i>${esc(b.zoneLabel)}</li>` : ""}
+      </ul>
+      ${b.note ? `<p class="note">${esc(b.note)}</p>` : ""}
+    </div>`;
+}
+
+/* ---------- Ledger with filters ---------- */
+const state = { tone: null, kind: null, sort: "new" };
+try { const s = JSON.parse(localStorage.getItem("desk-filters") || "{}"); Object.assign(state, s); } catch (e) {}
+const saveState = () => { try { localStorage.setItem("desk-filters", JSON.stringify(state)); } catch (e) {} };
+
+function nextPassed(r) { return r.next && r.next.until && new Date(r.next.until + "T23:59:59") < new Date(); }
+
+function drawFilters() {
+  const btn = (group, val, label) => `<button class="fbtn" type="button" data-group="${group}" data-val="${esc(val ?? "")}" aria-pressed="${state[group] === val}">${esc(label)}</button>`;
+  const tones = TONES.filter(([t]) => REPORTS.some(r => r.tone === t));
+  const kinds = [...new Set(REPORTS.map(r => r.kind))];
+  $("#fTone").innerHTML = `<span class="flabel">Verdict</span>` + btn("tone", null, "All") + tones.map(([t, l]) => btn("tone", t, l)).join("");
+  $("#fKind").innerHTML = `<span class="flabel">Type</span>` + btn("kind", null, "All") + kinds.map(k => btn("kind", k, k)).join("");
+  $("#sort").value = state.sort;
+}
+
+function drawRows() {
+  const list = REPORTS
+    .filter(r => (!state.tone || r.tone === state.tone) && (!state.kind || r.kind === state.kind))
+    .sort((a, b) => state.sort === "az" ? a.title.localeCompare(b.title)
+      : state.sort === "old" ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
+  $("#rows").innerHTML = list.map(r => {
+    const n = daysOld(r.date), stale = n > STALE_DAYS;
+    const next = r.next && !nextPassed(r) && r.next.until ? `<span class="next"><b>Next:</b> ${esc(r.next.text.split(". ")[0].replace(/\.$/, ""))}</span>` : "";
+    return `
   <a class="row" href="#${r.id}" data-id="${r.id}">
-    <span class="date">${fmtDate(r.date)}</span>
+    <span class="when"><span class="date">${fmtDate(r.date)}</span><span class="age${stale ? " stale" : ""}">${ageText(n)}${stale ? " · needs a refresh" : ""}</span></span>
     <span class="tick"><b>${esc(r.ticker)}</b><span>${esc(r.venue)}</span></span>
-    <span class="what"><span class="kind">${esc(r.kind)}</span><h2>${esc(r.title)}</h2><p>${esc(r.blurb)}</p></span>
-    <span class="verdict"><span class="chip ${r.tone}">${esc(r.verdict)}</span><span class="px">${esc(r.px)}</span></span>
-  </a>`).join("");
+    <span class="what"><span class="kind">${esc(r.kind)}</span><h2>${esc(r.title)}</h2><p>${esc(r.blurb)}</p>${next}</span>
+    <span class="verdict"><span class="chip ${r.tone}">${esc(r.verdict)}</span><span class="px">${esc(r.px)}</span>${r.bands ? band(r.bands, true) : ""}</span>
+  </a>`;
+  }).join("");
+  $("#none").hidden = list.length > 0;
+}
 
+$("#filters").addEventListener("click", e => {
+  const b = e.target.closest(".fbtn"); if (!b) return;
+  state[b.dataset.group] = b.dataset.val || null;
+  saveState(); drawFilters(); drawRows();
+});
+$("#sort").addEventListener("change", e => { state.sort = e.target.value; saveState(); drawRows(); });
+$("#clear").addEventListener("click", () => { state.tone = null; state.kind = null; saveState(); drawFilters(); drawRows(); });
+drawFilters(); drawRows();
+
+/* ---------- Reader ---------- */
 const cache = {};
 let observer = null;
 
@@ -291,14 +473,36 @@ function renderMarkdown(md) {
   return box;
 }
 
+function summaryCard(r) {
+  const n = daysOld(r.date), stale = n > STALE_DAYS, passed = nextPassed(r);
+  return `
+    <div>
+      <div><h3>The short version</h3><h2>${esc(r.headline)}</h2></div>
+      <div><h3>Why</h3><ul>${r.reasons.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      ${stale ? `<p class="stale">This verdict is ${n} days old and was based on ${esc(r.px)}. The price and the facts have probably moved. Treat it as history until it is refreshed.</p>` : ""}
+    </div>
+    <div>
+      ${r.bands ? `<div><h3>Value range vs price at research</h3>${band(r.bands, false)}</div>` : ""}
+      <div><h3>Signals to watch</h3><ul>${r.watch.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      ${r.next ? `<div><h3>Next checkpoint${passed ? ' <span class="chip plain">Passed</span>' : ""}</h3><p class="nextline">${esc(r.next.text)}</p></div>` : ""}
+    </div>
+    <div class="acts">
+      <button class="btn primary" type="button" id="readBtn">Read the full report ↓</button>
+      ${r.pdf ? `<a class="btn" href="${esc(r.pdf)}" download>Download PDF</a>` : ""}
+      <small>Summary of the report below. Not investment advice.</small>
+    </div>`;
+}
+
 async function openReport(id) {
-  const r = byId[id];
+  const r = byId[id], n = daysOld(r.date), stale = n > STALE_DAYS;
   $("#home").hidden = true; $("#readerView").hidden = false;
   document.title = `${r.title} · Turnivor Research Desk`;
   $("#crumb").textContent = `${r.ticker} · ${fmtDate(r.date)}`;
   $("#rKind").textContent = `${r.kind} · ${r.venue}`;
   $("#rTitle").textContent = r.title;
-  $("#rMeta").innerHTML = `<span>${fmtDate(r.date)}</span><span>Price at research ${esc(r.px)}</span><span class="chip ${r.tone}">${esc(r.verdict)}</span>`;
+  $("#rMeta").innerHTML = `<span>${fmtDate(r.date)}</span><span class="chip ${stale ? "warn" : "plain"}">${ageText(n)}${stale ? " · needs a refresh" : ""}</span><span>Price at research ${esc(r.px)}</span><span class="chip ${r.tone}">${esc(r.verdict)}</span>`;
+  $("#sum").innerHTML = summaryCard(r);
+  $("#readBtn").addEventListener("click", () => $("#prose").scrollIntoView({ behavior: "smooth", block: "start" }));
   $("#prose").innerHTML = '<div class="status">Loading report…</div>';
   $("#tocList").innerHTML = "";
   window.scrollTo(0, 0);

@@ -4,7 +4,7 @@ Personal stock and industry research, made with Claude Code and the [ai-berkshir
 
 > Not investment advice. AI-assisted research; verify before acting.
 
-**Website:** https://turnivor.github.io/investment-reports/ (page source: [`index.html`](index.html); the claude.ai copy lives in [`site/`](site/index.html))
+**Website:** https://turnivor.github.io/investment-reports/
 
 | Date | Report | Type | Verdict |
 |---|---|---|---|
@@ -15,4 +15,25 @@ Personal stock and industry research, made with Claude Code and the [ai-berkshir
 
 Charts: [`charts/`](charts/)
 
-Command cheat sheet: [AI Financial Tool Commands](https://turnivor.github.io/investment-reports/commands.html) (source: [`commands.html`](commands.html))
+## The site
+
+| File | What it is |
+|---|---|
+| [`index.html`](index.html) | Reports page: the list, filters, and the reader with a summary card |
+| [`commands.html`](commands.html) | [Command cheat sheet](https://turnivor.github.io/investment-reports/commands.html) for the ai-berkshire commands |
+| [`site.css`](site.css) | Shared look for both pages (colours, fonts, top menu) |
+| [`og.png`](og.png) | Preview image shown when the link is shared |
+
+GitHub Pages serves the site from `main` / root. There is no build step.
+
+## Adding a report
+
+1. Put the `.md` file in `reports/<Company>/` (and the PDF next to it, if there is one).
+2. Add one entry to the `REPORTS` list at the top of the script in `index.html`:
+   - **Always:** `id`, `file`, `date`, `ticker`, `venue`, `kind`, `title`, `px`, `blurb`, `verdict`, `tone` (`bad`, `warn` or `good`)
+   - **Summary card:** `headline`, `reasons` (3 lines), `watch` (signals), `next` (`text`, plus `until` if it has a date)
+   - **Optional:** `pdf`, and `bands` (`cur`, `bear`, `base`, `bull`, `price`, `zone`, `zoneLabel`, `note`) for the value-range bar
+3. Every line in the summary must come from the report itself.
+4. Add a row to the table above, commit and push.
+
+The age tag ("12 days old", "needs a refresh" after 90 days) is worked out from `date`, so it needs no upkeep.
