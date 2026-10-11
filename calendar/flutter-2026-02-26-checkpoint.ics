@@ -1,0 +1,28 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:flutter-2026-02-26-checkpoint@turnivor.github.io
+DTSTAMP:20260226T000000Z
+DTSTART;VALUE=DATE:20260226
+DTEND;VALUE=DATE:20260227
+SUMMARY:Flutter Entertainment: Checkpoint
+DESCRIPTION:WHAT TO CHECK\nQ4 and full-year 2025 results\, 26 February 2026
+  after the close. This report was written before them.\n\nWHERE THE REPORT
+  STOOD (26 Feb 2026)\nVerdict: Hold · wait for guidance\nPrice then $119.
+ 84\n\nSIGNALS TO WATCH\n• 2026 guidance on the UK and US tax hits\n• S
+ upport around $105–$115\n• Whether a beat is followed by a selloff aga
+ in\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#f
+ lutter\nPDF: https://turnivor.github.io/investment-reports/reports/FLUT/FL
+ UT-pre-earnings-20260226.pdf\nTo update the report\, copy the request on i
+ ts page into Claude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#flutter
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Flutter Entertainment: Checkpoint
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

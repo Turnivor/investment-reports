@@ -69,7 +69,26 @@ window.SITE_DATA = {
     "zone": 85,
     "zoneLabel": "Margin of safety below $85",
     "note": "3-year scenario targets, discounted to today at 10%."
-   }
+   },
+   "events": [
+    {
+     "date": "2026-10-27",
+     "what": "Q3 2026 results",
+     "check": "They show whether organic growth is recovering toward 3%.",
+     "title": "Xylem: Q3 2026 results",
+     "notes": "WHAT TO CHECK\nThey show whether organic growth is recovering toward 3%.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Hold · buy < $85\nPrice then $103 · bear $62.8 · base $110 · bull $143\nMargin of safety below $85\n\nIF YOU HOLD IT\nHold. The business is intact and the multiple has already fallen by a third.\n\nSIGNALS TO ADD\n• Price near $85\n• Organic growth back to 4% or more with the margin intact\n• The CEO buying shares with his own money\n\nSIGNALS TO SELL\n• Organic growth still at or below 2% through 2027 once the 80/20 exits are done\n• Adjusted EBITDA margin stalls below 23%\n• Another large deal paid with shares\n• Net debt above 2.5 times EBITDA\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#xylem\nPDF: https://turnivor.github.io/investment-reports/reports/Xylem/Xylem-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/xylem-2026-10-27-q3-2026-results.ics"
+    },
+    {
+     "date": "2027-01-10",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Xylem: refresh the verdict",
+     "notes": "The verdict of 11 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Hold · buy < $85\nPrice then $103 · bear $62.8 · base $110 · bull $143\nMargin of safety below $85\n\nIF YOU HOLD IT\nHold. The business is intact and the multiple has already fallen by a third.\n\nSIGNALS TO ADD\n• Price near $85\n• Organic growth back to 4% or more with the margin intact\n• The CEO buying shares with his own money\n\nSIGNALS TO SELL\n• Organic growth still at or below 2% through 2027 once the 80/20 exits are done\n• Adjusted EBITDA margin stalls below 23%\n• Another large deal paid with shares\n• Net debt above 2.5 times EBITDA\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#xylem\nPDF: https://turnivor.github.io/investment-reports/reports/Xylem/Xylem-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/xylem-2027-01-10-refresh-the-verdict.ics"
+    }
+   ]
   },
   {
    "id": "water-screen",
@@ -111,6 +130,34 @@ window.SITE_DATA = {
      "what": "Xylem Q3 results",
      "check": "Organic growth back toward 3%, margin on track for 23.1 to 23.5%."
     }
+   ],
+   "events": [
+    {
+     "date": "2026-10-23",
+     "approx": "Expected 23 October 2026",
+     "what": "Pentair Q3 results",
+     "check": "Pool inventory back to normal, no new guidance cut, 2027 pool sales near $1.45bn.",
+     "title": "Xylem vs Pentair: Quality Screen: Pentair Q3 results (date to confirm)",
+     "notes": "Date not confirmed. The report says: Expected 23 October 2026.\nWHAT TO CHECK\nPool inventory back to normal, no new guidance cut, 2027 pool sales near $1.45bn.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Both pass · Pentair cheaper\nPrice then 2 companies\n\nSIGNALS TO WATCH\n• Xylem: organic growth back toward 3%, margin on track for 23.1 to 23.5%\n• Pentair: pool inventory back to normal, no new guidance cut\n• Pentair: 2027 pool sales near $1.45bn\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#water-screen\nPDF: https://turnivor.github.io/investment-reports/reports/Water/Xylem-vs-Pentair-quality-screen-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/water-screen-2026-10-23-pentair-q3-results.ics"
+    },
+    {
+     "date": "2026-10-27",
+     "what": "Xylem Q3 results",
+     "check": "Organic growth back toward 3%, margin on track for 23.1 to 23.5%.",
+     "title": "Xylem vs Pentair: Quality Screen: Xylem Q3 results",
+     "notes": "WHAT TO CHECK\nOrganic growth back toward 3%, margin on track for 23.1 to 23.5%.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Both pass · Pentair cheaper\nPrice then 2 companies\n\nSIGNALS TO WATCH\n• Xylem: organic growth back toward 3%, margin on track for 23.1 to 23.5%\n• Pentair: pool inventory back to normal, no new guidance cut\n• Pentair: 2027 pool sales near $1.45bn\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#water-screen\nPDF: https://turnivor.github.io/investment-reports/reports/Water/Xylem-vs-Pentair-quality-screen-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/water-screen-2026-10-27-xylem-q3-results.ics"
+    },
+    {
+     "date": "2027-01-10",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Xylem vs Pentair: Quality Screen: refresh the verdict",
+     "notes": "The verdict of 11 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Both pass · Pentair cheaper\nPrice then 2 companies\n\nSIGNALS TO WATCH\n• Xylem: organic growth back toward 3%, margin on track for 23.1 to 23.5%\n• Pentair: pool inventory back to normal, no new guidance cut\n• Pentair: 2027 pool sales near $1.45bn\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#water-screen\nPDF: https://turnivor.github.io/investment-reports/reports/Water/Xylem-vs-Pentair-quality-screen-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/water-screen-2027-01-10-refresh-the-verdict.ics"
+    }
    ]
   },
   {
@@ -141,7 +188,26 @@ window.SITE_DATA = {
    "next": {
     "text": "Q3 results for Pentair (23 Oct) and Xylem (27 Oct), then Veralto and A. O. Smith in late October and November.",
     "until": "2026-11-30"
-   }
+   },
+   "events": [
+    {
+     "date": "2026-11-30",
+     "what": "Checkpoint",
+     "check": "Q3 results for Pentair (23 Oct) and Xylem (27 Oct), then Veralto and A. O. Smith in late October and November.",
+     "title": "Water Technology Funnel: Checkpoint",
+     "notes": "WHAT TO CHECK\nQ3 results for Pentair (23 Oct) and Xylem (27 Oct), then Veralto and A. O. Smith in late October and November.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Favor VLTO · AOS · PNR\nPrice then 82 companies\n\nSIGNALS TO WATCH\n• Veralto: liabilities/assets above 65%, acquisition multiples\n• A. O. Smith: North American volumes, China losses\n• Pentair: a third guidance cut, pool margin below 30%\n• US water funding, after the infrastructure law money ended on 30 Sep 2026\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#water\nPDF: https://turnivor.github.io/investment-reports/reports/industry/WaterTechnology-funnel-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/water-2026-11-30-checkpoint.ics"
+    },
+    {
+     "date": "2027-01-10",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Water Technology Funnel: refresh the verdict",
+     "notes": "The verdict of 11 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Favor VLTO · AOS · PNR\nPrice then 82 companies\n\nSIGNALS TO WATCH\n• Veralto: liabilities/assets above 65%, acquisition multiples\n• A. O. Smith: North American volumes, China losses\n• Pentair: a third guidance cut, pool margin below 30%\n• US water funding, after the infrastructure law money ended on 30 Sep 2026\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#water\nPDF: https://turnivor.github.io/investment-reports/reports/industry/WaterTechnology-funnel-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/water-2027-01-10-refresh-the-verdict.ics"
+    }
+   ]
   },
   {
    "id": "video-games",
@@ -188,6 +254,41 @@ window.SITE_DATA = {
      "date": "2026-11-19",
      "what": "GTA VI launch",
      "check": "First sales figures, and whether console sales pick up with it."
+    }
+   ],
+   "events": [
+    {
+     "date": "2026-10-29",
+     "what": "Roblox Q3 2026 results",
+     "check": "Bookings were guided down 14 to 18%. Is the decline slowing, and is full-year guidance restored?",
+     "title": "Video Games: Roblox Q3 2026 results",
+     "notes": "WHAT TO CHECK\nBookings were guided down 14 to 18%. Is the decline slowing, and is full-year guidance restored?\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Selective · NetEase · Nintendo\nPrice then 80 companies\n\nSIGNALS TO WATCH\n• Memory chip costs pushing console prices higher again\n• GTA VI sales falling short and dragging console spending with them\n• New rules in China on game approvals or spending\n• AI tools that let small teams build large games\n• Another large buyout that resets what franchises are worth\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#video-games\nPDF: https://turnivor.github.io/investment-reports/reports/industry/VideoGames-industry-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/video-games-2026-10-29-roblox-q3-2026-results.ics"
+    },
+    {
+     "date": "2026-11-05",
+     "what": "Take-Two Q2 fiscal 2027 results",
+     "check": "Is the $8.0 to $8.2bn bookings guidance raised ahead of GTA VI?",
+     "title": "Video Games: Take-Two Q2 fiscal 2027 results",
+     "notes": "WHAT TO CHECK\nIs the $8.0 to $8.2bn bookings guidance raised ahead of GTA VI?\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Selective · NetEase · Nintendo\nPrice then 80 companies\n\nSIGNALS TO WATCH\n• Memory chip costs pushing console prices higher again\n• GTA VI sales falling short and dragging console spending with them\n• New rules in China on game approvals or spending\n• AI tools that let small teams build large games\n• Another large buyout that resets what franchises are worth\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#video-games\nPDF: https://turnivor.github.io/investment-reports/reports/industry/VideoGames-industry-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/video-games-2026-11-05-take-two-q2-fiscal-2027-results.ics"
+    },
+    {
+     "date": "2026-11-19",
+     "what": "GTA VI launch",
+     "check": "First sales figures, and whether console sales pick up with it.",
+     "title": "Video Games: GTA VI launch",
+     "notes": "WHAT TO CHECK\nFirst sales figures, and whether console sales pick up with it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Selective · NetEase · Nintendo\nPrice then 80 companies\n\nSIGNALS TO WATCH\n• Memory chip costs pushing console prices higher again\n• GTA VI sales falling short and dragging console spending with them\n• New rules in China on game approvals or spending\n• AI tools that let small teams build large games\n• Another large buyout that resets what franchises are worth\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#video-games\nPDF: https://turnivor.github.io/investment-reports/reports/industry/VideoGames-industry-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/video-games-2026-11-19-gta-vi-launch.ics"
+    },
+    {
+     "date": "2027-01-10",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Video Games: refresh the verdict",
+     "notes": "The verdict of 11 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Selective · NetEase · Nintendo\nPrice then 80 companies\n\nSIGNALS TO WATCH\n• Memory chip costs pushing console prices higher again\n• GTA VI sales falling short and dragging console spending with them\n• New rules in China on game approvals or spending\n• AI tools that let small teams build large games\n• Another large buyout that resets what franchises are worth\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#video-games\nPDF: https://turnivor.github.io/investment-reports/reports/industry/VideoGames-industry-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/video-games-2027-01-10-refresh-the-verdict.ics"
     }
    ]
   },
@@ -280,7 +381,52 @@ window.SITE_DATA = {
     "zone": 126,
     "zoneLabel": "Margin of safety below $126",
     "note": "3-year scenario targets, discounted to today at 10%."
-   }
+   },
+   "events": [
+    {
+     "date": "2026-11-05",
+     "what": "Q2 fiscal 2027 results",
+     "check": "Is the $8.0 to $8.2bn bookings guidance raised, and is there a date for the online mode?",
+     "title": "Take-Two Interactive: Q2 fiscal 2027 results",
+     "notes": "WHAT TO CHECK\nIs the $8.0 to $8.2bn bookings guidance raised, and is there a date for the online mode?\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Wait · buy < $126\nPrice then $213 · bear $82.6 · base $168 · bull $262\nMargin of safety below $126\n\nIF YOU HOLD IT\nHold, but keep the position small enough that a 40% fall would not hurt, and do not add before the launch. The price already assumes a record launch, so the reward for being right is small next to the cost of being wrong.\n\nSIGNALS TO ADD\n• Price below about $168 with the launch delivered\n• The online mode launches and recurrent spending grows above the fiscal 2026 level of $5.2bn\n• First fiscal 2028 guidance above fiscal 2027\n• Net cash reached and share buybacks restarted\n• Insiders buying shares\n\nSIGNALS TO SELL\n• A third delay of GTA VI\n• The online mode slips past fiscal 2028 or earns less than GTA Online does now\n• Fiscal 2028 guidance below fiscal 2027\n• A large acquisition paid for with new shares\n• Price above about $262 (the bull value) without higher earnings estimates\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#take-two\nPDF: https://turnivor.github.io/investment-reports/reports/Take-Two/Take-Two-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/take-two-2026-11-05-q2-fiscal-2027-results.ics"
+    },
+    {
+     "date": "2026-11-19",
+     "what": "GTA VI launch",
+     "check": "Review scores, the technical state of the game, and the first sales figure Take-Two announces.",
+     "title": "Take-Two Interactive: GTA VI launch",
+     "notes": "WHAT TO CHECK\nReview scores, the technical state of the game, and the first sales figure Take-Two announces.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Wait · buy < $126\nPrice then $213 · bear $82.6 · base $168 · bull $262\nMargin of safety below $126\n\nIF YOU HOLD IT\nHold, but keep the position small enough that a 40% fall would not hurt, and do not add before the launch. The price already assumes a record launch, so the reward for being right is small next to the cost of being wrong.\n\nSIGNALS TO ADD\n• Price below about $168 with the launch delivered\n• The online mode launches and recurrent spending grows above the fiscal 2026 level of $5.2bn\n• First fiscal 2028 guidance above fiscal 2027\n• Net cash reached and share buybacks restarted\n• Insiders buying shares\n\nSIGNALS TO SELL\n• A third delay of GTA VI\n• The online mode slips past fiscal 2028 or earns less than GTA Online does now\n• Fiscal 2028 guidance below fiscal 2027\n• A large acquisition paid for with new shares\n• Price above about $262 (the bull value) without higher earnings estimates\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#take-two\nPDF: https://turnivor.github.io/investment-reports/reports/Take-Two/Take-Two-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/take-two-2026-11-19-gta-vi-launch.ics"
+    },
+    {
+     "date": "2027-01-10",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Take-Two Interactive: refresh the verdict",
+     "notes": "The verdict of 11 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Wait · buy < $126\nPrice then $213 · bear $82.6 · base $168 · bull $262\nMargin of safety below $126\n\nIF YOU HOLD IT\nHold, but keep the position small enough that a 40% fall would not hurt, and do not add before the launch. The price already assumes a record launch, so the reward for being right is small next to the cost of being wrong.\n\nSIGNALS TO ADD\n• Price below about $168 with the launch delivered\n• The online mode launches and recurrent spending grows above the fiscal 2026 level of $5.2bn\n• First fiscal 2028 guidance above fiscal 2027\n• Net cash reached and share buybacks restarted\n• Insiders buying shares\n\nSIGNALS TO SELL\n• A third delay of GTA VI\n• The online mode slips past fiscal 2028 or earns less than GTA Online does now\n• Fiscal 2028 guidance below fiscal 2027\n• A large acquisition paid for with new shares\n• Price above about $262 (the bull value) without higher earnings estimates\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#take-two\nPDF: https://turnivor.github.io/investment-reports/reports/Take-Two/Take-Two-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/take-two-2027-01-10-refresh-the-verdict.ics"
+    },
+    {
+     "date": "2027-02-04",
+     "approx": "Early February 2027",
+     "what": "Q3 fiscal 2027 results",
+     "check": "The first quarter with GTA VI: copies sold, recurrent spending, and whether full-year guidance moves.",
+     "title": "Take-Two Interactive: Q3 fiscal 2027 results (date to confirm)",
+     "notes": "Date not confirmed. The report says: Early February 2027.\nWHAT TO CHECK\nThe first quarter with GTA VI: copies sold, recurrent spending, and whether full-year guidance moves.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Wait · buy < $126\nPrice then $213 · bear $82.6 · base $168 · bull $262\nMargin of safety below $126\n\nIF YOU HOLD IT\nHold, but keep the position small enough that a 40% fall would not hurt, and do not add before the launch. The price already assumes a record launch, so the reward for being right is small next to the cost of being wrong.\n\nSIGNALS TO ADD\n• Price below about $168 with the launch delivered\n• The online mode launches and recurrent spending grows above the fiscal 2026 level of $5.2bn\n• First fiscal 2028 guidance above fiscal 2027\n• Net cash reached and share buybacks restarted\n• Insiders buying shares\n\nSIGNALS TO SELL\n• A third delay of GTA VI\n• The online mode slips past fiscal 2028 or earns less than GTA Online does now\n• Fiscal 2028 guidance below fiscal 2027\n• A large acquisition paid for with new shares\n• Price above about $262 (the bull value) without higher earnings estimates\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#take-two\nPDF: https://turnivor.github.io/investment-reports/reports/Take-Two/Take-Two-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/take-two-2027-02-04-q3-fiscal-2027-results.ics"
+    },
+    {
+     "date": "2027-05-20",
+     "approx": "Mid to late May 2027",
+     "what": "Fiscal 2027 results and first fiscal 2028 guidance",
+     "check": "Is fiscal 2028 guided above fiscal 2027? That is the test for a post-launch slump.",
+     "title": "Take-Two Interactive: Fiscal 2027 results and first fiscal 2028 guidance (date to confirm)",
+     "notes": "Date not confirmed. The report says: Mid to late May 2027.\nWHAT TO CHECK\nIs fiscal 2028 guided above fiscal 2027? That is the test for a post-launch slump.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Wait · buy < $126\nPrice then $213 · bear $82.6 · base $168 · bull $262\nMargin of safety below $126\n\nIF YOU HOLD IT\nHold, but keep the position small enough that a 40% fall would not hurt, and do not add before the launch. The price already assumes a record launch, so the reward for being right is small next to the cost of being wrong.\n\nSIGNALS TO ADD\n• Price below about $168 with the launch delivered\n• The online mode launches and recurrent spending grows above the fiscal 2026 level of $5.2bn\n• First fiscal 2028 guidance above fiscal 2027\n• Net cash reached and share buybacks restarted\n• Insiders buying shares\n\nSIGNALS TO SELL\n• A third delay of GTA VI\n• The online mode slips past fiscal 2028 or earns less than GTA Online does now\n• Fiscal 2028 guidance below fiscal 2027\n• A large acquisition paid for with new shares\n• Price above about $262 (the bull value) without higher earnings estimates\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#take-two\nPDF: https://turnivor.github.io/investment-reports/reports/Take-Two/Take-Two-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/take-two-2027-05-20-fiscal-2027-results-and-first-fiscal-202.ics"
+    }
+   ]
   },
   {
    "id": "pentair",
@@ -353,7 +499,27 @@ window.SITE_DATA = {
     "zone": 47,
     "zoneLabel": "Margin of safety below $47",
     "note": "3-year scenario targets, discounted to today at 10%."
-   }
+   },
+   "events": [
+    {
+     "date": "2026-10-23",
+     "approx": "Expected 23 October 2026",
+     "what": "Q3 2026 results",
+     "check": "They show whether the pool destock is over.",
+     "title": "Pentair: Q3 2026 results (date to confirm)",
+     "notes": "Date not confirmed. The report says: Expected 23 October 2026.\nWHAT TO CHECK\nThey show whether the pool destock is over.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Hold · buy < $47\nPrice then $52.47 · bear $30.3 · base $63.1 · bull $84.6\nMargin of safety below $47\n\nIF YOU HOLD IT\nHold. The price already reflects a poor outcome, and selling at 11 times earnings during a channel correction has historically been the wrong moment in this industry.\n\nSIGNALS TO ADD\n• Q3 confirms channel inventory is normal\n• 2027 pool sales guided at or above $1.45bn\n• Insiders buying shares\n• The new CFO resets guidance conservatively and then meets it\n\nSIGNALS TO SELL\n• A third pool guidance cut\n• Pool margin guided below 30% for 2027\n• Further admitted share loss\n• Net debt staying above 2.5 times EBITDA into 2028\n• A dividend freeze after 50 years of increases\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#pentair\nPDF: https://turnivor.github.io/investment-reports/reports/Pentair/Pentair-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/pentair-2026-10-23-q3-2026-results.ics"
+    },
+    {
+     "date": "2027-01-10",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Pentair: refresh the verdict",
+     "notes": "The verdict of 11 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Hold · buy < $47\nPrice then $52.47 · bear $30.3 · base $63.1 · bull $84.6\nMargin of safety below $47\n\nIF YOU HOLD IT\nHold. The price already reflects a poor outcome, and selling at 11 times earnings during a channel correction has historically been the wrong moment in this industry.\n\nSIGNALS TO ADD\n• Q3 confirms channel inventory is normal\n• 2027 pool sales guided at or above $1.45bn\n• Insiders buying shares\n• The new CFO resets guidance conservatively and then meets it\n\nSIGNALS TO SELL\n• A third pool guidance cut\n• Pool margin guided below 30% for 2027\n• Further admitted share loss\n• Net debt staying above 2.5 times EBITDA into 2028\n• A dividend freeze after 50 years of increases\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#pentair\nPDF: https://turnivor.github.io/investment-reports/reports/Pentair/Pentair-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/pentair-2027-01-10-refresh-the-verdict.ics"
+    }
+   ]
   },
   {
    "id": "india-fin-funnel",
@@ -383,7 +549,26 @@ window.SITE_DATA = {
    "next": {
     "text": "Q2 FY27 results for HDFC AMC (15 October) and the two banks (second half of October 2026).",
     "until": "2026-10-31"
-   }
+   },
+   "events": [
+    {
+     "date": "2026-10-31",
+     "what": "Checkpoint",
+     "check": "Q2 FY27 results for HDFC AMC (15 October) and the two banks (second half of October 2026).",
+     "title": "India Financial Services Funnel: Checkpoint",
+     "notes": "WHAT TO CHECK\nQ2 FY27 results for HDFC AMC (15 October) and the two banks (second half of October 2026).\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Favor ICICI · HDFC Bank · HDFC AMC\nPrice then 52 companies\n\nSIGNALS TO WATCH\n• ICICI Bank: margin below 4.1%, loans still growing far faster than deposits\n• HDFC Bank: cheap-deposit share, margin, outcome of the US class action\n• HDFC AMC: fee rules from the regulator, monthly SIP flows\n• Oil price and the rupee\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#india-fin-funnel\nPDF: https://turnivor.github.io/investment-reports/reports/industry/IndiaFinancials-funnel-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/india-fin-funnel-2026-10-31-checkpoint.ics"
+    },
+    {
+     "date": "2027-01-10",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "India Financial Services Funnel: refresh the verdict",
+     "notes": "The verdict of 11 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Favor ICICI · HDFC Bank · HDFC AMC\nPrice then 52 companies\n\nSIGNALS TO WATCH\n• ICICI Bank: margin below 4.1%, loans still growing far faster than deposits\n• HDFC Bank: cheap-deposit share, margin, outcome of the US class action\n• HDFC AMC: fee rules from the regulator, monthly SIP flows\n• Oil price and the rupee\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#india-fin-funnel\nPDF: https://turnivor.github.io/investment-reports/reports/industry/IndiaFinancials-funnel-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/india-fin-funnel-2027-01-10-refresh-the-verdict.ics"
+    }
+   ]
   },
   {
    "id": "india-fin",
@@ -413,7 +598,26 @@ window.SITE_DATA = {
    "next": {
     "text": "Q2 FY27 bank results in the second half of October 2026.",
     "until": "2026-10-31"
-   }
+   },
+   "events": [
+    {
+     "date": "2026-10-31",
+     "what": "Checkpoint",
+     "check": "Q2 FY27 bank results in the second half of October 2026.",
+     "title": "India Financial Services: Checkpoint",
+     "notes": "WHAT TO CHECK\nQ2 FY27 bank results in the second half of October 2026.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Favor private banks · AMCs\nPrice then 45+ companies\n\nSIGNALS TO WATCH\n• Oil near $100 and the rupee near record lows\n• Retail bad loans rising for three straight quarters\n• New rules on options trading, unsecured loans or payment fees\n• Large-bank valuations back above 3 times book without higher returns\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#india-fin\nPDF: https://turnivor.github.io/investment-reports/reports/industry/IndiaFinancials-industry-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/india-fin-2026-10-31-checkpoint.ics"
+    },
+    {
+     "date": "2027-01-10",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "India Financial Services: refresh the verdict",
+     "notes": "The verdict of 11 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Favor private banks · AMCs\nPrice then 45+ companies\n\nSIGNALS TO WATCH\n• Oil near $100 and the rupee near record lows\n• Retail bad loans rising for three straight quarters\n• New rules on options trading, unsecured loans or payment fees\n• Large-bank valuations back above 3 times book without higher returns\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#india-fin\nPDF: https://turnivor.github.io/investment-reports/reports/industry/IndiaFinancials-industry-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/india-fin-2027-01-10-refresh-the-verdict.ics"
+    }
+   ]
   },
   {
    "id": "hdfc-bank",
@@ -505,7 +709,57 @@ window.SITE_DATA = {
     "zone": 600,
     "zoneLabel": "Clearly attractive below ₹600",
     "note": "3-year scenario targets in rupees, discounted to today at 10%, before currency effects."
-   }
+   },
+   "events": [
+    {
+     "date": "2026-10-13",
+     "what": "Class-action lead-plaintiff deadline",
+     "title": "HDFC Bank: Class-action lead-plaintiff deadline",
+     "notes": "\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Small staged buy · better < ₹600\nPrice then ₹707 · bear ₹505 · base ₹739 · bull ₹997\nClearly attractive below ₹600\n\nIF YOU HOLD IT\nHold; no reason to add above ~₹720 before CASA turns.\n\nSIGNALS TO ADD\n• CASA ratio rises for two consecutive quarters\n• NIM back above 3.5%\n• Loan/deposit ratio below 92%\n• Class action dismissed or settled for a small sum\n• Price ≤ ₹600\n\nSIGNALS TO SELL\n• A regulator (RBI, SEBI, SEC) substantiates misconduct at senior level\n• ROE below 12% for a full year\n• Gross NPA above 2%\n• Several senior departures in the new CEO's first year\n• Price above ~2.5x book without ROE above 16%\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#hdfc-bank\nPDF: https://turnivor.github.io/investment-reports/reports/HDFC-Bank/HDFC-Bank-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/hdfc-bank-2026-10-13-class-action-lead-plaintiff-deadline.ics"
+    },
+    {
+     "date": "2026-10-15",
+     "approx": "Mid-October 2026",
+     "what": "Q2 FY27 results",
+     "check": "Watch NIM against 3.26%, CASA, and anything said about the 85–90% loan/deposit target.",
+     "title": "HDFC Bank: Q2 FY27 results (date to confirm)",
+     "notes": "Date not confirmed. The report says: Mid-October 2026.\nWHAT TO CHECK\nWatch NIM against 3.26%, CASA, and anything said about the 85–90% loan/deposit target.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Small staged buy · better < ₹600\nPrice then ₹707 · bear ₹505 · base ₹739 · bull ₹997\nClearly attractive below ₹600\n\nIF YOU HOLD IT\nHold; no reason to add above ~₹720 before CASA turns.\n\nSIGNALS TO ADD\n• CASA ratio rises for two consecutive quarters\n• NIM back above 3.5%\n• Loan/deposit ratio below 92%\n• Class action dismissed or settled for a small sum\n• Price ≤ ₹600\n\nSIGNALS TO SELL\n• A regulator (RBI, SEBI, SEC) substantiates misconduct at senior level\n• ROE below 12% for a full year\n• Gross NPA above 2%\n• Several senior departures in the new CEO's first year\n• Price above ~2.5x book without ROE above 16%\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#hdfc-bank\nPDF: https://turnivor.github.io/investment-reports/reports/HDFC-Bank/HDFC-Bank-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/hdfc-bank-2026-10-15-q2-fy27-results.ics"
+    },
+    {
+     "date": "2026-10-27",
+     "what": "Anup Bagchi takes over as CEO",
+     "title": "HDFC Bank: Anup Bagchi takes over as CEO",
+     "notes": "\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Small staged buy · better < ₹600\nPrice then ₹707 · bear ₹505 · base ₹739 · bull ₹997\nClearly attractive below ₹600\n\nIF YOU HOLD IT\nHold; no reason to add above ~₹720 before CASA turns.\n\nSIGNALS TO ADD\n• CASA ratio rises for two consecutive quarters\n• NIM back above 3.5%\n• Loan/deposit ratio below 92%\n• Class action dismissed or settled for a small sum\n• Price ≤ ₹600\n\nSIGNALS TO SELL\n• A regulator (RBI, SEBI, SEC) substantiates misconduct at senior level\n• ROE below 12% for a full year\n• Gross NPA above 2%\n• Several senior departures in the new CEO's first year\n• Price above ~2.5x book without ROE above 16%\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#hdfc-bank\nPDF: https://turnivor.github.io/investment-reports/reports/HDFC-Bank/HDFC-Bank-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/hdfc-bank-2026-10-27-anup-bagchi-takes-over-as-ceo.ics"
+    },
+    {
+     "date": "2027-01-10",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "HDFC Bank: refresh the verdict",
+     "notes": "The verdict of 11 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Small staged buy · better < ₹600\nPrice then ₹707 · bear ₹505 · base ₹739 · bull ₹997\nClearly attractive below ₹600\n\nIF YOU HOLD IT\nHold; no reason to add above ~₹720 before CASA turns.\n\nSIGNALS TO ADD\n• CASA ratio rises for two consecutive quarters\n• NIM back above 3.5%\n• Loan/deposit ratio below 92%\n• Class action dismissed or settled for a small sum\n• Price ≤ ₹600\n\nSIGNALS TO SELL\n• A regulator (RBI, SEBI, SEC) substantiates misconduct at senior level\n• ROE below 12% for a full year\n• Gross NPA above 2%\n• Several senior departures in the new CEO's first year\n• Price above ~2.5x book without ROE above 16%\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#hdfc-bank\nPDF: https://turnivor.github.io/investment-reports/reports/HDFC-Bank/HDFC-Bank-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/hdfc-bank-2027-01-10-refresh-the-verdict.ics"
+    },
+    {
+     "date": "2027-01-15",
+     "approx": "January 2027",
+     "what": "Q3 results, the first quarter under the new CEO",
+     "title": "HDFC Bank: Q3 results, the first quarter under the new CEO (date to confirm)",
+     "notes": "Date not confirmed. The report says: January 2027.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Small staged buy · better < ₹600\nPrice then ₹707 · bear ₹505 · base ₹739 · bull ₹997\nClearly attractive below ₹600\n\nIF YOU HOLD IT\nHold; no reason to add above ~₹720 before CASA turns.\n\nSIGNALS TO ADD\n• CASA ratio rises for two consecutive quarters\n• NIM back above 3.5%\n• Loan/deposit ratio below 92%\n• Class action dismissed or settled for a small sum\n• Price ≤ ₹600\n\nSIGNALS TO SELL\n• A regulator (RBI, SEBI, SEC) substantiates misconduct at senior level\n• ROE below 12% for a full year\n• Gross NPA above 2%\n• Several senior departures in the new CEO's first year\n• Price above ~2.5x book without ROE above 16%\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#hdfc-bank\nPDF: https://turnivor.github.io/investment-reports/reports/HDFC-Bank/HDFC-Bank-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/hdfc-bank-2027-01-15-q3-results-the-first-quarter-under-the-n.ics"
+    },
+    {
+     "date": "2027-04-15",
+     "approx": "April 2027",
+     "what": "FY27 results and whatever strategy reset comes with them",
+     "title": "HDFC Bank: FY27 results and whatever strategy reset comes with them (date to confirm)",
+     "notes": "Date not confirmed. The report says: April 2027.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Small staged buy · better < ₹600\nPrice then ₹707 · bear ₹505 · base ₹739 · bull ₹997\nClearly attractive below ₹600\n\nIF YOU HOLD IT\nHold; no reason to add above ~₹720 before CASA turns.\n\nSIGNALS TO ADD\n• CASA ratio rises for two consecutive quarters\n• NIM back above 3.5%\n• Loan/deposit ratio below 92%\n• Class action dismissed or settled for a small sum\n• Price ≤ ₹600\n\nSIGNALS TO SELL\n• A regulator (RBI, SEBI, SEC) substantiates misconduct at senior level\n• ROE below 12% for a full year\n• Gross NPA above 2%\n• Several senior departures in the new CEO's first year\n• Price above ~2.5x book without ROE above 16%\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#hdfc-bank\nPDF: https://turnivor.github.io/investment-reports/reports/HDFC-Bank/HDFC-Bank-research-20261011.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/hdfc-bank-2027-04-15-fy27-results-and-whatever-strategy-reset.ics"
+    }
+   ]
   },
   {
    "id": "oklo",
@@ -569,7 +823,18 @@ window.SITE_DATA = {
     "zone": 20,
     "zoneLabel": "Speculative only below $20",
     "note": "Scenario values for 2036, discounted to today at 10%."
-   }
+   },
+   "events": [
+    {
+     "date": "2027-01-08",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Oklo: refresh the verdict",
+     "notes": "The verdict of 09 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (09 Oct 2026)\nVerdict: Avoid · speculative < $20\nPrice then $34.44 · bear $3.58 · base $3.68 · bull $12.84\nSpeculative only below $20\n\nIF YOU HOLD IT\nTreat it as venture capital. Trim to a size you can afford to lose entirely. Don't average down just because it's 80% off the peak.\n\nSIGNALS TO ADD\n• Binding PPA with a disclosed price ≥ $90/MWh\n• Aurora-INL capex disclosed below ~$6,000/kW\n• Aurora-INL fuel loaded / critical\n• Price below ~$20 with the schedule intact\n\nSIGNALS TO SELL\n• Aurora-INL slips beyond 2029\n• DOE authorization stalls\n• Meta/Switch don't convert to binding PPAs by 2027\n• First disclosed capex > $10,000/kW\n• ATM usage accelerates while milestones slip\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#oklo\nPDF: https://turnivor.github.io/investment-reports/reports/Oklo/Oklo-research-20261009.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/oklo-2027-01-08-refresh-the-verdict.ics"
+    }
+   ]
   },
   {
    "id": "nuclear",
@@ -598,7 +863,18 @@ window.SITE_DATA = {
    ],
    "next": {
     "text": "No fixed date. Watch the next cost updates from the Darlington and Kemmerer projects."
-   }
+   },
+   "events": [
+    {
+     "date": "2027-01-08",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Advanced Nuclear & SMR Value Chain: refresh the verdict",
+     "notes": "The verdict of 09 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (09 Oct 2026)\nVerdict: Favor BWXT · CCJ · CEG\nPrice then 30 companies\n\nSIGNALS TO WATCH\n• Any small reactor disclosing an all-in cost below $8,000 per kW for its second unit or later\n• Binding power contracts with big tech that state a price\n• Cuts to AI spending\n• A major nuclear incident, which could hit the whole sector overnight\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#nuclear\nPDF: https://turnivor.github.io/investment-reports/reports/industry/AdvancedNuclear-SMR-industry-20261009.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/nuclear-2027-01-08-refresh-the-verdict.ics"
+    }
+   ]
   },
   {
    "id": "rheinmetall",
@@ -668,7 +944,27 @@ window.SITE_DATA = {
     "zone": 700,
     "zoneLabel": "Margin of safety below €700",
     "note": "3-year scenario targets, discounted to today at 9%."
-   }
+   },
+   "events": [
+    {
+     "date": "2026-11-05",
+     "approx": "Early November 2026",
+     "what": "Q3 2026 results",
+     "check": "FCF, working capital, order intake. They show whether cash flow is recovering.",
+     "title": "Rheinmetall: Q3 2026 results (date to confirm)",
+     "notes": "Date not confirmed. The report says: Early November 2026.\nWHAT TO CHECK\nFCF, working capital, order intake. They show whether cash flow is recovering.\n\nWHERE THE REPORT STOOD (06 Oct 2026)\nVerdict: Gray zone · buy < €700\nPrice then €953 · bear €447 · base €1,101 · bull €1,899\nMargin of safety below €700\n\nIF YOU HOLD IT\nThe thesis is intact as long as the backlog keeps growing and FCF recovers in H2. Treat it as a cyclical position, not a forever compounder.\n\nSIGNALS TO ADD\n• Price below €700 with the thesis intact\n• H2 2026 FCF > €1.5bn showing that working capital reverses\n\nSIGNALS TO SELL\n• FY2026 cash conversion well below 40%\n• Another guidance cut\n• A large equity raise\n• A durable ceasefire combined with EU budget delays\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#rheinmetall\nPDF: https://turnivor.github.io/investment-reports/reports/Rheinmetall/Rheinmetall-research-20261006.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/rheinmetall-2026-11-05-q3-2026-results.ics"
+    },
+    {
+     "date": "2027-01-05",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Rheinmetall: refresh the verdict",
+     "notes": "The verdict of 06 Oct 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (06 Oct 2026)\nVerdict: Gray zone · buy < €700\nPrice then €953 · bear €447 · base €1,101 · bull €1,899\nMargin of safety below €700\n\nIF YOU HOLD IT\nThe thesis is intact as long as the backlog keeps growing and FCF recovers in H2. Treat it as a cyclical position, not a forever compounder.\n\nSIGNALS TO ADD\n• Price below €700 with the thesis intact\n• H2 2026 FCF > €1.5bn showing that working capital reverses\n\nSIGNALS TO SELL\n• FY2026 cash conversion well below 40%\n• Another guidance cut\n• A large equity raise\n• A durable ceasefire combined with EU budget delays\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#rheinmetall\nPDF: https://turnivor.github.io/investment-reports/reports/Rheinmetall/Rheinmetall-research-20261006.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/rheinmetall-2027-01-05-refresh-the-verdict.ics"
+    }
+   ]
   },
   {
    "id": "flutter",
@@ -709,7 +1005,26 @@ window.SITE_DATA = {
    "next": {
     "text": "Q4 and full-year 2025 results, 26 February 2026 after the close. This report was written before them.",
     "until": "2026-02-26"
-   }
+   },
+   "events": [
+    {
+     "date": "2026-02-26",
+     "what": "Checkpoint",
+     "check": "Q4 and full-year 2025 results, 26 February 2026 after the close. This report was written before them.",
+     "title": "Flutter Entertainment: Checkpoint",
+     "notes": "WHAT TO CHECK\nQ4 and full-year 2025 results, 26 February 2026 after the close. This report was written before them.\n\nWHERE THE REPORT STOOD (26 Feb 2026)\nVerdict: Hold · wait for guidance\nPrice then $119.84\n\nSIGNALS TO WATCH\n• 2026 guidance on the UK and US tax hits\n• Support around $105–$115\n• Whether a beat is followed by a selloff again\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#flutter\nPDF: https://turnivor.github.io/investment-reports/reports/FLUT/FLUT-pre-earnings-20260226.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/flutter-2026-02-26-checkpoint.ics"
+    },
+    {
+     "date": "2026-05-28",
+     "what": "Refresh the verdict",
+     "check": "It turns 90 days old.",
+     "refresh": true,
+     "title": "Flutter Entertainment: refresh the verdict",
+     "notes": "The verdict of 26 Feb 2026 turns 90 days old. Rerun the research before relying on it.\n\nWHERE THE REPORT STOOD (26 Feb 2026)\nVerdict: Hold · wait for guidance\nPrice then $119.84\n\nSIGNALS TO WATCH\n• 2026 guidance on the UK and US tax hits\n• Support around $105–$115\n• Whether a beat is followed by a selloff again\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#flutter\nPDF: https://turnivor.github.io/investment-reports/reports/FLUT/FLUT-pre-earnings-20260226.pdf\nTo update the report, copy the request on its page into Claude Code.\n\nResearch notes, not investment advice.",
+     "ics": "calendar/flutter-2026-05-28-refresh-the-verdict.ics"
+    }
+   ]
   }
  ],
  "links": [

@@ -1,0 +1,36 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:pentair-2026-10-23-q3-2026-results@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261024
+SUMMARY:Pentair: Q3 2026 results (date to confirm)
+DESCRIPTION:Date not confirmed. The report says: Expected 23 October 2026.\
+ nWHAT TO CHECK\nThey show whether the pool destock is over.\n\nWHERE THE R
+ EPORT STOOD (11 Oct 2026)\nVerdict: Hold · buy < $47\nPrice then $52.47 
+ · bear $30.3 · base $63.1 · bull $84.6\nMargin of safety below $47\n\nI
+ F YOU HOLD IT\nHold. The price already reflects a poor outcome\, and selli
+ ng at 11 times earnings during a channel correction has historically been 
+ the wrong moment in this industry.\n\nSIGNALS TO ADD\n• Q3 confirms chan
+ nel inventory is normal\n• 2027 pool sales guided at or above $1.45bn\n
+ • Insiders buying shares\n• The new CFO resets guidance conservatively
+  and then meets it\n\nSIGNALS TO SELL\n• A third pool guidance cut\n• 
+ Pool margin guided below 30% for 2027\n• Further admitted share loss\n
+ • Net debt staying above 2.5 times EBITDA into 2028\n• A dividend free
+ ze after 50 years of increases\n\nAFTERWARDS\nReport: https://turnivor.git
+ hub.io/investment-reports/#pentair\nPDF: https://turnivor.github.io/invest
+ ment-reports/reports/Pentair/Pentair-research-20261011.pdf\nTo update the 
+ report\, copy the request on its page into Claude Code.\n\nResearch notes\
+ , not investment advice.
+URL:https://turnivor.github.io/investment-reports/#pentair
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Pentair: Q3 2026 results (date to confirm)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

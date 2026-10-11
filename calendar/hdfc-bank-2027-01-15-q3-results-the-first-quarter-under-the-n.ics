@@ -1,0 +1,37 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:hdfc-bank-2027-01-15-q3-results-the-first-quarter-under-the-n@turnivor.
+ github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270115
+DTEND;VALUE=DATE:20270116
+SUMMARY:HDFC Bank: Q3 results\, the first quarter under the new CEO (date t
+ o confirm)
+DESCRIPTION:Date not confirmed. The report says: January 2027.\n\nWHERE THE
+  REPORT STOOD (11 Oct 2026)\nVerdict: Small staged buy · better < ₹600\
+ nPrice then ₹707 · bear ₹505 · base ₹739 · bull ₹997\nClearly a
+ ttractive below ₹600\n\nIF YOU HOLD IT\nHold\; no reason to add above ~
+ ₹720 before CASA turns.\n\nSIGNALS TO ADD\n• CASA ratio rises for two 
+ consecutive quarters\n• NIM back above 3.5%\n• Loan/deposit ratio belo
+ w 92%\n• Class action dismissed or settled for a small sum\n• Price 
+ ≤ ₹600\n\nSIGNALS TO SELL\n• A regulator (RBI\, SEBI\, SEC) substant
+ iates misconduct at senior level\n• ROE below 12% for a full year\n• G
+ ross NPA above 2%\n• Several senior departures in the new CEO's first ye
+ ar\n• Price above ~2.5x book without ROE above 16%\n\nAFTERWARDS\nReport
+ : https://turnivor.github.io/investment-reports/#hdfc-bank\nPDF: https://t
+ urnivor.github.io/investment-reports/reports/HDFC-Bank/HDFC-Bank-research-
+ 20261011.pdf\nTo update the report\, copy the request on its page into Cla
+ ude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#hdfc-bank
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:HDFC Bank: Q3 results\, the first quarter under the new CEO (da
+ te to confirm)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

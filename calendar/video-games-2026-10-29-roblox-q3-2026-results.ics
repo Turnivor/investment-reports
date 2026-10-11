@@ -1,0 +1,31 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:video-games-2026-10-29-roblox-q3-2026-results@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20261029
+DTEND;VALUE=DATE:20261030
+SUMMARY:Video Games: Roblox Q3 2026 results
+DESCRIPTION:WHAT TO CHECK\nBookings were guided down 14 to 18%. Is the decl
+ ine slowing\, and is full-year guidance restored?\n\nWHERE THE REPORT STOO
+ D (11 Oct 2026)\nVerdict: Selective · NetEase · Nintendo\nPrice then 80 
+ companies\n\nSIGNALS TO WATCH\n• Memory chip costs pushing console price
+ s higher again\n• GTA VI sales falling short and dragging console spendi
+ ng with them\n• New rules in China on game approvals or spending\n• AI
+  tools that let small teams build large games\n• Another large buyout th
+ at resets what franchises are worth\n\nAFTERWARDS\nReport: https://turnivo
+ r.github.io/investment-reports/#video-games\nPDF: https://turnivor.github.
+ io/investment-reports/reports/industry/VideoGames-industry-20261011.pdf\nT
+ o update the report\, copy the request on its page into Claude Code.\n\nRe
+ search notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#video-games
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Video Games: Roblox Q3 2026 results
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

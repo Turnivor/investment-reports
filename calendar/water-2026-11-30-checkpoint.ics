@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:water-2026-11-30-checkpoint@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:Water Technology Funnel: Checkpoint
+DESCRIPTION:WHAT TO CHECK\nQ3 results for Pentair (23 Oct) and Xylem (27 Oc
+ t)\, then Veralto and A. O. Smith in late October and November.\n\nWHERE T
+ HE REPORT STOOD (11 Oct 2026)\nVerdict: Favor VLTO · AOS · PNR\nPrice th
+ en 82 companies\n\nSIGNALS TO WATCH\n• Veralto: liabilities/assets above
+  65%\, acquisition multiples\n• A. O. Smith: North American volumes\, Ch
+ ina losses\n• Pentair: a third guidance cut\, pool margin below 30%\n•
+  US water funding\, after the infrastructure law money ended on 30 Sep 202
+ 6\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#wa
+ ter\nPDF: https://turnivor.github.io/investment-reports/reports/industry/W
+ aterTechnology-funnel-20261011.pdf\nTo update the report\, copy the reques
+ t on its page into Claude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#water
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Water Technology Funnel: Checkpoint
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

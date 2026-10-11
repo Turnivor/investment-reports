@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:take-two-2027-05-20-fiscal-2027-results-and-first-fiscal-202@turnivor.g
+ ithub.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270520
+DTEND;VALUE=DATE:20270521
+SUMMARY:Take-Two Interactive: Fiscal 2027 results and first fiscal 2028 gui
+ dance (date to confirm)
+DESCRIPTION:Date not confirmed. The report says: Mid to late May 2027.\nWHA
+ T TO CHECK\nIs fiscal 2028 guided above fiscal 2027? That is the test for 
+ a post-launch slump.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Wai
+ t · buy < $126\nPrice then $213 · bear $82.6 · base $168 · bull $262\n
+ Margin of safety below $126\n\nIF YOU HOLD IT\nHold\, but keep the positio
+ n small enough that a 40% fall would not hurt\, and do not add before the 
+ launch. The price already assumes a record launch\, so the reward for bein
+ g right is small next to the cost of being wrong.\n\nSIGNALS TO ADD\n• P
+ rice below about $168 with the launch delivered\n• The online mode launc
+ hes and recurrent spending grows above the fiscal 2026 level of $5.2bn\n
+ • First fiscal 2028 guidance above fiscal 2027\n• Net cash reached and
+  share buybacks restarted\n• Insiders buying shares\n\nSIGNALS TO SELL\n
+ • A third delay of GTA VI\n• The online mode slips past fiscal 2028 or
+  earns less than GTA Online does now\n• Fiscal 2028 guidance below fisca
+ l 2027\n• A large acquisition paid for with new shares\n• Price above 
+ about $262 (the bull value) without higher earnings estimates\n\nAFTERWARD
+ S\nReport: https://turnivor.github.io/investment-reports/#take-two\nPDF: h
+ ttps://turnivor.github.io/investment-reports/reports/Take-Two/Take-Two-res
+ earch-20261011.pdf\nTo update the report\, copy the request on its page in
+ to Claude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#take-two
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Take-Two Interactive: Fiscal 2027 results and first fiscal 2028
+  guidance (date to confirm)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

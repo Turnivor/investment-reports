@@ -1,0 +1,32 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:water-screen-2026-10-23-pentair-q3-results@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261024
+SUMMARY:Xylem vs Pentair: Quality Screen: Pentair Q3 results (date to confi
+ rm)
+DESCRIPTION:Date not confirmed. The report says: Expected 23 October 2026.\
+ nWHAT TO CHECK\nPool inventory back to normal\, no new guidance cut\, 2027
+  pool sales near $1.45bn.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict
+ : Both pass · Pentair cheaper\nPrice then 2 companies\n\nSIGNALS TO WATCH
+ \n• Xylem: organic growth back toward 3%\, margin on track for 23.1 to 2
+ 3.5%\n• Pentair: pool inventory back to normal\, no new guidance cut\n
+ • Pentair: 2027 pool sales near $1.45bn\n\nAFTERWARDS\nReport: https://t
+ urnivor.github.io/investment-reports/#water-screen\nPDF: https://turnivor.
+ github.io/investment-reports/reports/Water/Xylem-vs-Pentair-quality-screen
+ -20261011.pdf\nTo update the report\, copy the request on its page into Cl
+ aude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#water-screen
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Xylem vs Pentair: Quality Screen: Pentair Q3 results (date to c
+ onfirm)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

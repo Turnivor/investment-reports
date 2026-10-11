@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:india-fin-funnel-2027-01-10-refresh-the-verdict@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270110
+DTEND;VALUE=DATE:20270111
+SUMMARY:India Financial Services Funnel: refresh the verdict
+DESCRIPTION:The verdict of 11 Oct 2026 turns 90 days old. Rerun the researc
+ h before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: 
+ Favor ICICI · HDFC Bank · HDFC AMC\nPrice then 52 companies\n\nSIGNALS T
+ O WATCH\n• ICICI Bank: margin below 4.1%\, loans still growing far faste
+ r than deposits\n• HDFC Bank: cheap-deposit share\, margin\, outcome of 
+ the US class action\n• HDFC AMC: fee rules from the regulator\, monthly 
+ SIP flows\n• Oil price and the rupee\n\nAFTERWARDS\nReport: https://turn
+ ivor.github.io/investment-reports/#india-fin-funnel\nPDF: https://turnivor
+ .github.io/investment-reports/reports/industry/IndiaFinancials-funnel-2026
+ 1011.pdf\nTo update the report\, copy the request on its page into Claude 
+ Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#india-fin-funnel
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:India Financial Services Funnel: refresh the verdict
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

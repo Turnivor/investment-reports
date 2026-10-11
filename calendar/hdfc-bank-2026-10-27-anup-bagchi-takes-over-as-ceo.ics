@@ -1,0 +1,33 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:hdfc-bank-2026-10-27-anup-bagchi-takes-over-as-ceo@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20261027
+DTEND;VALUE=DATE:20261028
+SUMMARY:HDFC Bank: Anup Bagchi takes over as CEO
+DESCRIPTION:\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Small staged b
+ uy · better < ₹600\nPrice then ₹707 · bear ₹505 · base ₹739 · 
+ bull ₹997\nClearly attractive below ₹600\n\nIF YOU HOLD IT\nHold\; no 
+ reason to add above ~₹720 before CASA turns.\n\nSIGNALS TO ADD\n• CASA
+  ratio rises for two consecutive quarters\n• NIM back above 3.5%\n• Lo
+ an/deposit ratio below 92%\n• Class action dismissed or settled for a sm
+ all sum\n• Price ≤ ₹600\n\nSIGNALS TO SELL\n• A regulator (RBI\, S
+ EBI\, SEC) substantiates misconduct at senior level\n• ROE below 12% for
+  a full year\n• Gross NPA above 2%\n• Several senior departures in the
+  new CEO's first year\n• Price above ~2.5x book without ROE above 16%\n\
+ nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#hdfc-b
+ ank\nPDF: https://turnivor.github.io/investment-reports/reports/HDFC-Bank/
+ HDFC-Bank-research-20261011.pdf\nTo update the report\, copy the request o
+ n its page into Claude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#hdfc-bank
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:HDFC Bank: Anup Bagchi takes over as CEO
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

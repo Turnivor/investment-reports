@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:take-two-2026-11-19-gta-vi-launch@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20261119
+DTEND;VALUE=DATE:20261120
+SUMMARY:Take-Two Interactive: GTA VI launch
+DESCRIPTION:WHAT TO CHECK\nReview scores\, the technical state of the game\
+ , and the first sales figure Take-Two announces.\n\nWHERE THE REPORT STOOD
+  (11 Oct 2026)\nVerdict: Wait · buy < $126\nPrice then $213 · bear $82.6
+  · base $168 · bull $262\nMargin of safety below $126\n\nIF YOU HOLD IT\
+ nHold\, but keep the position small enough that a 40% fall would not hurt\
+ , and do not add before the launch. The price already assumes a record lau
+ nch\, so the reward for being right is small next to the cost of being wro
+ ng.\n\nSIGNALS TO ADD\n• Price below about $168 with the launch delivere
+ d\n• The online mode launches and recurrent spending grows above the fis
+ cal 2026 level of $5.2bn\n• First fiscal 2028 guidance above fiscal 2027
+ \n• Net cash reached and share buybacks restarted\n• Insiders buying s
+ hares\n\nSIGNALS TO SELL\n• A third delay of GTA VI\n• The online mode
+  slips past fiscal 2028 or earns less than GTA Online does now\n• Fiscal
+  2028 guidance below fiscal 2027\n• A large acquisition paid for with ne
+ w shares\n• Price above about $262 (the bull value) without higher earni
+ ngs estimates\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment
+ -reports/#take-two\nPDF: https://turnivor.github.io/investment-reports/rep
+ orts/Take-Two/Take-Two-research-20261011.pdf\nTo update the report\, copy 
+ the request on its page into Claude Code.\n\nResearch notes\, not investme
+ nt advice.
+URL:https://turnivor.github.io/investment-reports/#take-two
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Take-Two Interactive: GTA VI launch
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

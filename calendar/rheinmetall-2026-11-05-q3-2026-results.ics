@@ -1,0 +1,34 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:rheinmetall-2026-11-05-q3-2026-results@turnivor.github.io
+DTSTAMP:20261006T000000Z
+DTSTART;VALUE=DATE:20261105
+DTEND;VALUE=DATE:20261106
+SUMMARY:Rheinmetall: Q3 2026 results (date to confirm)
+DESCRIPTION:Date not confirmed. The report says: Early November 2026.\nWHAT
+  TO CHECK\nFCF\, working capital\, order intake. They show whether cash fl
+ ow is recovering.\n\nWHERE THE REPORT STOOD (06 Oct 2026)\nVerdict: Gray z
+ one · buy < €700\nPrice then €953 · bear €447 · base €1\,101 ·
+  bull €1\,899\nMargin of safety below €700\n\nIF YOU HOLD IT\nThe thes
+ is is intact as long as the backlog keeps growing and FCF recovers in H2. 
+ Treat it as a cyclical position\, not a forever compounder.\n\nSIGNALS TO 
+ ADD\n• Price below €700 with the thesis intact\n• H2 2026 FCF > €1
+ .5bn showing that working capital reverses\n\nSIGNALS TO SELL\n• FY2026 
+ cash conversion well below 40%\n• Another guidance cut\n• A large equi
+ ty raise\n• A durable ceasefire combined with EU budget delays\n\nAFTERW
+ ARDS\nReport: https://turnivor.github.io/investment-reports/#rheinmetall\n
+ PDF: https://turnivor.github.io/investment-reports/reports/Rheinmetall/Rhe
+ inmetall-research-20261006.pdf\nTo update the report\, copy the request on
+  its page into Claude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#rheinmetall
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Rheinmetall: Q3 2026 results (date to confirm)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

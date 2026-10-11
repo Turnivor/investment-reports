@@ -1,0 +1,31 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:video-games-2026-11-19-gta-vi-launch@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20261119
+DTEND;VALUE=DATE:20261120
+SUMMARY:Video Games: GTA VI launch
+DESCRIPTION:WHAT TO CHECK\nFirst sales figures\, and whether console sales 
+ pick up with it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Selecti
+ ve · NetEase · Nintendo\nPrice then 80 companies\n\nSIGNALS TO WATCH\n
+ • Memory chip costs pushing console prices higher again\n• GTA VI sale
+ s falling short and dragging console spending with them\n• New rules in 
+ China on game approvals or spending\n• AI tools that let small teams bui
+ ld large games\n• Another large buyout that resets what franchises are w
+ orth\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-reports/
+ #video-games\nPDF: https://turnivor.github.io/investment-reports/reports/i
+ ndustry/VideoGames-industry-20261011.pdf\nTo update the report\, copy the 
+ request on its page into Claude Code.\n\nResearch notes\, not investment a
+ dvice.
+URL:https://turnivor.github.io/investment-reports/#video-games
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Video Games: GTA VI launch
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

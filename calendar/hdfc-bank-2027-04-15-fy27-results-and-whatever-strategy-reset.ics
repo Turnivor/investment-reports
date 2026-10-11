@@ -1,0 +1,37 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:hdfc-bank-2027-04-15-fy27-results-and-whatever-strategy-reset@turnivor.
+ github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270415
+DTEND;VALUE=DATE:20270416
+SUMMARY:HDFC Bank: FY27 results and whatever strategy reset comes with them
+  (date to confirm)
+DESCRIPTION:Date not confirmed. The report says: April 2027.\n\nWHERE THE R
+ EPORT STOOD (11 Oct 2026)\nVerdict: Small staged buy · better < ₹600\nP
+ rice then ₹707 · bear ₹505 · base ₹739 · bull ₹997\nClearly att
+ ractive below ₹600\n\nIF YOU HOLD IT\nHold\; no reason to add above ~₹
+ 720 before CASA turns.\n\nSIGNALS TO ADD\n• CASA ratio rises for two con
+ secutive quarters\n• NIM back above 3.5%\n• Loan/deposit ratio below 9
+ 2%\n• Class action dismissed or settled for a small sum\n• Price ≤ 
+ ₹600\n\nSIGNALS TO SELL\n• A regulator (RBI\, SEBI\, SEC) substantiate
+ s misconduct at senior level\n• ROE below 12% for a full year\n• Gross
+  NPA above 2%\n• Several senior departures in the new CEO's first year\n
+ • Price above ~2.5x book without ROE above 16%\n\nAFTERWARDS\nReport: ht
+ tps://turnivor.github.io/investment-reports/#hdfc-bank\nPDF: https://turni
+ vor.github.io/investment-reports/reports/HDFC-Bank/HDFC-Bank-research-2026
+ 1011.pdf\nTo update the report\, copy the request on its page into Claude 
+ Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#hdfc-bank
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:HDFC Bank: FY27 results and whatever strategy reset comes with 
+ them (date to confirm)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

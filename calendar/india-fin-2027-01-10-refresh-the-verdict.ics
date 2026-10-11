@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:india-fin-2027-01-10-refresh-the-verdict@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270110
+DTEND;VALUE=DATE:20270111
+SUMMARY:India Financial Services: refresh the verdict
+DESCRIPTION:The verdict of 11 Oct 2026 turns 90 days old. Rerun the researc
+ h before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: 
+ Favor private banks · AMCs\nPrice then 45+ companies\n\nSIGNALS TO WATCH\
+ n• Oil near $100 and the rupee near record lows\n• Retail bad loans ri
+ sing for three straight quarters\n• New rules on options trading\, unsec
+ ured loans or payment fees\n• Large-bank valuations back above 3 times b
+ ook without higher returns\n\nAFTERWARDS\nReport: https://turnivor.github.
+ io/investment-reports/#india-fin\nPDF: https://turnivor.github.io/investme
+ nt-reports/reports/industry/IndiaFinancials-industry-20261011.pdf\nTo upda
+ te the report\, copy the request on its page into Claude Code.\n\nResearch
+  notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#india-fin
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:India Financial Services: refresh the verdict
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

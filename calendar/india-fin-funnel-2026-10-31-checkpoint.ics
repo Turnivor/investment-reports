@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:india-fin-funnel-2026-10-31-checkpoint@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:India Financial Services Funnel: Checkpoint
+DESCRIPTION:WHAT TO CHECK\nQ2 FY27 results for HDFC AMC (15 October) and th
+ e two banks (second half of October 2026).\n\nWHERE THE REPORT STOOD (11 O
+ ct 2026)\nVerdict: Favor ICICI · HDFC Bank · HDFC AMC\nPrice then 52 com
+ panies\n\nSIGNALS TO WATCH\n• ICICI Bank: margin below 4.1%\, loans stil
+ l growing far faster than deposits\n• HDFC Bank: cheap-deposit share\, m
+ argin\, outcome of the US class action\n• HDFC AMC: fee rules from the r
+ egulator\, monthly SIP flows\n• Oil price and the rupee\n\nAFTERWARDS\nR
+ eport: https://turnivor.github.io/investment-reports/#india-fin-funnel\nPD
+ F: https://turnivor.github.io/investment-reports/reports/industry/IndiaFin
+ ancials-funnel-20261011.pdf\nTo update the report\, copy the request on it
+ s page into Claude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#india-fin-funnel
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:India Financial Services Funnel: Checkpoint
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

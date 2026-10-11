@@ -1,0 +1,33 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:xylem-2026-10-27-q3-2026-results@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20261027
+DTEND;VALUE=DATE:20261028
+SUMMARY:Xylem: Q3 2026 results
+DESCRIPTION:WHAT TO CHECK\nThey show whether organic growth is recovering t
+ oward 3%.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: Hold · buy < 
+ $85\nPrice then $103 · bear $62.8 · base $110 · bull $143\nMargin of sa
+ fety below $85\n\nIF YOU HOLD IT\nHold. The business is intact and the mul
+ tiple has already fallen by a third.\n\nSIGNALS TO ADD\n• Price near $85
+ \n• Organic growth back to 4% or more with the margin intact\n• The CE
+ O buying shares with his own money\n\nSIGNALS TO SELL\n• Organic growth 
+ still at or below 2% through 2027 once the 80/20 exits are done\n• Adjus
+ ted EBITDA margin stalls below 23%\n• Another large deal paid with share
+ s\n• Net debt above 2.5 times EBITDA\n\nAFTERWARDS\nReport: https://turn
+ ivor.github.io/investment-reports/#xylem\nPDF: https://turnivor.github.io/
+ investment-reports/reports/Xylem/Xylem-research-20261011.pdf\nTo update th
+ e report\, copy the request on its page into Claude Code.\n\nResearch note
+ s\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#xylem
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Xylem: Q3 2026 results
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

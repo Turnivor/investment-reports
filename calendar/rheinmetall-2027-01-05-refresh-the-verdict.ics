@@ -1,0 +1,34 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:rheinmetall-2027-01-05-refresh-the-verdict@turnivor.github.io
+DTSTAMP:20261006T000000Z
+DTSTART;VALUE=DATE:20270105
+DTEND;VALUE=DATE:20270106
+SUMMARY:Rheinmetall: refresh the verdict
+DESCRIPTION:The verdict of 06 Oct 2026 turns 90 days old. Rerun the researc
+ h before relying on it.\n\nWHERE THE REPORT STOOD (06 Oct 2026)\nVerdict: 
+ Gray zone · buy < €700\nPrice then €953 · bear €447 · base €1\,
+ 101 · bull €1\,899\nMargin of safety below €700\n\nIF YOU HOLD IT\nTh
+ e thesis is intact as long as the backlog keeps growing and FCF recovers i
+ n H2. Treat it as a cyclical position\, not a forever compounder.\n\nSIGNA
+ LS TO ADD\n• Price below €700 with the thesis intact\n• H2 2026 FCF 
+ > €1.5bn showing that working capital reverses\n\nSIGNALS TO SELL\n• F
+ Y2026 cash conversion well below 40%\n• Another guidance cut\n• A larg
+ e equity raise\n• A durable ceasefire combined with EU budget delays\n\n
+ AFTERWARDS\nReport: https://turnivor.github.io/investment-reports/#rheinme
+ tall\nPDF: https://turnivor.github.io/investment-reports/reports/Rheinmeta
+ ll/Rheinmetall-research-20261006.pdf\nTo update the report\, copy the requ
+ est on its page into Claude Code.\n\nResearch notes\, not investment advic
+ e.
+URL:https://turnivor.github.io/investment-reports/#rheinmetall
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Rheinmetall: refresh the verdict
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,38 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:take-two-2027-01-10-refresh-the-verdict@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270110
+DTEND;VALUE=DATE:20270111
+SUMMARY:Take-Two Interactive: refresh the verdict
+DESCRIPTION:The verdict of 11 Oct 2026 turns 90 days old. Rerun the researc
+ h before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: 
+ Wait · buy < $126\nPrice then $213 · bear $82.6 · base $168 · bull $26
+ 2\nMargin of safety below $126\n\nIF YOU HOLD IT\nHold\, but keep the posi
+ tion small enough that a 40% fall would not hurt\, and do not add before t
+ he launch. The price already assumes a record launch\, so the reward for b
+ eing right is small next to the cost of being wrong.\n\nSIGNALS TO ADD\n
+ • Price below about $168 with the launch delivered\n• The online mode 
+ launches and recurrent spending grows above the fiscal 2026 level of $5.2b
+ n\n• First fiscal 2028 guidance above fiscal 2027\n• Net cash reached 
+ and share buybacks restarted\n• Insiders buying shares\n\nSIGNALS TO SEL
+ L\n• A third delay of GTA VI\n• The online mode slips past fiscal 2028
+  or earns less than GTA Online does now\n• Fiscal 2028 guidance below fi
+ scal 2027\n• A large acquisition paid for with new shares\n• Price abo
+ ve about $262 (the bull value) without higher earnings estimates\n\nAFTERW
+ ARDS\nReport: https://turnivor.github.io/investment-reports/#take-two\nPDF
+ : https://turnivor.github.io/investment-reports/reports/Take-Two/Take-Two-
+ research-20261011.pdf\nTo update the report\, copy the request on its page
+  into Claude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#take-two
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Take-Two Interactive: refresh the verdict
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

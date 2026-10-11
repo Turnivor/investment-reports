@@ -4,6 +4,7 @@ Every report in reports/ starts with a block between two `---` lines that holds 
 signals, checkpoint and value range, written as JSON. This script reads those blocks and writes
 
   reports.js   the list the site shows, the links between reports and the exchange rates
+  calendar/    one .ics file per dated reminder (checkpoints, and the day a verdict turns 90 days old)
   README.md    the table of reports, between the two `reports:` markers
 
 Run it after adding or changing a report:  python tools/build.py
@@ -18,7 +19,8 @@ import re
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import date
+from datetime import date, timedelta
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -26,6 +28,8 @@ FX_CACHE = ROOT / "tools" / "fx.json"
 BNR = "https://curs.bnr.ro/files/xml/years/nbrfxrates{}.xml"
 CURRENCIES = {"$": "USD", "€": "EUR", "₹": "INR", "£": "GBP"}  # symbol used in a report -> National Bank code
 TONES = ("bad", "warn", "good")
+SITE = "https://turnivor.github.io/investment-reports/"
+STALE_DAYS = 90  # same as the site
 START, END = "<!-- reports:start -->", "<!-- reports:end -->"
 
 REQUIRE_PDF = True  # tools/make_pdf.py turns this off for the build it runs before printing
@@ -156,6 +160,111 @@ def exchange_rates(reports):
     return {day: cache["days"][day] for day in sorted(used)}
 
 
+def money(cur, v):
+    """Same rounding as the site: two decimals under 100, none from 100 up."""
+    if v < 100:
+        return cur + f"{v:,.2f}".rstrip("0").rstrip(".")
+    return cur + f"{int(Decimal(str(v)).quantize(Decimal('1'), ROUND_HALF_UP)):,}"
+
+
+def day_text(iso):
+    return date.fromisoformat(iso).strftime("%d %b %Y")
+
+
+def notes(r, intro):
+    """What a reminder carries: what to check, where the report stood, its own rules, and where to go afterwards."""
+    b, p = r.get("bands"), r.get("plan") or {}
+    lines = [*intro, "", f"WHERE THE REPORT STOOD ({day_text(r['date'])})", f"Verdict: {r['verdict']}"]
+    if b:
+        lines.append(f"Price then {money(b['cur'], b['price'])} · bear {money(b['cur'], b['bear'])} · base {money(b['cur'], b['base'])} · bull {money(b['cur'], b['bull'])}")
+        if b.get("zoneLabel"):
+            lines.append(b["zoneLabel"])
+    else:
+        lines.append(f"Price then {r['px']}")
+    if p.get("holding"):
+        lines += ["", "IF YOU HOLD IT", p["holding"]]
+    if p.get("add"):
+        lines += ["", "SIGNALS TO ADD", *("• " + x for x in p["add"])]
+    if p.get("sell"):
+        lines += ["", "SIGNALS TO SELL", *("• " + x for x in p["sell"])]
+    if not p:
+        lines += ["", "SIGNALS TO WATCH", *("• " + x for x in r["watch"])]
+    lines += ["", "AFTERWARDS", f"Report: {SITE}#{r['id']}"]
+    if r.get("pdf"):
+        lines.append(f"PDF: {SITE}{r['pdf']}")
+    lines += ["To update the report, copy the request on its page into Claude Code.", "", "Research notes, not investment advice."]
+    return "\n".join(lines)
+
+
+def events_of(r):
+    """Every dated reminder of a report: its checkpoints and the day its verdict turns 90 days old."""
+    dated = r.get("calendar") or ([{"date": r["next"]["until"], "what": "Checkpoint", "check": r["next"]["text"]}] if (r.get("next") or {}).get("until") else [])
+    out = []
+    for c in dated:
+        intro = [f"Date not confirmed. The report says: {c['approx']}."] if c.get("approx") else []
+        if c.get("check"):
+            intro += ["WHAT TO CHECK", c["check"]]
+        out.append({**c, "title": f"{r['title']}: {c['what']}" + (" (date to confirm)" if c.get("approx") else ""), "notes": notes(r, intro)})
+    refresh = (date.fromisoformat(r["date"]) + timedelta(days=STALE_DAYS + 1)).isoformat()
+    out.append({"date": refresh, "what": "Refresh the verdict", "check": f"It turns {STALE_DAYS} days old.", "refresh": True, "title": f"{r['title']}: refresh the verdict",
+                "notes": notes(r, [f"The verdict of {day_text(r['date'])} turns {STALE_DAYS} days old. Rerun the research before relying on it."])})
+    out.sort(key=lambda e: e["date"])
+    for e in out:
+        slug = re.sub(r"[^a-z0-9]+", "-", e["what"].lower()).strip("-")[:40]
+        e["ics"] = f"calendar/{r['id']}-{e['date']}-{slug}.ics"
+    return out
+
+
+def ics(r, e):
+    """One all-day event as a calendar file, which a phone or computer opens in its own calendar app."""
+    def text(value):
+        return value.replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")
+
+    def fold(line):  # lines are at most 75 bytes; longer ones continue on the next line after a space
+        raw, parts = line.encode("utf-8"), []
+        while len(raw) > (75 if not parts else 74):
+            cut = 75 if not parts else 74
+            while (raw[cut] & 0xC0) == 0x80:  # never split a character
+                cut -= 1
+            parts.append(raw[:cut]); raw = raw[cut:]
+        parts.append(raw)
+        return b"\r\n ".join(parts).decode("utf-8")
+
+    start = date.fromisoformat(e["date"])
+    lines = [
+        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Officium Advocati Diaboli//Reports//EN", "CALSCALE:GREGORIAN",
+        "BEGIN:VEVENT",
+        f"UID:{Path(e['ics']).stem}@turnivor.github.io",
+        f"DTSTAMP:{r['date'].replace('-', '')}T000000Z",
+        f"DTSTART;VALUE=DATE:{start:%Y%m%d}",
+        f"DTEND;VALUE=DATE:{start + timedelta(days=1):%Y%m%d}",
+        f"SUMMARY:{text(e['title'])}",
+        f"DESCRIPTION:{text(e['notes'])}",
+        f"URL:{SITE}#{r['id']}",
+        "TRANSP:TRANSPARENT",
+        "BEGIN:VALARM", "ACTION:DISPLAY", f"DESCRIPTION:{text(e['title'])}", "TRIGGER:-PT15H", "END:VALARM",  # 09:00 the day before
+        "END:VEVENT", "END:VCALENDAR",
+    ]
+    return "\r\n".join(fold(line) for line in lines) + "\r\n"
+
+
+def write_calendar(reports):
+    """Write one .ics file per reminder into calendar/, and clear out the ones no report asks for any more."""
+    folder = ROOT / "calendar"
+    folder.mkdir(exist_ok=True)
+    wanted = set()
+    for r in reports:
+        for e in r["events"]:
+            path = ROOT / e["ics"]
+            wanted.add(path.name)
+            body = ics(r, e).encode("utf-8")
+            if not path.exists() or path.read_bytes() != body:
+                path.write_bytes(body)
+    for old in folder.glob("*.ics"):
+        if old.name not in wanted:
+            old.unlink()
+
+
 def readme_table(reports):
     rows = ["| Date | Report | Type | Verdict |", "|---|---|---|---|"]
     for r in reports:
@@ -190,6 +299,10 @@ def main():
         for p in problems:
             print("  - " + p, file=sys.stderr)
         sys.exit(1)
+
+    for r in reports:
+        r["events"] = events_of(r)
+    write_calendar(reports)
 
     data = {
         "reports": reports,

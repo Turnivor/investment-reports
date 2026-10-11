@@ -1,0 +1,35 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:pentair-2027-01-10-refresh-the-verdict@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270110
+DTEND;VALUE=DATE:20270111
+SUMMARY:Pentair: refresh the verdict
+DESCRIPTION:The verdict of 11 Oct 2026 turns 90 days old. Rerun the researc
+ h before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: 
+ Hold · buy < $47\nPrice then $52.47 · bear $30.3 · base $63.1 · bull $
+ 84.6\nMargin of safety below $47\n\nIF YOU HOLD IT\nHold. The price alread
+ y reflects a poor outcome\, and selling at 11 times earnings during a chan
+ nel correction has historically been the wrong moment in this industry.\n\
+ nSIGNALS TO ADD\n• Q3 confirms channel inventory is normal\n• 2027 poo
+ l sales guided at or above $1.45bn\n• Insiders buying shares\n• The ne
+ w CFO resets guidance conservatively and then meets it\n\nSIGNALS TO SELL\
+ n• A third pool guidance cut\n• Pool margin guided below 30% for 2027\
+ n• Further admitted share loss\n• Net debt staying above 2.5 times EBI
+ TDA into 2028\n• A dividend freeze after 50 years of increases\n\nAFTERW
+ ARDS\nReport: https://turnivor.github.io/investment-reports/#pentair\nPDF:
+  https://turnivor.github.io/investment-reports/reports/Pentair/Pentair-res
+ earch-20261011.pdf\nTo update the report\, copy the request on its page in
+ to Claude Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#pentair
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Pentair: refresh the verdict
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

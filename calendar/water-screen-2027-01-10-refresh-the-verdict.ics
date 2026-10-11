@@ -1,0 +1,29 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:water-screen-2027-01-10-refresh-the-verdict@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270110
+DTEND;VALUE=DATE:20270111
+SUMMARY:Xylem vs Pentair: Quality Screen: refresh the verdict
+DESCRIPTION:The verdict of 11 Oct 2026 turns 90 days old. Rerun the researc
+ h before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: 
+ Both pass · Pentair cheaper\nPrice then 2 companies\n\nSIGNALS TO WATCH\n
+ • Xylem: organic growth back toward 3%\, margin on track for 23.1 to 23.
+ 5%\n• Pentair: pool inventory back to normal\, no new guidance cut\n• 
+ Pentair: 2027 pool sales near $1.45bn\n\nAFTERWARDS\nReport: https://turni
+ vor.github.io/investment-reports/#water-screen\nPDF: https://turnivor.gith
+ ub.io/investment-reports/reports/Water/Xylem-vs-Pentair-quality-screen-202
+ 61011.pdf\nTo update the report\, copy the request on its page into Claude
+  Code.\n\nResearch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#water-screen
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Xylem vs Pentair: Quality Screen: refresh the verdict
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

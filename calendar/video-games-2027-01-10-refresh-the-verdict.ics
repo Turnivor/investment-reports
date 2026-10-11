@@ -1,0 +1,31 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:video-games-2027-01-10-refresh-the-verdict@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270110
+DTEND;VALUE=DATE:20270111
+SUMMARY:Video Games: refresh the verdict
+DESCRIPTION:The verdict of 11 Oct 2026 turns 90 days old. Rerun the researc
+ h before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: 
+ Selective · NetEase · Nintendo\nPrice then 80 companies\n\nSIGNALS TO WA
+ TCH\n• Memory chip costs pushing console prices higher again\n• GTA VI
+  sales falling short and dragging console spending with them\n• New rule
+ s in China on game approvals or spending\n• AI tools that let small team
+ s build large games\n• Another large buyout that resets what franchises 
+ are worth\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-rep
+ orts/#video-games\nPDF: https://turnivor.github.io/investment-reports/repo
+ rts/industry/VideoGames-industry-20261011.pdf\nTo update the report\, copy
+  the request on its page into Claude Code.\n\nResearch notes\, not investm
+ ent advice.
+URL:https://turnivor.github.io/investment-reports/#video-games
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Video Games: refresh the verdict
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

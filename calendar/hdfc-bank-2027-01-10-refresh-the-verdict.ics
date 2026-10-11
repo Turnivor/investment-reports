@@ -1,0 +1,35 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:hdfc-bank-2027-01-10-refresh-the-verdict@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270110
+DTEND;VALUE=DATE:20270111
+SUMMARY:HDFC Bank: refresh the verdict
+DESCRIPTION:The verdict of 11 Oct 2026 turns 90 days old. Rerun the researc
+ h before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: 
+ Small staged buy · better < ₹600\nPrice then ₹707 · bear ₹505 · b
+ ase ₹739 · bull ₹997\nClearly attractive below ₹600\n\nIF YOU HOLD 
+ IT\nHold\; no reason to add above ~₹720 before CASA turns.\n\nSIGNALS TO
+  ADD\n• CASA ratio rises for two consecutive quarters\n• NIM back abov
+ e 3.5%\n• Loan/deposit ratio below 92%\n• Class action dismissed or se
+ ttled for a small sum\n• Price ≤ ₹600\n\nSIGNALS TO SELL\n• A regu
+ lator (RBI\, SEBI\, SEC) substantiates misconduct at senior level\n• ROE
+  below 12% for a full year\n• Gross NPA above 2%\n• Several senior dep
+ artures in the new CEO's first year\n• Price above ~2.5x book without RO
+ E above 16%\n\nAFTERWARDS\nReport: https://turnivor.github.io/investment-r
+ eports/#hdfc-bank\nPDF: https://turnivor.github.io/investment-reports/repo
+ rts/HDFC-Bank/HDFC-Bank-research-20261011.pdf\nTo update the report\, copy
+  the request on its page into Claude Code.\n\nResearch notes\, not investm
+ ent advice.
+URL:https://turnivor.github.io/investment-reports/#hdfc-bank
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:HDFC Bank: refresh the verdict
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Officium Advocati Diaboli//Reports//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:water-2027-01-10-refresh-the-verdict@turnivor.github.io
+DTSTAMP:20261011T000000Z
+DTSTART;VALUE=DATE:20270110
+DTEND;VALUE=DATE:20270111
+SUMMARY:Water Technology Funnel: refresh the verdict
+DESCRIPTION:The verdict of 11 Oct 2026 turns 90 days old. Rerun the researc
+ h before relying on it.\n\nWHERE THE REPORT STOOD (11 Oct 2026)\nVerdict: 
+ Favor VLTO · AOS · PNR\nPrice then 82 companies\n\nSIGNALS TO WATCH\n•
+  Veralto: liabilities/assets above 65%\, acquisition multiples\n• A. O. 
+ Smith: North American volumes\, China losses\n• Pentair: a third guidanc
+ e cut\, pool margin below 30%\n• US water funding\, after the infrastruc
+ ture law money ended on 30 Sep 2026\n\nAFTERWARDS\nReport: https://turnivo
+ r.github.io/investment-reports/#water\nPDF: https://turnivor.github.io/inv
+ estment-reports/reports/industry/WaterTechnology-funnel-20261011.pdf\nTo u
+ pdate the report\, copy the request on its page into Claude Code.\n\nResea
+ rch notes\, not investment advice.
+URL:https://turnivor.github.io/investment-reports/#water
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Water Technology Funnel: refresh the verdict
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

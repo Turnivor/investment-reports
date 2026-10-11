@@ -233,6 +233,34 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
 .back:hover, .btn:hover { border-color: var(--accent); color: var(--accent); }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
 .btn.primary:hover { color: var(--surface); opacity: .88; }
+/* ---------- Contents drawer: on phones and tablets the chapter list slides in from the side,
+   opened from the bar that follows the reader. Wide screens have the side rail instead. ---------- */
+.back .narrow { display: none; }
+@media (max-width: 520px) { .back .wide { display: none; } .back .narrow { display: inline; } }
+@media (min-width: 1000px) { #tocBtn { display: none; } }
+html:has(.drawer[open]) { overflow: hidden; }
+.drawer {
+  position: fixed; inset: 0 0 0 auto; margin: 0; padding: 0; width: min(340px, 88vw); height: 100%; height: 100dvh; max-width: none; max-height: none;
+  border: 0; border-left: 1px solid var(--rule); color: var(--ink); overflow-y: auto; overscroll-behavior: contain;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, 0) 200px), var(--surface);
+  box-shadow: -30px 0 60px rgba(0, 0, 0, .55);
+}
+.drawer[open] { animation: slide .28s cubic-bezier(.2, .7, .2, 1); }
+.drawer::backdrop { background: rgba(8, 9, 10, .62); }
+@keyframes slide { from { transform: translateX(100%); } }
+.d-in { min-height: 100%; display: grid; gap: 18px; align-content: start; padding: calc(14px + env(safe-area-inset-top, 0px)) 18px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.d-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.drawer .label { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.d-title { font-family: var(--f-body); font-weight: 500; font-size: 23px; line-height: 1.15; margin: 0; text-wrap: balance; }
+.drawer ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; font-family: var(--f-display); font-size: 16.5px; }
+.drawer ol button { all: unset; box-sizing: border-box; display: block; width: 100%; cursor: pointer; padding: 10px 12px; border-left: 2px solid transparent; color: var(--muted); line-height: 1.3; }
+.drawer ol button:hover { color: var(--ink); }
+.drawer ol button.on { color: var(--accent); border-left-color: var(--accent); background: var(--accent-soft); }
+.drawer ol button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.d-else { display: grid; gap: 2px; border-top: 1px solid var(--rule); padding-top: 16px; }
+.d-else a { font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 10px 12px; border-radius: 3px; }
+.d-else a:hover { color: var(--accent); }
+
 .bar .crumb { font-family: var(--f-mono); font-size: 13px; color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
 
 .rhead { display: grid; gap: 12px; padding-block: 34px 22px; }
@@ -277,7 +305,9 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
 .p-dates time { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
 .p-dates b { display: block; font-family: var(--f-display); font-weight: 600; font-size: 17px; line-height: 1.3; }
 .sum .plan .p-dates p { font-size: 15.5px; color: var(--muted); margin: 1px 0 0; }
-.p-dates .cal { display: inline-block; margin-top: 7px; }
+.p-dates .cal-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+.cal.alt { color: var(--muted); background: none; box-shadow: none; }
+.cal.alt::before { content: none; }
 .p-dates .gone { opacity: .55; }
 .p-dates .was { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
 .sum .plan small { display: block; margin-top: 12px; font-family: var(--f-mono); font-size: 12px; line-height: 1.5; color: var(--muted); }
@@ -425,8 +455,9 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
 
   <section id="readerView" hidden>
     <div class="bar">
-      <button class="back" id="backBtn" type="button">← All reports</button>
+      <button class="back" id="backBtn" type="button" aria-label="All reports">← <span class="wide">All reports</span><span class="narrow">Reports</span></button>
       <span class="crumb" id="crumb"></span>
+      <button class="back" id="tocBtn" type="button" aria-haspopup="dialog" aria-controls="drawer">Contents</button>
       <i class="prog" id="prog" aria-hidden="true"></i>
     </div>
     <header class="rhead">
@@ -448,6 +479,15 @@ button.tcell[aria-pressed="true"] span { color: var(--accent); }
       <article class="prose" id="prose"><div class="status">Loading report…</div></article>
     </div>
   </section>
+
+  <dialog class="drawer" id="drawer" aria-label="Contents">
+    <div class="d-in">
+      <div class="d-head"><span class="label">Contents</span><button class="back" id="drawerClose" type="button">Close ✕</button></div>
+      <p class="d-title" id="drawerTitle"></p>
+      <ol id="drawerList"></ol>
+      <div class="d-else"><span class="label">Elsewhere</span><a href="./" data-home>All reports</a><a href="#scorecard">Scorecard</a><a href="commands.html">Commands</a></div>
+    </div>
+  </dialog>
 
   <footer class="foot"><span class="sigil" aria-hidden="true"></span>Personal research made with AI help. Not investment advice. Verify before acting.</footer>
 </div>
@@ -706,50 +746,25 @@ function renderMarkdown(md) {
   return box;
 }
 
-/* ---------- Calendar links ----------
-   A ready-made Google Calendar event. It opens as a draft in the calendar of whoever clicks, so nobody can
-   add anything to someone else's calendar, and the date can still be changed before saving. */
+/* ---------- Calendar reminders ----------
+   tools/build.py works out each report's dated reminders (`events`: its checkpoints and the day its verdict turns
+   90 days old), writes their notes, and saves each as a calendar file in calendar/. "Add to calendar" links to
+   that file, which a phone or computer opens in its own calendar app. "Google" opens the same event as a draft in
+   Google Calendar on the web. Either way it lands in the calendar of whoever clicks, never anyone else's. */
 const plusDays = (day, n) => { const d = new Date(day + "T12:00:00"); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
-function calLink(title, day, details, label) {
-  const ymd = d => d.replaceAll("-", "");
-  const url = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(title)
-    + "&dates=" + ymd(day) + "/" + ymd(plusDays(day, 1)) + "&details=" + encodeURIComponent(details);
-  return `<a class="cal" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}</a>`;
-}
 const isAhead = day => new Date(day + "T23:59:59") > new Date();
-// the dated checkpoints of a report: its own calendar, or else its single next checkpoint
-const datesOf = r => r.calendar && r.calendar.length ? r.calendar
-  : r.next && r.next.until ? [{ date: r.next.until, what: "Checkpoint", check: r.next.text }] : [];
-// the notes a reminder carries: what to check, where the report stood, its own rules, and where to go afterwards
-function eventNotes(r, intro) {
-  const b = r.bands, p = r.plan, lines = [...intro, ""];
-  lines.push(`WHERE THE REPORT STOOD (${fmtDate(r.date)})`, `Verdict: ${r.verdict}`,
-    b ? `Price then ${money(b.cur, b.price)} · bear ${money(b.cur, b.bear)} · base ${money(b.cur, b.base)} · bull ${money(b.cur, b.bull)}` : `Price then ${r.px}`);
-  if (b && b.zoneLabel) lines.push(b.zoneLabel);
-  if (p && p.holding) lines.push("", "IF YOU HOLD IT", p.holding);
-  if (p && p.add) lines.push("", "SIGNALS TO ADD", ...p.add.map(x => "• " + x));
-  if (p && p.sell) lines.push("", "SIGNALS TO SELL", ...p.sell.map(x => "• " + x));
-  if (!p) lines.push("", "SIGNALS TO WATCH", ...r.watch.map(x => "• " + x));
-  lines.push("", "AFTERWARDS", "Report: " + new URL("#" + r.id, location.href).href);
-  if (r.pdf) lines.push("PDF: " + new URL(r.pdf, location.href).href);
-  lines.push("To update the report, copy the request on its page into Claude Code.", "", "Research notes, not investment advice.");
-  return lines.join("\n");
-}
-function checkpointLink(r, c) {
-  const intro = [c.approx ? `Date not confirmed. The report says: ${c.approx}.` : "", c.check ? "WHAT TO CHECK" : "", c.check || ""].filter(Boolean);
-  return calLink(`${r.title}: ${c.what}${c.approx ? " (date to confirm)" : ""}`, c.date, eventNotes(r, intro), "Add to calendar");
-}
-function refreshLink(r, day) {
-  return calLink(`${r.title}: refresh the verdict`, day, eventNotes(r, [`The verdict of ${fmtDate(r.date)} turns ${STALE_DAYS} days old. Rerun the research before relying on it.`]), "Add to calendar");
+function googleLink(e) {
+  const ymd = d => d.replaceAll("-", "");
+  const url = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(e.title)
+    + "&dates=" + ymd(e.date) + "/" + ymd(plusDays(e.date, 1)) + "&details=" + encodeURIComponent(e.notes);
+  return `<a class="cal alt" href="${esc(url)}" target="_blank" rel="noopener">Google</a>`;
 }
 // the report's own plan for someone following the share: its rules, and its dates with a reminder for each
 function planBlock(r) {
-  const p = r.plan, refresh = plusDays(r.date, STALE_DAYS + 1);
-  const rows = datesOf(r).map(c => [c.date, `
-        <li class="${isAhead(c.date) ? "" : "gone"}"><time datetime="${esc(c.date)}">${c.approx ? "≈ " : ""}${fmtDate(c.date)}</time><div><b>${esc(c.what)}</b>${c.check ? `<p>${esc(c.check)}</p>` : ""}${isAhead(c.date) ? checkpointLink(r, c) : `<span class="was">Passed</span>`}</div></li>`]);
-  if (isAhead(refresh)) rows.push([refresh, `
-        <li><time datetime="${refresh}">${fmtDate(refresh)}</time><div><b>Refresh the verdict</b><p>It turns ${STALE_DAYS} days old.</p>${refreshLink(r, refresh)}</div></li>`]);
-  const dates = rows.sort((a, b) => a[0].localeCompare(b[0])).map(x => x[1]);
+  const p = r.plan;
+  const dates = (r.events || []).filter(e => !e.refresh || isAhead(e.date)).map(e => `
+        <li class="${isAhead(e.date) ? "" : "gone"}"><time datetime="${esc(e.date)}">${e.approx ? "≈ " : ""}${fmtDate(e.date)}</time><div><b>${esc(e.what)}</b>${e.check ? `<p>${esc(e.check)}</p>` : ""}${isAhead(e.date)
+          ? `<span class="cal-row"><a class="cal" href="${esc(e.ics)}">Add to calendar</a>${googleLink(e)}</span>` : `<span class="was">Passed</span>`}</div></li>`);
   if (!p && !dates.length) return "";
   const list = xs => `<ul>${xs.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
   return `
@@ -761,7 +776,7 @@ function planBlock(r) {
         ${p && p.add ? `<div><h4>Signals to add</h4>${list(p.add)}</div>` : ""}
         ${p && p.sell ? `<div><h4>Signals to sell</h4>${list(p.sell)}</div>` : ""}
       </div>
-      ${dates.length ? `<small>"Add to calendar" opens a draft in your own Google Calendar. Its notes carry what to check, the report's rules and links to the report${r.pdf ? " and its PDF" : ""}. A date marked ≈ is not confirmed; change it in the draft if you know better.</small>` : ""}
+      ${dates.length ? `<small>"Add to calendar" opens the event in your phone's or computer's own calendar app. "Google" opens it as a draft in Google Calendar on the web. The event's notes carry what to check, the report's rules and links to the report${r.pdf ? " and its PDF" : ""}. A date marked ≈ is not confirmed; change it before saving if you know better.</small>` : ""}
     </div>`;
 }
 
@@ -803,7 +818,8 @@ async function openReport(id) {
   const r = byId[id], n = daysOld(r.date), stale = n > STALE_DAYS;
   $("#home").hidden = true; $("#scoreView").hidden = true; $("#readerView").hidden = false;
   document.title = `${r.title} · Officium Advocati Diaboli`;
-  $("#crumb").textContent = `${r.ticker} · ${fmtDate(r.date)}`;
+  reading = r; chapter = undefined; mark(null);
+  $("#drawerTitle").textContent = r.title; $("#drawerList").innerHTML = "";
   $("#rKind").textContent = `${r.kind} · ${r.venue}`;
   $("#rTitle").textContent = r.title;
   $("#rMeta").innerHTML = `<span>${fmtDate(r.date)}</span><span class="chip ${stale ? "warn" : "plain"}">${ageText(n)}${stale ? " · needs a refresh" : ""}</span><span>Price at research ${esc(r.px)}</span><span class="now" data-live="${r.id}"></span><span class="chip ${r.tone}">${esc(r.verdict)}</span>`;
@@ -833,6 +849,16 @@ async function openReport(id) {
   }
 }
 
+// the chapter in view: lit in the side rail and the drawer, and named in the bar
+let reading = null, chapter;
+function mark(id) {
+  if (id === chapter) return;
+  chapter = id;
+  document.querySelectorAll("#tocList button, #drawerList button").forEach(b => b.classList.toggle("on", b.dataset.target === (id || "top")));
+  const label = id && document.querySelector(`#tocList button[data-target="${CSS.escape(id)}"]`)?.textContent;
+  if (reading) $("#crumb").textContent = `${reading.ticker} · ${label || fmtDate(reading.date)}`;
+}
+
 function buildToc() {
   const used = new Set();
   const heads = [...document.querySelectorAll("#prose h2")];
@@ -845,17 +871,29 @@ function buildToc() {
   });
   $("#tocList").innerHTML = heads.map((h, i) =>
     `<li><button type="button" data-target="${h.id}">${esc(labels[i].replace(/[—–-]\s.*$/, "").trim())}</button></li>`).join("");
+  $("#drawerList").innerHTML = `<li><button type="button" data-target="top">Summary</button></li>` + $("#tocList").innerHTML;
+  chapter = undefined; mark(null);
   $("#tocDetails").open = window.matchMedia("(min-width: 1000px)").matches;
   if (observer) observer.disconnect();
-  const btns = Object.fromEntries([...document.querySelectorAll("#tocList button")].map(b => [b.dataset.target, b]));
   observer = new IntersectionObserver(entries => {
-    entries.forEach(en => { if (en.isIntersecting) {
-      Object.values(btns).forEach(b => b.classList.remove("on"));
-      btns[en.target.id]?.classList.add("on");
-    }});
+    entries.forEach(en => { if (en.isIntersecting) mark(en.target.id); });
   }, { rootMargin: "-80px 0px -70% 0px" });
   heads.forEach(h => observer.observe(h));
 }
+
+/* ---------- Contents drawer ---------- */
+const drawer = $("#drawer");
+$("#tocBtn").addEventListener("click", () => { drawer.showModal(); drawer.querySelector("button.on")?.scrollIntoView({ block: "center" }); });
+$("#drawerClose").addEventListener("click", () => drawer.close());
+drawer.addEventListener("click", e => {
+  if (e.target === drawer) return drawer.close();   // a tap on the dimmed page beside the drawer
+  const b = e.target.closest("#drawerList button"), a = e.target.closest("a");
+  if (!b && !a) return;
+  drawer.close();
+  if (b && b.dataset.target === "top") window.scrollTo({ top: 0, behavior: "smooth" });
+  else if (b) document.getElementById(b.dataset.target)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  else if (a.hasAttribute("data-home")) { e.preventDefault(); $("#backBtn").click(); }
+});
 
 $("#tocList").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
@@ -940,6 +978,7 @@ function drawProgress() {
   const room = document.documentElement.scrollHeight - innerHeight;
   prog.style.transform = `scaleX(${room > 0 ? Math.min(1, scrollY / room) : 0})`;
   bar.classList.toggle("stuck", $(".rhead").getBoundingClientRect().top < bar.getBoundingClientRect().bottom - .5);
+  if ($("#prose").getBoundingClientRect().top > innerHeight * .45) mark(null);   // back above the first chapter
 }
 window.addEventListener("scroll", drawProgress, { passive: true });
 window.addEventListener("hashchange", route);
