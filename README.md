@@ -8,6 +8,10 @@ Personal stock and industry research, made with Claude Code and the [ai-berkshir
 
 | Date | Report | Type | Verdict |
 |---|---|---|---|
+| 2026-10-11 | [Xylem (XYL)](reports/Xylem/Xylem-research-20261011.md) | Company | Hold; buy < $85 |
+| 2026-10-11 | [Pentair (PNR)](reports/Pentair/Pentair-research-20261011.md) | Company | Hold; buy < $47 |
+| 2026-10-11 | [Xylem vs Pentair quality screen](reports/Water/Xylem-vs-Pentair-quality-screen-20261011.md) | Comparison | Both pass; Pentair cheaper |
+| 2026-10-11 | [Water technology funnel](reports/industry/WaterTechnology-funnel-20261011.md) | Industry | Favor Veralto, A. O. Smith, Pentair |
 | 2026-10-09 | [Oklo (OKLO)](reports/Oklo/Oklo-research-20261009.md) | Company | Avoid at $34; speculative only < $20 |
 | 2026-10-09 | [Advanced Nuclear & SMR value chain](reports/industry/AdvancedNuclear-SMR-industry-20261009.md) | Industry | Favor fuel-cycle chokepoints & existing fleets (BWXT, CCJ, CEG) |
 | 2026-10-06 | [Rheinmetall](reports/Rheinmetall/Rheinmetall-research-20261006.md) ([PDF](reports/Rheinmetall/Rheinmetall-research-20261006.pdf)) | Company | Gray zone; buy < €700 |
