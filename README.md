@@ -43,7 +43,8 @@ Charts: [`charts/`](charts/)
 | [`site.css`](site.css) | Shared look for both pages (colours, fonts, top menu) |
 | [`og.png`](og.png) | Preview image shown when the link is shared |
 | [`brand/`](brand/) | Emblem, seal and browser-tab icons |
-| [`tools/queue_mcp.py`](tools/queue_mcp.py), [`.claude/commands/queue.md`](.claude/commands/queue.md) | `/queue` in Claude Code: review friends' requests and run the ones you pick |
+| [`tools/queue_mcp.py`](tools/queue_mcp.py), [`.claude/commands/queue.md`](.claude/commands/queue.md) | `/queue` in Claude Code: review friends' requests and run the ones you pick. Set up once by double-clicking [`tools/setup-queue.command`](tools/setup-queue.command) |
+| [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) | Publishes the site to Cloudflare Pages after every push and price update (does nothing until Cloudflare is set up) |
 
 GitHub Pages serves the site from `main` / root. There is no build step. To make it friends-only with a request queue, follow [`FRIENDS-SETUP.md`](FRIENDS-SETUP.md) (Cloudflare Pages + Access, free).
 

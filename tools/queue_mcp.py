@@ -5,13 +5,8 @@ Runs on his own computer, started by Claude Code (never on the website). It talk
 Cloudflare D1 database behind request.html through Cloudflare's API. It only reads the queue
 and records outcomes: research is always started by him, from /queue, one request at a time.
 
-Setup (details in FRIENDS-SETUP.md, step 6), from the repo folder:
-    pip install "mcp[cli]"
-    claude mcp add research-queue \
-        -e CLOUDFLARE_ACCOUNT_ID=<account id> \
-        -e CLOUDFLARE_D1_ID=<database id> \
-        -e CLOUDFLARE_API_TOKEN=<token with D1 Edit> \
-        -- python3 tools/queue_mcp.py
+Setup: double-click tools/setup-queue.command on the Mac and paste the three lines
+(ACCOUNT=, DATABASE=, TOKEN=) you were given. Details in FRIENDS-SETUP.md, step 7.
 The token stays in his local Claude Code settings. Never commit it.
 """
 
@@ -31,6 +26,7 @@ except ImportError:  # 1.x
     from mcp.server.fastmcp.exceptions import ToolError
 
 ROOT = Path(__file__).resolve().parent.parent
+API = os.environ.get("CLOUDFLARE_API_BASE", "https://api.cloudflare.com/client/v4")  # override only for testing
 mcp = Server("research-queue")
 
 
@@ -41,7 +37,7 @@ def query(sql: str, params: list | None = None) -> dict:
     except KeyError as missing:
         raise ToolError(f"{missing} is not set. Add it with `claude mcp add ... -e` (see FRIENDS-SETUP.md).") from None
     req = urllib.request.Request(
-        f"https://api.cloudflare.com/client/v4/accounts/{account}/d1/database/{db}/query",
+        f"{API}/accounts/{account}/d1/database/{db}/query",
         data=json.dumps({"sql": sql, "params": [str(v) for v in (params or [])]}).encode(),  # the API takes text params
         headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
         method="POST",

@@ -1,121 +1,155 @@
-# Friends-only site and report requests
+# Friends-only site and report requests: technical setup
 
-This turns the site into a private one for friends, with a page where they can ask for reports.
-Research still runs only on your own computer, in Claude Code, when you decide to run it.
+The setup notes for whoever builds or maintains this. The site owner's own short guide is separate and only covers his few clicks.
+
+What it does: the site moves from GitHub Pages to Cloudflare Pages, behind a sign-in that only lets in emails on a list. Friends can ask for reports on `request.html`. Research still runs only on the owner's own computer, in Claude Code, when he picks a request with `/queue`.
 
 ```
- friends ──sign in──▶ Cloudflare Access ──▶ the site (Cloudflare Pages, from this repo)
-                                             └─ request.html ──▶ /api/requests ──▶ D1 database (the queue)
- you ── Claude Code ── /queue ── tools/queue_mcp.py ─────────────────────────────▶ same D1 database
+ friends ──sign in──▶ Cloudflare Access ──▶ site on Cloudflare Pages ◀── GitHub Action publishes main
+                                             └─ request.html ─▶ /api/requests ─▶ D1 database (the queue)
+ owner ── Claude Code ── /queue ── tools/queue_mcp.py ───────────────────────────▶ same D1 database
 ```
 
-| Piece | Where it lives | Cost |
+| Piece | Where | Cost |
 |---|---|---|
-| The site, `request.html`, the API in `functions/` | this repo, published by Cloudflare Pages | free |
-| Sign-in (email code, or Google) and the friends list | Cloudflare Zero Trust → Access | free up to 50 users; asks for a card, charges nothing |
-| The request queue | Cloudflare D1 | free |
-| `/queue` and `tools/queue_mcp.py` | your computer, with Claude Code | your Claude plan |
+| Site, Request page, API (`functions/`) | this repo, published to Cloudflare Pages by [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) | free |
+| Sign-in and the friends list | Cloudflare One (Zero Trust) → Access | free up to 50 users; needs a card on file, charges nothing |
+| Google sign-in (optional) | a Google Cloud project's OAuth client | free, no card |
+| Request queue | Cloudflare D1 | free |
+| `/queue` | the owner's Mac, set up once with [`tools/setup-queue.command`](tools/setup-queue.command) | his Claude plan |
 
-Nothing secret is stored in this repo. The two secrets (a Cloudflare API token, and optionally a GitHub token) live in Cloudflare's settings and in your local Claude Code settings.
+No secret is stored in the repo. Secrets live in GitHub Actions secrets, Cloudflare settings, and the owner's local Claude Code settings.
+
+Names used below (change them consistently if you pick others):
+
+| | |
+|---|---|
+| Pages project | `officium-advocati-diaboli` (must match `PAGES_PROJECT` in `deploy.yml`) → `https://officium-advocati-diaboli.pages.dev` |
+| D1 database | `investment-requests` |
+| Access team | `officium-advocati-diaboli` → `officium-advocati-diaboli.cloudflareaccess.com` |
 
 ---
 
-## 1. Cloudflare account
+## 1. Cloudflare account and Access team
 
-Create one at dash.cloudflare.com. If someone else sets this up for you, see **Handing it over** at the end.
+1. Cloudflare account at dash.cloudflare.com.
+2. Open **Zero Trust** (Cloudflare One), choose the team name, plan **Free**, add a payment card (not charged). The team name can be changed later under **Settings → Team domain**, but Google sign-in and `ACCESS_TEAM_DOMAIN` must then be updated too.
 
-## 2. The queue database
+## 2. Database and Pages project
 
-1. **Storage & Databases → D1 → Create**. Name it `investment-requests`.
-2. Open it → **Console**, paste the contents of [`db/schema.sql`](db/schema.sql), run it.
-3. Note the **Database ID** (shown on the database page). You need it in step 6.
+From any clone of this repo (needs Node.js; `npx wrangler login` once):
 
-## 3. Publish the site with Cloudflare Pages
+```bash
+npx wrangler d1 create investment-requests                          # note the database_id it prints
+npx wrangler d1 execute investment-requests --remote --file db/schema.sql
+npx wrangler pages project create officium-advocati-diaboli --production-branch main
+```
 
-1. **Workers & Pages → Create → Pages → Import an existing Git repository**. If it offers a Worker first, look for the Pages option.
-2. Connect GitHub and pick `Turnivor/investment-reports`. **This needs the repo owner's GitHub account**, because it installs Cloudflare's GitHub app on the repo.
-3. Build settings: framework preset **None**, build command **empty**, build output directory **`/`** (the repo root, where `index.html` is). Production branch `main`.
-4. Deploy. The site appears at `https://<project>.pages.dev`. From now on every push to `main` republishes it, including the daily price update.
-5. Project → **Settings → Bindings → Add → D1 database**: variable name **`DB`**, database `investment-requests`.
+If `d1 execute` complains it cannot find the database, run the schema in the dashboard instead: **Storage & Databases → D1 → investment-requests → Console**, paste `db/schema.sql`, run.
 
-The site works now but is still open to everyone. The request page will say the login is not set up yet: that is expected until step 4.
+The project is a "direct upload" project: GitHub Actions publishes to it (step 5). Cloudflare's own Git connection is not used, because it needs the repo owner's GitHub login, and an upload project cannot be switched to it later anyway.
 
-## 4. Lock it to friends with Cloudflare Access
+In the dashboard, **Workers & Pages → officium-advocati-diaboli → Settings**:
+- **Bindings → Add → D1 database**: variable name `DB`, database `investment-requests`.
+- **Variables and secrets** (production): `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD`, filled in at the end of step 3.
 
-1. Open **Zero Trust** from the dashboard. Pick a team name (e.g. `turnivor`) and the **Free** plan. It asks for a payment card but does not charge on the Free plan.
-2. Back in the Pages project: **Settings → General → Enable access policy**. This protects preview addresses only, so widen it to the main address too (Cloudflare's own steps, from their "Pages known issues" page):
-   1. Select **Manage** on the new policy. In **Access → Applications**, open the project's application → **Configure**.
-   2. Under **Public hostname**, delete the `*` in **Subdomain** and **Save** (rename the application if it complains about a duplicate name).
-   3. Go back to the Pages project → **Settings → General** and select **Enable access policy** again, so previews are protected too.
-   4. You now have two Access applications: `<project>.pages.dev` and `*.<project>.pages.dev`.
-3. Open the `<project>.pages.dev` application → **Policies**. Edit the policy (or add one): **Action: Allow**, **Include → Emails**: your own email and each friend's. Session duration: 1 month is comfortable.
-4. **Zero Trust → Settings → Authentication**: **One-time PIN** should be on. Friends type their email and get a code; no account needed. You can add **Google** as a login method too if you like.
-5. Copy two values into the Pages project → **Settings → Variables and secrets** (type: text), then **redeploy** (Deployments → latest → Retry deployment):
-   - `ACCESS_TEAM_DOMAIN`: `<team>.cloudflareaccess.com` (shown under Zero Trust → Settings → Team name)
-   - `ACCESS_AUD`: the **Application Audience (AUD) Tag** of the `<project>.pages.dev` application (on its overview / basic information). To let the request page work on preview addresses too, add the preview application's tag after a comma.
+Keep configuration in the dashboard. Never commit a `wrangler.toml`: if one is in the published folder, it replaces the dashboard settings. (A local test `wrangler.toml` is fine if it is listed in `.git/info/exclude`.)
 
-**Check it:** open the site in a private window. You should get the Cloudflare sign-in, a code by email, then the site. Send a test request on the Request page and see it under **D1 → Console** with `SELECT * FROM requests;`.
+## 3. Lock the site to friends (Cloudflare Access)
 
-To add or remove a friend later: edit the email list in step 4.3. That is all.
+All in **Cloudflare One → Access controls**.
 
-## 5. Make the GitHub repo private
+1. **Policies → Add a policy**: name `Friends`, action **Allow**, include **Emails** → the owner's email and each friend's. This list is the one place to add or remove people later.
+2. **Applications → Create new application → Self-hosted**:
+   - Public hostname: **Subdomain empty**, Domain `officium-advocati-diaboli.pages.dev`, Path empty.
+   - Policies: `Friends`.
+   - Login methods: **One-time PIN** (add Google after step 4). With only one method, turn on **Apply instant authentication** so the method picker is skipped.
+   - Session duration: e.g. 1 month, so friends rarely need a new code.
+   - Name: e.g. `Officium site`. Create.
+3. Protect preview addresses too. Every publish also gets its own address (`<hash>.officium-advocati-diaboli.pages.dev`), which is public unless covered. **Workers & Pages → the project → Settings → General → Access policy → Enable.** This creates a second, locked application for `*.officium-advocati-diaboli.pages.dev` allowing only Cloudflare account members. Leave it as it is. (Its hostname cannot be edited; that is why step 2 creates the main application by hand.)
+4. Copy into the project's **Variables and secrets** (step 2), then redeploy:
+   - `ACCESS_TEAM_DOMAIN` = `officium-advocati-diaboli.cloudflareaccess.com` (shown under Settings → Team domain; also visible in the address bar of the sign-in page)
+   - `ACCESS_AUD` = the **Application Audience (AUD) Tag** of the step 2 application. Several tags can be given separated by commas; add the preview application's tag only if the Request page should also work on preview addresses.
 
-Only after step 4 works:
+The API in `functions/api/_middleware.js` checks Access's signed token against these two values on every call, so it stays closed even if Access were misconfigured. A wrong tag shows on the Request page as "Your sign-in has expired"; opening `/api/requests` directly shows the exact reason.
 
-1. GitHub → repo **Settings → General → Danger zone → Change visibility → Private**.
-2. **Settings → Pages**: make sure the old `turnivor.github.io/investment-reports` site is gone (unpublish it if it is still there).
+## 4. Google sign-in (optional)
 
-The daily price Action keeps running: private repos get a monthly allowance of free Action minutes and this job uses about a minute a day. Reports published while the repo was public may already have been copied; going private protects everything from now on.
+1. **console.cloud.google.com** → new project (e.g. `Officium Advocati Diaboli`).
+2. **APIs & Services → OAuth consent screen** (also called Google Auth Platform): user type **External**, app name, support email, developer email. Scopes: none beyond the defaults (email, profile).
+3. **Publish the app** (Audience / Publishing status → **In production**). While it says *Testing*, only listed test users can sign in. With only the default scopes no Google review is needed.
+4. **Credentials (Clients) → Create → OAuth client ID → Web application.** Authorized redirect URI:
+   `https://officium-advocati-diaboli.cloudflareaccess.com/cdn-cgi/access/callback`
+   Copy the Client ID and Client secret.
+5. **Cloudflare One → Settings → Authentication → Login methods → Add new → Google**: paste both, save, **Test**.
+6. Open the step 3.2 application → **Login methods**: tick Google next to One-time PIN, turn **instant authentication off** (there are now two choices).
 
-Small side effect: link previews (the `og.png` card when the link is pasted in a chat) stop working, because the preview bots cannot sign in.
+Google's sign-in screen shows the consent screen's app name and support email, so set those to the owner's details at handover.
 
-## 6. The queue on your computer
+## 5. Automatic publishing from GitHub
 
-1. Cloudflare → **My Profile → API Tokens → Create token → Custom token**. Permission: **Account · D1 · Edit**, limited to this account. Copy the token.
-2. Your **Account ID** is on the Workers & Pages overview page (right side).
-3. In a terminal:
+1. Cloudflare → **Manage account → Account API tokens → Create token** → custom: **Account · Cloudflare Pages · Edit**, this account only. Account tokens belong to the account, not a person, so they keep working when the person who made them leaves.
+2. The **Account ID** is on the Workers & Pages overview page.
+3. GitHub repo → **Settings → Secrets and variables → Actions → New repository secret** (needs Admin on the repo):
+   - `CLOUDFLARE_API_TOKEN` = the token
+   - `CLOUDFLARE_ACCOUNT_ID` = the account ID
+4. **Actions → Deploy to Cloudflare → Run workflow.** From now on it publishes after every push to `main` and after each daily price update. Before the secrets exist it does nothing and passes.
 
-   ```bash
-   pip install "mcp[cli]"
-   claude mcp add --scope user research-queue \
-     -e CLOUDFLARE_ACCOUNT_ID=<account id> \
-     -e CLOUDFLARE_D1_ID=<database id from step 2> \
-     -e CLOUDFLARE_API_TOKEN=<token> \
-     -- python3 /full/path/to/investment-reports/tools/queue_mcp.py
-   cp /full/path/to/investment-reports/.claude/commands/queue.md ~/.claude/commands/
+## 6. Make the repo private, turn off the old site
+
+Only after the Cloudflare site works with sign-in:
+
+1. GitHub → **Settings → General → Danger zone → Change visibility → Private.**
+2. **Settings → Pages**: unpublish / set the source to none, so `turnivor.github.io/investment-reports` stops serving.
+
+The daily price Action keeps running (private repos get a monthly allowance of free Action minutes; this job uses about a minute a day). Anything published while public may already have been copied.
+
+Side effects: link previews (the `og.png` card) no longer appear when the link is shared, because preview bots cannot sign in. The `og:` tags and the "Website" line in the README still point to github.io; update them to the new address when convenient.
+
+## 7. `/queue` on the owner's Mac
+
+1. Cloudflare → **Account API tokens → Create token** → **Account · D1 · Edit**, this account only.
+2. Send the owner three lines, privately (a messenger, not a public channel):
    ```
+   ACCOUNT=<account id>
+   DATABASE=<investment-requests database id>
+   TOKEN=<the D1 token>
+   ```
+3. He double-clicks **`tools/setup-queue.command`** in his copy of the repo and pastes the three lines. It installs `uv` if needed (which brings its own Python), checks the connection, registers the `research-queue` MCP server for all folders (`claude mcp add --scope user`), and copies `/queue` to `~/.claude/commands/`. If macOS says it cannot open the file, right-click → Open.
 
-   `--scope user` and the copy make `/queue` work in any folder, including the ai-berkshire one where you run the research. The token is kept in your local Claude Code settings, not in the repo.
-4. In Claude Code, type **`/queue`**. Claude lists the waiting requests as tick boxes, asks what to do with the rest, runs only what you pick, adds the report to the site the usual way, and after you push, marks the request done so the friend gets a link. The first time, Claude Code asks permission to use the queue tools: choose to always allow.
+`/queue` then lists waiting requests as tick boxes and only runs what he picks. See [`.claude/commands/queue.md`](.claude/commands/queue.md).
 
-## 7. Optional: an email when a request arrives
+## 8. Email when a request arrives (optional)
 
-The site can open a GitHub issue for each new request, and GitHub emails you (the same way the price alerts do).
+The API can open a GitHub issue per new request; GitHub emails the owner, like the price alerts.
 
-1. GitHub → **Settings → Developer settings → Fine-grained tokens → Generate**: repository access **only `investment-reports`**, permission **Issues: Read and write**.
-2. Pages project → **Settings → Variables and secrets**: add `GITHUB_TOKEN` as a **secret** with that token, and `GITHUB_REPO` = `Turnivor/investment-reports` as text. Redeploy.
+1. The **repo owner** creates a fine-grained GitHub token: repository access only `investment-reports`, permission **Issues: Read and write**. (Only the owner can make a token for his own repo.)
+2. Pages project → **Variables and secrets**: `GITHUB_TOKEN` as a **secret**, `GITHUB_REPO` = `Turnivor/investment-reports` as text. Redeploy.
 
-Close the issue when you have dealt with the request.
+## Testing
 
----
+- **Locally** (no real sign-in): create a git-excluded `wrangler.toml` with `pages_build_output_dir = "."`, a `[[d1_databases]]` binding `DB`, and `[vars] DEV_EMAIL = "you@example.com"`; run the schema with `npx wrangler d1 execute <name> --local --file db/schema.sql`; then `npx wrangler pages dev --port 8788` and open `http://localhost:8788/request.html`. `DEV_EMAIL` only works on localhost.
+- **On Cloudflare**: open the site in a private window → sign-in → the Request page says "Signed in as …" → send a request → `npx wrangler d1 execute investment-requests --remote --command "SELECT * FROM requests"`. An email not in `Friends` must be refused. `curl -i https://officium-advocati-diaboli.pages.dev/api/requests` must redirect to the sign-in, not return data.
+- To sign out: `/cdn-cgi/access/logout` on the site.
 
-## Handing it over
+## Handover
 
-If someone set this up for you in their own accounts:
+When the person who built this hands it to the owner:
 
-- **Cloudflare:** they invite you under **Manage account → Members** as **Super Administrator**. You replace their card with yours under **Billing**, then remove them. The site, database and Access settings stay as they are.
-- **Cloudflare API token (step 6):** create your own; theirs stops working when they leave the account.
-- **GitHub token (step 7):** must be yours, or issues will be opened in their name. Replace the `GITHUB_TOKEN` secret.
-- **GitHub repo:** remove them as a collaborator if you like.
-- **Friends list:** check the emails in step 4.3.
+- **Cloudflare**: invite the owner under **Manage account → Members** as **Super Administrator**. He accepts and adds his own card under **Billing**; then the builder removes herself. Account API tokens (steps 5 and 7) keep working.
+- **Google Cloud**: **IAM & Admin → IAM → Grant access** → his Google account, role **Owner**. He accepts; set the consent screen's support email to his; then remove the builder.
+- **GitHub**: lower or remove the builder's role on the repo.
+- **Clean up test leftovers**: any test Pages project and D1 database, `npx wrangler logout` on the builder's computer, and her personal API tokens.
 
 ## Files
 
 | File | What it does |
 |---|---|
-| [`request.html`](request.html) | The Request page: the form and the friend's own requests with their status and report links |
-| [`functions/api/requests.js`](functions/api/requests.js) | The API behind it: list, add, cancel. Friends can only see and cancel their own requests, have at most 3 waiting, and can pick only the lighter report types |
-| [`functions/api/_middleware.js`](functions/api/_middleware.js) | Checks the Cloudflare Access sign-in on every API call, so the API stays closed even if Access were misconfigured |
+| [`request.html`](request.html) | The Request page: the form, and the friend's own requests with status and report links |
+| [`functions/api/requests.js`](functions/api/requests.js) | List, add, cancel. Friends see only their own requests, can have 3 waiting, and can pick only the lighter report types |
+| [`functions/api/_middleware.js`](functions/api/_middleware.js) | Checks the Access sign-in token on every API call |
 | [`db/schema.sql`](db/schema.sql) | The queue table |
-| [`tools/queue_mcp.py`](tools/queue_mcp.py) | Gives Claude Code the queue tools: `list_pending`, `get_request`, `list_recent`, `mark_done`, `decline` |
+| [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) | Publishes to Cloudflare Pages |
+| [`tools/queue_mcp.py`](tools/queue_mcp.py) | Queue tools for Claude Code: `list_pending`, `get_request`, `list_recent`, `mark_done`, `decline` |
+| [`tools/setup-queue.command`](tools/setup-queue.command) | One-time `/queue` setup on the owner's Mac |
 | [`.claude/commands/queue.md`](.claude/commands/queue.md) | The `/queue` command |
