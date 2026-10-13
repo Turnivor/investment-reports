@@ -34,6 +34,8 @@ Charts: [`charts/`](charts/)
 |---|---|
 | [`index.html`](index.html) | Reports page: the list, filters, and the reader with a summary card |
 | [`commands.html`](commands.html) | [Command cheat sheet](https://turnivor.github.io/investment-reports/commands.html) for the ai-berkshire commands |
+| [`request.html`](request.html) | Where signed-in friends ask for a report and follow its status. Works once the site runs on Cloudflare: see [`FRIENDS-SETUP.md`](FRIENDS-SETUP.md) |
+| [`functions/`](functions/), [`db/`](db/) | The small API and database behind the Request page (Cloudflare Pages Functions + D1) |
 | [`reports.js`](reports.js) | The list of reports the site shows. Made by [`tools/build.py`](tools/build.py) from the block at the top of each report; not edited by hand |
 | [`print.html`](print.html) | The paper version of a report, at `print.html#<id>`. [`tools/make_pdf.py`](tools/make_pdf.py) prints it to the PDF offered on each report |
 | [`calendar/`](calendar/) | One calendar file (`.ics`) per dated reminder, made by `tools/build.py`. The "Add to calendar" buttons link to these, so the event opens in the reader's own calendar app |
@@ -41,8 +43,9 @@ Charts: [`charts/`](charts/)
 | [`site.css`](site.css) | Shared look for both pages (colours, fonts, top menu) |
 | [`og.png`](og.png) | Preview image shown when the link is shared |
 | [`brand/`](brand/) | Emblem, seal and browser-tab icons |
+| [`tools/queue_mcp.py`](tools/queue_mcp.py), [`.claude/commands/queue.md`](.claude/commands/queue.md) | `/queue` in Claude Code: review friends' requests and run the ones you pick |
 
-GitHub Pages serves the site from `main` / root. There is no build step.
+GitHub Pages serves the site from `main` / root. There is no build step. To make it friends-only with a request queue, follow [`FRIENDS-SETUP.md`](FRIENDS-SETUP.md) (Cloudflare Pages + Access, free).
 
 ## Adding a report
 
