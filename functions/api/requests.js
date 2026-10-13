@@ -9,7 +9,7 @@
 // Optional: GITHUB_TOKEN (secret) + GITHUB_REPO ("Turnivor/investment-reports") to open an issue
 // for each new request, which GitHub emails to him.
 
-import { json } from "./_middleware.js";
+import { json, isAdmin } from "./_middleware.js";
 
 // What friends can pick. The heaviest multi-agent commands are left out on purpose;
 // he can still choose one himself when he runs a request.
@@ -27,10 +27,10 @@ const MAX_WAITING = 3;
 
 export async function onRequestGet({ env, data }) {
   const { results } = await env.DB.prepare(
-    `SELECT id, topic, skill, note, status, report_id, reply, created_at, completed_at
+    `SELECT id, topic, skill, note, status, report_id, reply, picked_at, created_at, completed_at
        FROM requests WHERE requested_by = ? ORDER BY created_at DESC LIMIT 50`
   ).bind(data.email).all();
-  return json({ email: data.email, skills: SKILLS, maxWaiting: MAX_WAITING, requests: results });
+  return json({ email: data.email, isAdmin: isAdmin(env, data.email), skills: SKILLS, maxWaiting: MAX_WAITING, requests: results });
 }
 
 export async function onRequestPost({ request, env, data, waitUntil }) {

@@ -95,7 +95,9 @@ def main():
             for path, card in wanted:
                 target = path.with_suffix(".pdf")
                 url = f"http://127.0.0.1:{server.server_address[1]}/print.html#{card['id']}"
-                subprocess.run([browser, "--headless=new", "--disable-gpu", "--no-first-run", "--no-pdf-header-footer",
+                # Chrome refuses to start as root (cloud sessions run as root) unless its sandbox is off.
+                sandbox = ["--no-sandbox"] if getattr(os, "geteuid", lambda: 1)() == 0 else []
+                subprocess.run([browser, *sandbox, "--headless=new", "--disable-gpu", "--no-first-run", "--no-pdf-header-footer",
                                 f"--user-data-dir={profile}", "--virtual-time-budget=25000", "--run-all-compositor-stages-before-draw",
                                 f"--print-to-pdf={target}", url], check=True, timeout=180, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 size = target.stat().st_size if target.exists() else 0

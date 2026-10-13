@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS requests (
                CHECK (status IN ('pending', 'done', 'declined', 'cancelled')),
   report_id    TEXT,                           -- the report's id in reports.js once done (opens at ./#<id>)
   reply        TEXT NOT NULL DEFAULT '',       -- his note back, e.g. why it was declined
+  picked_at    TEXT,                           -- set when he picks it in the Inbox; /queue runs picked ones first
   created_at   TEXT NOT NULL,                  -- ISO 8601, UTC
   completed_at TEXT
 );

@@ -32,14 +32,23 @@ mcp = Server("research-queue")
 
 def query(sql: str, params: list | None = None) -> dict:
     """Run one SQL statement on the D1 database and return its first result block."""
-    try:
-        account, db, token = (os.environ[k] for k in ("CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_D1_ID", "CLOUDFLARE_API_TOKEN"))
-    except KeyError as missing:
-        raise ToolError(f"{missing} is not set. Add it with `claude mcp add ... -e` (see FRIENDS-SETUP.md).") from None
+    account, db = os.environ.get("CLOUDFLARE_ACCOUNT_ID"), os.environ.get("CLOUDFLARE_D1_ID")
+    token = os.environ.get("CLOUDFLARE_API_TOKEN")
+    cloud = os.environ.get("CLAUDE_CODE_REMOTE") == "true"
+    if not account or not db:
+        raise ToolError("CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_D1_ID are not set (see FRIENDS-SETUP.md, step 7).")
+    if not token and not cloud:
+        raise ToolError("No Cloudflare token here. On your own computer use the `research-queue` tools, "
+                        "set up with tools/setup-queue.cmd or .command (FRIENDS-SETUP.md, step 7).")
+    headers = {"Content-Type": "application/json"}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    # In a cloud session without a token, the environment's API credential for api.cloudflare.com
+    # is attached by Anthropic's proxy on the way out; the key never enters the session.
     req = urllib.request.Request(
         f"{API}/accounts/{account}/d1/database/{db}/query",
         data=json.dumps({"sql": sql, "params": [str(v) for v in (params or [])]}).encode(),  # the API takes text params
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+        headers=headers,
         method="POST",
     )
     try:
@@ -68,9 +77,10 @@ def report_ids() -> dict[str, str]:
 
 @mcp.tool()
 def list_pending() -> list[dict]:
-    """List friends' report requests that are waiting for a decision, oldest first."""
+    """List friends' report requests that are waiting, oldest first. `picked_at` is set on the ones
+    he already picked in the Inbox on the site: those are the ones to offer first."""
     return query(
-        "SELECT id, requested_by, topic, skill, note, created_at FROM requests "
+        "SELECT id, requested_by, topic, skill, note, picked_at, created_at FROM requests "
         "WHERE status = 'pending' ORDER BY created_at"
     )["results"]
 
@@ -102,7 +112,7 @@ def mark_done(request_id: int, report_id: str, reply: str = "") -> str:
         return (f"No report with id '{report_id}' in reports.js. Build it first (python tools/make_pdf.py), "
                 f"then try again. Known ids include: {', '.join(list(known)[:12])}")
     res = query(
-        "UPDATE requests SET status = 'done', report_id = ?, reply = ?, completed_at = ? "
+        "UPDATE requests SET status = 'done', report_id = ?, reply = ?, completed_at = ?, picked_at = NULL "
         "WHERE id = ? AND status = 'pending'",
         [report_id, reply.strip()[:1000], now(), request_id],
     )
@@ -115,7 +125,8 @@ def mark_done(request_id: int, report_id: str, reply: str = "") -> str:
 def decline(request_id: int, reply: str = "") -> str:
     """Decline a waiting request. `reply` is shown to the friend, e.g. why or what to ask instead."""
     res = query(
-        "UPDATE requests SET status = 'declined', reply = ?, completed_at = ? WHERE id = ? AND status = 'pending'",
+        "UPDATE requests SET status = 'declined', reply = ?, completed_at = ?, picked_at = NULL "
+        "WHERE id = ? AND status = 'pending'",
         [reply.strip()[:1000], now(), request_id],
     )
     if not res["meta"].get("changes"):

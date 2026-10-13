@@ -85,7 +85,7 @@ form.panel { display: grid; gap: 18px; padding: 22px; }
   <header class="mast">
     <div class="eyebrow">For friends of the office</div>
     <h1>Request a Report</h1>
-    <p>Name a company or an industry you would like researched. Requests are read and picked by hand, so not every one becomes a report. Finished reports appear on the Reports page and in your list below.</p>
+    <p>Name a company or an industry you would like researched. Requests are read and picked by hand, so not every one becomes a report. "Accepted" means it is lined up to be researched; finished reports appear on the Reports page and in your list below.</p>
     <div class="who" id="who" hidden></div>
   </header>
 
@@ -147,6 +147,11 @@ function render(data) {
     $("who").hidden = false;
     $("who").innerHTML = `Signed in as ${esc(data.email)} · <a href="/cdn-cgi/access/logout">Sign out</a>`;
   }
+  if (data.isAdmin && !document.querySelector('.nav a[href="inbox.html"]')) {
+    const li = document.createElement("li");
+    li.innerHTML = '<a href="inbox.html">Inbox</a>';
+    document.querySelector(".nav ul").appendChild(li);
+  }
   if (data.skills && skillSel.options.length <= 1) {
     labels = Object.fromEntries(data.skills.map(s => [s.cmd, s.label]));
     skillSel.innerHTML = data.skills.map(s => `<option value="${esc(s.cmd)}">${esc(s.label)}${s.cmd ? " · " + esc(s.cmd) : ""}</option>`).join("");
@@ -155,7 +160,7 @@ function render(data) {
   $("count").textContent = rows.length ? `${rows.length} request${rows.length === 1 ? "" : "s"}` : "";
   if (!rows.length) { list.innerHTML = `<div class="empty">Nothing yet. Your requests will show up here.</div>`; return; }
   list.innerHTML = rows.map(r => {
-    const [label, tone] = STATUS[r.status] || [r.status, "plain"];
+    const [label, tone] = r.status === "pending" && r.picked_at ? ["Accepted", "good"] : (STATUS[r.status] || [r.status, "plain"]);
     const rep = r.report_id && reports[r.report_id];
     const kind = r.skill ? (labels[r.skill] || r.skill) : "His choice";
     return `<div class="req">

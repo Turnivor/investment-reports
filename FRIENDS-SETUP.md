@@ -70,6 +70,7 @@ All in **Cloudflare One → Access controls**.
 4. Copy into the project's **Variables and secrets** (step 2), then redeploy:
    - `ACCESS_TEAM_DOMAIN` = `officium-advocati-diaboli.cloudflareaccess.com` (shown under Settings → Team domain; also visible in the address bar of the sign-in page)
    - `ACCESS_AUD` = the **Application Audience (AUD) Tag** of the step 2 application. Several tags can be given separated by commas; add the preview application's tag only if the Request page should also work on preview addresses.
+   - `ADMIN_EMAILS` = the owner's email (several separated by commas). Only these can open the Inbox (step 8b).
 
 The API in `functions/api/_middleware.js` checks Access's signed token against these two values on every call, so it stays closed even if Access were misconfigured. A wrong tag shows on the Request page as "Your sign-in has expired"; opening `/api/requests` directly shows the exact reason.
 
@@ -126,6 +127,31 @@ The API can open a GitHub issue per new request; GitHub emails the owner, like t
 1. The **repo owner** creates a fine-grained GitHub token: repository access only `investment-reports`, permission **Issues: Read and write**. (Only the owner can make a token for his own repo.)
 2. Pages project → **Variables and secrets**: `GITHUB_TOKEN` as a **secret**, `GITHUB_REPO` = `Turnivor/investment-reports` as text. Redeploy.
 
+## 8b. The Inbox (owner only, works on a phone)
+
+`inbox.html` lists waiting requests with **Pick** and **Decline**. Picking runs nothing: it marks the request, friends see it as "Accepted", and `/queue` offers picked requests first. Only emails in `ADMIN_EMAILS` (step 3.5) can use it; the Request page shows an Inbox link to them.
+
+A database created before the Inbox existed needs one extra column: run [`db/migrate-002-picked.sql`](db/migrate-002-picked.sql) once in **D1 → investment-requests → Console**. (A database made from the current `schema.sql` already has it.)
+
+## 9. `/queue` from the phone (Claude Code cloud sessions)
+
+Cloud sessions run Claude Code on Anthropic's servers, on this repo, under the owner's own Claude plan (no extra cost, same usage limits). He starts them from the **Code** tab of the Claude app or at claude.ai/code. Docs: [Use Claude Code in the cloud](https://code.claude.com/docs/en/claude-code-on-the-web), [Configure cloud environments](https://code.claude.com/docs/en/cloud-environments).
+
+All of this happens in **the owner's** Claude account, once:
+
+1. Open claude.ai/code (or the app's Code tab) and follow the onboarding: connect GitHub and install the **Claude GitHub App** on `Turnivor/investment-reports` only.
+2. Edit the cloud environment (the cloud icon next to the environment name):
+   - **Network access: Full.** The research reads many websites that the default "Trusted" list does not include.
+   - **Setup script:** paste the whole of [`tools/cloud-setup.sh`](tools/cloud-setup.sh). It installs the ai-berkshire commands (cloned from GitHub into `~/ai-berkshire`) and Google Chrome for the PDFs. It runs once and is cached.
+   - **API credentials** (Pro and Max plans): **Add credential** → name `Cloudflare queue`, allowed website `api.cloudflare.com`, header `Authorization`, prefix `Bearer`, value = the D1 token from step 7. Anthropic's proxy adds it to requests on the way out, so the token never enters the session. On a Team plan, which has no API credentials yet, put `CLOUDFLARE_API_TOKEN=<token>` under **Environment variables** instead (anyone using that environment can read it).
+3. Start a session on `investment-reports` and type `/queue`.
+
+How it fits together: the repo's [`.mcp.json`](.mcp.json) starts the queue tools as `research-queue-cloud` (with the account and database IDs, which are not secret), and `/queue` comes from the repo's `.claude/commands/`. In a cloud session `/queue` never pushes to `main`: it pushes a branch and opens a pull request, the owner merges it (the GitHub app works on a phone), the deploy workflow publishes, and then the request is marked done.
+
+On his own computer, Claude Code may ask whether to use `research-queue-cloud` from `.mcp.json`: answer no. His local `research-queue` from step 7 is the one for his computer.
+
+If the account or database ever changes, update the two IDs in `.mcp.json`.
+
 ## Testing
 
 - **Locally** (no real sign-in): create a git-excluded `wrangler.toml` with `pages_build_output_dir = "."`, a `[[d1_databases]]` binding `DB`, and `[vars] DEV_EMAIL = "you@example.com"`; run the schema with `npx wrangler d1 execute <name> --local --file db/schema.sql`; then `npx wrangler pages dev --port 8788` and open `http://localhost:8788/request.html`. `DEV_EMAIL` only works on localhost.
@@ -153,3 +179,6 @@ When the person who built this hands it to the owner:
 | [`tools/queue_mcp.py`](tools/queue_mcp.py) | Queue tools for Claude Code: `list_pending`, `get_request`, `list_recent`, `mark_done`, `decline` |
 | [`tools/setup-queue.cmd`](tools/setup-queue.cmd) + [`.ps1`](tools/setup-queue.ps1), [`tools/setup-queue.command`](tools/setup-queue.command) | One-time `/queue` setup: Windows, Mac |
 | [`.claude/commands/queue.md`](.claude/commands/queue.md) | The `/queue` command |
+| [`inbox.html`](inbox.html), [`functions/api/inbox.js`](functions/api/inbox.js) | The owner's Inbox: pick or decline from a phone |
+| [`db/migrate-002-picked.sql`](db/migrate-002-picked.sql) | One-time column for databases made before the Inbox |
+| [`.mcp.json`](.mcp.json), [`tools/cloud-setup.sh`](tools/cloud-setup.sh) | Queue tools and setup for cloud sessions |

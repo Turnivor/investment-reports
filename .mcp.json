@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "research-queue-cloud": {
+      "command": "uv",
+      "args": ["run", "--quiet", "--no-project", "--python", ">=3.10", "--with", "mcp[cli]", "python", "tools/queue_mcp.py"],
+      "env": {
+        "CLOUDFLARE_ACCOUNT_ID": "2b2c36936f20be9db1dbf3208a1a9313",
+        "CLOUDFLARE_D1_ID": "b828ed2a-bba6-4131-8bf9-5a15894b067b"
+      }
+    }
+  }
+}

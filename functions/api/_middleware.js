@@ -89,3 +89,9 @@ export function json(body, status = 200) {
     headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
   });
 }
+
+// The site owner (Inbox access): emails listed in the ADMIN_EMAILS setting, separated by commas.
+export function isAdmin(env, email) {
+  const admins = String(env.ADMIN_EMAILS || "").toLowerCase().split(",").map(e => e.trim()).filter(Boolean);
+  return Boolean(email) && admins.includes(String(email).toLowerCase());
+}

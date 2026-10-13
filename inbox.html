@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Inbox · Officium Advocati Diaboli</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="brand/favicon.png">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+/* The owner's inbox: waiting requests with Pick / Decline, then the recently closed ones. Built to be used on a phone. */
+.mast > * { animation: rise .7s cubic-bezier(.2, .7, .2, 1) both; }
+.mast > :nth-child(2) { animation-delay: .08s; }
+.mast > :nth-child(3) { animation-delay: .16s; }
+.panel {
+  position: relative; margin-top: 12px; border: 1px solid var(--rule); border-radius: 3px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, 0) 140px), var(--surface);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .045), 0 22px 40px -30px #000;
+}
+.panel::before, .panel::after { content: ""; position: absolute; width: 20px; height: 20px; pointer-events: none; }
+.panel::before { left: -1px; top: -1px; border-left: 1px solid var(--accent); border-top: 1px solid var(--accent); border-top-left-radius: 3px; }
+.panel::after { right: -1px; bottom: -1px; border-right: 1px solid var(--accent); border-bottom: 1px solid var(--accent); border-bottom-right-radius: 3px; }
+.req { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 18px; align-items: start; padding: 18px 22px; }
+.req + .req { border-top: 1px solid var(--rule); }
+.req.picked { background: rgba(130, 194, 154, .05); }
+.req h3 { margin: 0; font-family: var(--f-body); font-weight: 500; font-size: 19px; line-height: 1.3; overflow-wrap: anywhere; }
+.req .meta { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+.req .body { grid-column: 1 / -1; display: grid; gap: 10px; }
+.req .note, .req .reply { margin: 0; font-size: 16px; line-height: 1.45; color: var(--muted); overflow-wrap: anywhere; }
+.req .reply { color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn {
+  font-family: var(--f-mono); font-size: 13px; letter-spacing: .05em; text-transform: uppercase; border-radius: 3px;
+  padding: 9px 14px; cursor: pointer; border: 1px solid var(--rule); color: var(--ink);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, 0)), var(--raised);
+}
+.btn.gold { color: var(--bg); background: linear-gradient(180deg, #e6cd90, var(--accent)); border-color: var(--accent); }
+.btn.bad:hover { color: var(--bad); border-color: var(--bad); }
+.btn:disabled { opacity: .55; cursor: wait; }
+.decline { display: grid; gap: 8px; }
+.decline textarea {
+  width: 100%; min-height: 72px; font: inherit; font-size: 16px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--rule); border-radius: 3px; padding: 8px 10px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .7); resize: vertical;
+}
+.hint { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.empty { padding: 22px; color: var(--muted); font-family: var(--f-mono); font-size: 14px; }
+.small .req { padding: 12px 22px; }
+.small .req h3 { font-size: 17px; }
+@media (max-width: 520px) { .req, .small .req { padding: 14px 16px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav" aria-label="Site">
+    <a class="brand" href="./" aria-label="Officium Advocati Diaboli, home" title="Officium Advocati Diaboli"><span class="sigil" aria-hidden="true"></span></a>
+    <ul>
+      <li><a href="./">Reports</a></li>
+      <li><a href="request.html">Request</a></li>
+      <li><a href="inbox.html" aria-current="page">Inbox</a></li>
+    </ul>
+  </nav>
+
+  <header class="mast">
+    <div class="eyebrow">For the office only</div>
+    <h1>Inbox</h1>
+    <p>Pick the requests worth researching and decline the rest. Picking runs nothing by itself: picked requests come first the next time you type <code>/queue</code> in Claude Code, on your computer or in a cloud session from your phone.</p>
+  </header>
+
+  <div class="sect"><i class="rn" aria-hidden="true">I</i><h2>Waiting</h2><span class="ct" id="count"></span></div>
+  <div class="panel" id="waiting"><div class="empty">Loading…</div></div>
+
+  <div class="sect"><i class="rn" aria-hidden="true">II</i><h2>Recently closed</h2></div>
+  <div class="panel small" id="recent"><div class="empty">Loading…</div></div>
+
+  <footer class="foot"><span class="sigil" aria-hidden="true"></span>Research tools, not investment advice.</footer>
+</div>
+
+<script src="reports.js"></script>
+<script>
+const API = "/api/inbox";
+const STATUS = { done: ["Done", "good"], declined: ["Declined", "bad"], cancelled: ["Cancelled", "plain"] };
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const day = iso => iso ? new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "";
+const reports = {};
+((window.SITE_DATA && window.SITE_DATA.reports) || []).forEach(r => { reports[r.id] = r; });
+const waitingEl = document.getElementById("waiting"), recentEl = document.getElementById("recent");
+
+async function call(method, body) {
+  const res = await fetch(API, {
+    method, credentials: "same-origin",
+    headers: body ? { "Content-Type": "application/json" } : {},
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  let data = {};
+  try { data = await res.json(); } catch (e) {}
+  if (res.status === 401) throw new Error("Your sign-in has expired. Reload the page to sign in again.");
+  if (!res.ok) throw new Error(data.error || "Something went wrong. Try again in a moment.");
+  return data;
+}
+
+function render(data) {
+  const w = data.waiting || [];
+  const picked = w.filter(r => r.picked_at).length;
+  document.getElementById("count").textContent = w.length ? `${w.length} waiting${picked ? ` · ${picked} picked` : ""}` : "";
+  waitingEl.innerHTML = w.length ? w.map(r => `
+    <div class="req${r.picked_at ? " picked" : ""}" data-id="${r.id}">
+      <div><h3>${esc(r.topic)}</h3>
+        <div class="meta">${esc(r.requested_by)} · ${esc(r.skill || "your choice")} · ${esc(day(r.created_at))}</div></div>
+      ${r.picked_at ? '<span class="chip good">Picked</span>' : '<span class="chip plain">Waiting</span>'}
+      <div class="body">
+        ${r.note ? `<p class="note">${esc(r.note)}</p>` : ""}
+        <div class="actions">
+          ${r.picked_at
+            ? '<button class="btn" type="button" data-act="unpick">Unpick</button>'
+            : '<button class="btn gold" type="button" data-act="pick">Pick</button>'}
+          <button class="btn bad" type="button" data-act="show-decline">Decline…</button>
+        </div>
+        <div class="decline" hidden>
+          <textarea maxlength="1000" placeholder="A short reply they will see, e.g. Not something I research"></textarea>
+          <div class="actions">
+            <button class="btn bad" type="button" data-act="decline">Decline with this reply</button>
+            <button class="btn" type="button" data-act="hide-decline">Keep it</button>
+          </div>
+        </div>
+      </div>
+    </div>`).join("") : `<div class="empty">Nothing waiting.</div>`;
+
+  const rec = data.recent || [];
+  recentEl.innerHTML = rec.length ? rec.map(r => {
+    const [label, tone] = STATUS[r.status] || [r.status, "plain"];
+    const rep = r.report_id && reports[r.report_id];
+    return `<div class="req">
+      <div><h3>${esc(r.topic)}</h3><div class="meta">${esc(r.requested_by)} · ${esc(day(r.completed_at || r.created_at))}</div></div>
+      <span class="chip ${tone}">${esc(label)}</span>
+      ${r.status === "done" && r.report_id ? `<div class="body"><a class="hint" href="./#${encodeURIComponent(r.report_id)}">${esc(rep ? rep.title : r.report_id)} →</a></div>`
+        : r.reply ? `<div class="body"><p class="reply">${esc(r.reply)}</p></div>` : ""}
+    </div>`;
+  }).join("") : `<div class="empty">Nothing yet.</div>`;
+}
+
+async function load() {
+  try { render(await call("GET")); }
+  catch (err) { waitingEl.innerHTML = `<div class="empty">${esc(err.message)}</div>`; recentEl.innerHTML = ""; }
+}
+
+waitingEl.addEventListener("click", async e => {
+  const btn = e.target.closest("[data-act]");
+  if (!btn) return;
+  const row = btn.closest(".req"), id = Number(row.dataset.id), act = btn.dataset.act, box = row.querySelector(".decline");
+  if (act === "show-decline") { box.hidden = false; box.querySelector("textarea").focus(); return; }
+  if (act === "hide-decline") { box.hidden = true; return; }
+  btn.disabled = true;
+  try {
+    await call("POST", { id, action: act, reply: act === "decline" ? box.querySelector("textarea").value : undefined });
+    await load();
+  } catch (err) { btn.disabled = false; alert(err.message); }
+});
+
+load();
+</script>
+</body>
+</html>
