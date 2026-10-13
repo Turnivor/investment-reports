@@ -16,7 +16,7 @@ What it does: the site moves from GitHub Pages to Cloudflare Pages, behind a sig
 | Sign-in and the friends list | Cloudflare One (Zero Trust) → Access | free up to 50 users; needs a card on file, charges nothing |
 | Google sign-in (optional) | a Google Cloud project's OAuth client | free, no card |
 | Request queue | Cloudflare D1 | free |
-| `/queue` | the owner's Mac, set up once with [`tools/setup-queue.command`](tools/setup-queue.command) | his Claude plan |
+| `/queue` | the owner's computer, set up once with [`tools/setup-queue.cmd`](tools/setup-queue.cmd) (Windows) or [`tools/setup-queue.command`](tools/setup-queue.command) (Mac) | his Claude plan |
 
 No secret is stored in the repo. Secrets live in GitHub Actions secrets, Cloudflare settings, and the owner's local Claude Code settings.
 
@@ -106,7 +106,7 @@ The daily price Action keeps running (private repos get a monthly allowance of f
 
 Side effects: link previews (the `og.png` card) no longer appear when the link is shared, because preview bots cannot sign in. The `og:` tags and the "Website" line in the README still point to github.io; update them to the new address when convenient.
 
-## 7. `/queue` on the owner's Mac
+## 7. `/queue` on the owner's computer
 
 1. Cloudflare → **Account API tokens → Create token** → **Account · D1 · Edit**, this account only.
 2. Send the owner three lines, privately (a messenger, not a public channel):
@@ -115,7 +115,7 @@ Side effects: link previews (the `og.png` card) no longer appear when the link i
    DATABASE=<investment-requests database id>
    TOKEN=<the D1 token>
    ```
-3. He double-clicks **`tools/setup-queue.command`** in his copy of the repo and pastes the three lines. It installs `uv` if needed (which brings its own Python), checks the connection, registers the `research-queue` MCP server for all folders (`claude mcp add --scope user`), and copies `/queue` to `~/.claude/commands/`. If macOS says it cannot open the file, right-click → Open.
+3. In his copy of the repo he double-clicks **`tools/setup-queue.cmd`** on Windows (it runs `setup-queue.ps1`; if Windows shows "Windows protected your PC", **More info → Run anyway**) or **`tools/setup-queue.command`** on a Mac (if macOS refuses, right-click → Open), and pastes the three lines. If Windows Terminal warns about pasting several lines, choose to paste anyway. The script installs `uv` if needed (which brings its own Python), checks the connection, registers the `research-queue` MCP server for all folders (`claude mcp add --scope user`), and copies `/queue` to `~/.claude/commands/`.
 
 `/queue` then lists waiting requests as tick boxes and only runs what he picks. See [`.claude/commands/queue.md`](.claude/commands/queue.md).
 
@@ -151,5 +151,5 @@ When the person who built this hands it to the owner:
 | [`db/schema.sql`](db/schema.sql) | The queue table |
 | [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) | Publishes to Cloudflare Pages |
 | [`tools/queue_mcp.py`](tools/queue_mcp.py) | Queue tools for Claude Code: `list_pending`, `get_request`, `list_recent`, `mark_done`, `decline` |
-| [`tools/setup-queue.command`](tools/setup-queue.command) | One-time `/queue` setup on the owner's Mac |
+| [`tools/setup-queue.cmd`](tools/setup-queue.cmd) + [`.ps1`](tools/setup-queue.ps1), [`tools/setup-queue.command`](tools/setup-queue.command) | One-time `/queue` setup: Windows, Mac |
 | [`.claude/commands/queue.md`](.claude/commands/queue.md) | The `/queue` command |

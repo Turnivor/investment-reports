@@ -1,2 +1,6 @@
 # Calendar files must keep their CRLF line endings exactly as tools/build.py writes them.
 calendar/*.ics -text
+
+# Windows setup files need Windows line endings.
+*.cmd text eol=crlf
+*.ps1 text eol=crlf

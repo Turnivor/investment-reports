@@ -5,7 +5,7 @@ Runs on his own computer, started by Claude Code (never on the website). It talk
 Cloudflare D1 database behind request.html through Cloudflare's API. It only reads the queue
 and records outcomes: research is always started by him, from /queue, one request at a time.
 
-Setup: double-click tools/setup-queue.command on the Mac and paste the three lines
+Setup: double-click tools/setup-queue.cmd (Windows) or tools/setup-queue.command (Mac) and paste the three lines
 (ACCOUNT=, DATABASE=, TOKEN=) you were given. Details in FRIENDS-SETUP.md, step 7.
 The token stays in his local Claude Code settings. Never commit it.
 """
