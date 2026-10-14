@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Officium Advocati Diaboli</title>
+<meta name="description" content="A private site of stock and industry research, shared with invited friends.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+<style>
+/* Public page: the only one reachable without signing in (with privacy.html), so it carries its own styles
+   instead of site.css, which sits behind the sign-in. Same palette as the site. */
+:root { --bg: #111214; --surface: #191b1e; --ink: #ebe8e1; --muted: #9c9a93; --rule: #2d3035; --accent: #c9a55c; color-scheme: dark; }
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0; min-height: 100vh; background: radial-gradient(900px 420px at 50% -120px, #24272c 0%, rgba(36, 39, 44, 0) 70%), var(--bg);
+  color: var(--ink); font-family: "Newsreader", Georgia, serif; font-size: 18px; line-height: 1.6; padding: 0 16px 64px; }
+.wrap { max-width: 720px; margin: 0 auto; }
+.top { padding: 56px 0 28px; border-bottom: 1px solid var(--rule); }
+.eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: "Cinzel", "Times New Roman", serif; font-weight: 500; font-size: clamp(26px, 6vw, 44px); line-height: 1.1; letter-spacing: .06em;
+  text-transform: uppercase; margin: 12px 0 10px; color: #f3eee2; }
+.motto { margin: 0; font-style: italic; color: var(--accent); font-size: 21px; }
+h2 { font-family: "Cinzel", serif; font-weight: 500; font-size: 16px; letter-spacing: .14em; text-transform: uppercase; margin: 36px 0 8px; }
+p, li { color: var(--ink); }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+.btn { display: inline-block; margin-top: 18px; font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--bg); background: linear-gradient(180deg, #e6cd90, var(--accent)); border: 1px solid var(--accent); border-radius: 3px; padding: 10px 18px; text-decoration: none; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--rule); font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Private research site</div>
+    <h1>Officium Advocati Diaboli</h1>
+    <p class="motto">Fortuna vitrea est.</p>
+  </header>
+
+  <h2>What this is</h2>
+  <p>Personal stock and industry research, written with AI tools and shared with a small group of invited friends. Friends can read the reports and ask for a company or an industry to be researched.</p>
+  <p>The reports are not investment advice. They are AI-assisted research and should be checked before acting on them.</p>
+
+  <h2>Who can get in</h2>
+  <p>Only people invited by the site owner. You sign in with your Google account or with a one-time code sent to your email address. If you have not been invited, the sign-in will not let you through.</p>
+  <a class="btn" href="./">Sign in</a>
+
+  <footer>Officium Advocati Diaboli · <a href="privacy">Privacy</a></footer>
+</div>
+</body>
+</html>

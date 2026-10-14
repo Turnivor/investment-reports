@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Request a Report · Officium Advocati Diaboli</title>
+<meta name="description" content="Ask for a company or industry to be researched.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="brand/favicon.png">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+/* Same masthead and panels as the commands page: a form panel, then the reader's own requests, newest first. */
+.mast > * { animation: rise .7s cubic-bezier(.2, .7, .2, 1) both; }
+.mast > :nth-child(2) { animation-delay: .08s; }
+.mast > :nth-child(3) { animation-delay: .16s; }
+.who { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.who a { color: var(--muted); }
+.who a:hover { color: var(--accent); }
+
+.panel {
+  position: relative; margin-top: 12px; border: 1px solid var(--rule); border-radius: 3px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, 0) 140px), var(--surface);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .045), 0 22px 40px -30px #000;
+}
+.panel::before, .panel::after { content: ""; position: absolute; width: 20px; height: 20px; pointer-events: none; }
+.panel::before { left: -1px; top: -1px; border-left: 1px solid var(--accent); border-top: 1px solid var(--accent); border-top-left-radius: 3px; }
+.panel::after { right: -1px; bottom: -1px; border-right: 1px solid var(--accent); border-bottom: 1px solid var(--accent); border-bottom-right-radius: 3px; }
+
+form.panel { display: grid; gap: 18px; padding: 22px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+.field .hint { font-size: 15px; color: var(--muted); line-height: 1.4; }
+.field input, .field select, .field textarea {
+  width: 100%; font: inherit; font-size: 17px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--rule); border-radius: 3px; padding: 9px 12px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .7);
+  transition: border-color .15s ease;
+}
+.field textarea { min-height: 96px; resize: vertical; line-height: 1.45; }
+.field select { font-family: var(--f-mono); font-size: 14px; }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: var(--muted); }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { border-color: var(--accent); outline-offset: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.btn {
+  font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--bg);
+  background: linear-gradient(180deg, #e6cd90, var(--accent)); border: 1px solid var(--accent); border-radius: 3px;
+  padding: 10px 18px; cursor: pointer;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn:disabled { opacity: .55; cursor: wait; }
+.msg { font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
+.msg.err { color: var(--bad); }
+.msg.ok { color: var(--good); }
+
+.req { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 18px; align-items: start; padding: 18px 22px; }
+.req + .req { border-top: 1px solid var(--rule); }
+.req h3 { margin: 0; font-family: var(--f-body); font-weight: 500; font-size: 19px; line-height: 1.3; overflow-wrap: anywhere; }
+.req .meta { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.req .body { grid-column: 1 / -1; display: grid; gap: 8px; }
+.req .note, .req .reply { margin: 0; font-size: 16px; line-height: 1.45; color: var(--muted); overflow-wrap: anywhere; }
+.req .reply { padding: 10px 12px; background: rgba(0, 0, 0, .22); border: 1px solid var(--rule); border-radius: 3px; color: var(--ink); }
+.req .reply b { font-family: var(--f-mono); font-weight: 500; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: 8px; }
+.req .open { font-family: var(--f-mono); font-size: 13.5px; }
+.cancel { justify-self: start; font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); background: none; border: 1px solid var(--rule); border-radius: 3px; padding: 4px 10px; cursor: pointer; }
+.cancel:hover { color: var(--bad); border-color: var(--bad); }
+.empty { padding: 22px; color: var(--muted); font-family: var(--f-mono); font-size: 14px; }
+@media (max-width: 520px) { form.panel, .req { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav" aria-label="Site">
+    <a class="brand" href="./" aria-label="Officium Advocati Diaboli, home" title="Officium Advocati Diaboli"><span class="sigil" aria-hidden="true"></span></a>
+    <ul>
+      <li><a href="./">Reports</a></li>
+      <li><a href="./#scorecard">Scorecard</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="request.html" aria-current="page">Request</a></li>
+    </ul>
+  </nav>
+
+  <header class="mast">
+    <div class="eyebrow">For friends of the office</div>
+    <h1>Request a Report</h1>
+    <p>Name a company or an industry you would like researched. Requests are read and picked by hand, so not every one becomes a report. "Accepted" means it is lined up to be researched; finished reports appear on the Reports page and in your list below.</p>
+    <div class="who" id="who" hidden></div>
+  </header>
+
+  <div class="sect"><i class="rn" aria-hidden="true">I</i><h2>New request</h2></div>
+  <form class="panel" id="form" novalidate>
+    <div class="field">
+      <label for="topic">What should be researched</label>
+      <input id="topic" name="topic" maxlength="200" required placeholder="e.g. Nvidia, or European defence" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="skill">Kind of report</label>
+      <select id="skill" name="skill"><option value="">Let him choose</option></select>
+      <span class="hint">The descriptions are on the <a href="commands.html">Commands</a> page.</span>
+    </div>
+    <div class="field">
+      <label for="note">Anything else <span style="text-transform:none;letter-spacing:0;color:var(--muted)">(optional)</span></label>
+      <textarea id="note" name="note" maxlength="1000" placeholder="e.g. I own some and wonder whether to sell before the results"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn" type="submit" id="send">Send request</button>
+      <span class="msg" id="formMsg" role="status" aria-live="polite"></span>
+    </div>
+  </form>
+
+  <div class="sect"><i class="rn" aria-hidden="true">II</i><h2>Your requests</h2><span class="ct" id="count"></span></div>
+  <div class="panel" id="list"><div class="empty">Loading…</div></div>
+
+  <footer class="foot"><span class="sigil" aria-hidden="true"></span>Research tools, not investment advice.</footer>
+</div>
+
+<script src="reports.js"></script>
+<script>
+const API = "/api/requests";
+const STATUS = { pending: ["Waiting", "plain"], done: ["Ready", "good"], declined: ["Declined", "bad"], cancelled: ["Cancelled", "plain"] };
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const day = iso => iso ? new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "";
+const reports = {};
+((window.SITE_DATA && window.SITE_DATA.reports) || []).forEach(r => { reports[r.id] = r; });
+
+const $ = id => document.getElementById(id);
+const form = $("form"), send = $("send"), formMsg = $("formMsg"), list = $("list"), skillSel = $("skill");
+let labels = {};
+
+async function call(method, url, body) {
+  const res = await fetch(url, {
+    method, credentials: "same-origin",
+    headers: body ? { "Content-Type": "application/json" } : {},
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  let data = {};
+  try { data = await res.json(); } catch (e) {}
+  if (res.status === 401) throw new Error("Your sign-in has expired. Reload the page to sign in again.");
+  if (!res.ok) throw new Error(data.error || "Something went wrong. Try again in a moment.");
+  return data;
+}
+
+function render(data) {
+  if (data.email) {
+    $("who").hidden = false;
+    $("who").innerHTML = `Signed in as ${esc(data.email)} · <a href="/cdn-cgi/access/logout">Sign out</a>`;
+  }
+  if (data.isAdmin && !document.querySelector('.nav a[href="inbox.html"]')) {
+    const li = document.createElement("li");
+    li.innerHTML = '<a href="inbox.html">Inbox</a>';
+    document.querySelector(".nav ul").appendChild(li);
+  }
+  if (data.skills && skillSel.options.length <= 1) {
+    labels = Object.fromEntries(data.skills.map(s => [s.cmd, s.label]));
+    skillSel.innerHTML = data.skills.map(s => `<option value="${esc(s.cmd)}">${esc(s.label)}${s.cmd ? " · " + esc(s.cmd) : ""}</option>`).join("");
+  }
+  const rows = data.requests || [];
+  $("count").textContent = rows.length ? `${rows.length} request${rows.length === 1 ? "" : "s"}` : "";
+  if (!rows.length) { list.innerHTML = `<div class="empty">Nothing yet. Your requests will show up here.</div>`; return; }
+  list.innerHTML = rows.map(r => {
+    const [label, tone] = r.status === "pending" && r.picked_at ? ["Accepted", "good"] : (STATUS[r.status] || [r.status, "plain"]);
+    const rep = r.report_id && reports[r.report_id];
+    const kind = r.skill ? (labels[r.skill] || r.skill) : "His choice";
+    return `<div class="req">
+      <div><h3>${esc(r.topic)}</h3><div class="meta">${esc(kind)} · asked ${esc(day(r.created_at))}${r.completed_at && r.status !== "pending" ? " · " + esc(label.toLowerCase()) + " " + esc(day(r.completed_at)) : ""}</div></div>
+      <span class="chip ${tone}">${esc(label)}</span>
+      <div class="body">
+        ${r.note ? `<p class="note">${esc(r.note)}</p>` : ""}
+        ${r.reply ? `<p class="reply"><b>Reply</b>${esc(r.reply)}</p>` : ""}
+        ${r.status === "done" && r.report_id ? `<a class="open" href="./#${encodeURIComponent(r.report_id)}">Read the report${rep ? ": " + esc(rep.title) : ""} →</a>` : ""}
+        ${r.status === "pending" ? `<button class="cancel" type="button" data-id="${r.id}">Cancel request</button>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+async function load() {
+  try { render(await call("GET", API)); }
+  catch (err) { list.innerHTML = `<div class="empty">${esc(err.message)}</div>`; }
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const topic = $("topic").value.trim();
+  if (topic.length < 2) { formMsg.className = "msg err"; formMsg.textContent = "Say what you would like researched."; $("topic").focus(); return; }
+  send.disabled = true; formMsg.className = "msg"; formMsg.textContent = "Sending…";
+  try {
+    await call("POST", API, { topic, skill: skillSel.value, note: $("note").value });
+    form.reset();
+    formMsg.className = "msg ok"; formMsg.textContent = "Sent. It will show as Waiting until it has been looked at.";
+    await load();
+  } catch (err) {
+    formMsg.className = "msg err"; formMsg.textContent = err.message;
+  } finally {
+    send.disabled = false;
+  }
+});
+
+list.addEventListener("click", async e => {
+  const btn = e.target.closest(".cancel");
+  if (!btn || !confirm("Cancel this request?")) return;
+  btn.disabled = true;
+  try { await call("DELETE", `${API}?id=${btn.dataset.id}`); await load(); }
+  catch (err) { btn.disabled = false; alert(err.message); }
+});
+
+load();
+</script>
+</body>
+</html>

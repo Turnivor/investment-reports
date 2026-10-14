@@ -62,13 +62,14 @@ a { color: var(--accent); }
   -webkit-mask: url(brand/emblem.png) center / contain no-repeat;
   mask: url(brand/emblem.png) center / contain no-repeat;
 }
-.nav ul { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
+.nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; }
 .nav ul a {
   display: block; font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
   color: var(--muted); text-decoration: none; padding: 6px 12px; border-radius: 5px; border: 1px solid transparent;
 }
 .nav ul a:hover { color: var(--ink); border-color: var(--rule); }
 .nav ul a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); border-color: rgba(201, 165, 92, .28); }
+@media (max-width: 440px) { .nav ul { gap: 2px; } .nav ul a { font-size: 12px; padding: 6px 7px; letter-spacing: .03em; } }
 
 /* ---------- Masthead ---------- */
 .mast { position: relative; display: grid; gap: 12px; padding-block: 52px 50px; border-bottom: 1px solid var(--rule); }
