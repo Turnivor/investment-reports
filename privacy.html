@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Privacy · Officium Advocati Diaboli</title>
+<meta name="description" content="What the Officium Advocati Diaboli site stores about the people who use it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+<style>
+/* Public page (see about.html): its own styles, same palette as the site. */
+:root { --bg: #111214; --ink: #ebe8e1; --muted: #9c9a93; --rule: #2d3035; --accent: #c9a55c; color-scheme: dark; }
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0; min-height: 100vh; background: radial-gradient(900px 420px at 50% -120px, #24272c 0%, rgba(36, 39, 44, 0) 70%), var(--bg);
+  color: var(--ink); font-family: "Newsreader", Georgia, serif; font-size: 18px; line-height: 1.6; padding: 0 16px 64px; }
+.wrap { max-width: 720px; margin: 0 auto; }
+.top { padding: 56px 0 24px; border-bottom: 1px solid var(--rule); }
+.eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: "Cinzel", "Times New Roman", serif; font-weight: 500; font-size: clamp(26px, 6vw, 40px); line-height: 1.1; letter-spacing: .06em;
+  text-transform: uppercase; margin: 12px 0 0; color: #f3eee2; }
+h2 { font-family: "Cinzel", serif; font-weight: 500; font-size: 16px; letter-spacing: .14em; text-transform: uppercase; margin: 34px 0 8px; }
+ul { padding-left: 1.2em; }
+li + li { margin-top: 6px; }
+a { color: var(--accent); }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--rule); font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Officium Advocati Diaboli</div>
+    <h1>Privacy</h1>
+  </header>
+
+  <h2>What is stored</h2>
+  <ul>
+    <li><b>Your email address</b>, if the site owner invites you. It is on the list of people allowed to sign in.</li>
+    <li><b>Sign-in records.</b> Signing in is handled by Cloudflare Access. With Google sign-in, the site receives only your email address and basic profile from Google, never your password or anything else in your Google account.</li>
+    <li><b>Your report requests</b>: the topic, the kind of report and any note you write, with your email address and the date, and later the reply or the finished report.</li>
+  </ul>
+
+  <h2>How it is used</h2>
+  <p>Only to let you in, to show you your requests and their status, and for the site owner to decide which requests to research. Nothing is sold, shared for advertising, or used for anything else. Requests may be passed to AI tools (Claude, by Anthropic) when they are researched.</p>
+
+  <h2>Where it is kept</h2>
+  <p>On Cloudflare (sign-in and the request list) and on GitHub (the site and its reports). Both are run by the site owner.</p>
+
+  <h2>Your choices</h2>
+  <p>You can cancel a waiting request on the Request page. To have your requests deleted or your access removed, ask the site owner who invited you.</p>
+
+  <footer><a href="about">About this site</a></footer>
+</div>
+</body>
+</html>

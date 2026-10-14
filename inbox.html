@@ -48,9 +48,21 @@
 }
 .hint { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
 .empty { padding: 22px; color: var(--muted); font-family: var(--f-mono); font-size: 14px; }
+.friend { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; padding: 12px 22px; }
+.friend + .friend, .addf { border-top: 1px solid var(--rule); }
+.friend span { font-family: var(--f-mono); font-size: 14px; overflow-wrap: anywhere; min-width: 0; }
+.friend .tag { font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.addf { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 22px; }
+.addf input {
+  flex: 1 1 220px; min-width: 0; font-family: var(--f-mono); font-size: 15px; color: var(--ink); background: var(--bg);
+  border: 1px solid var(--rule); border-radius: 3px; padding: 9px 12px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .7);
+}
+.fmsg { padding: 0 22px 14px; font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.fmsg.err { color: var(--bad); }
+.fmsg.ok { color: var(--good); }
 .small .req { padding: 12px 22px; }
 .small .req h3 { font-size: 17px; }
-@media (max-width: 520px) { .req, .small .req { padding: 14px 16px; } }
+@media (max-width: 520px) { .req, .small .req, .friend, .addf { padding-inline: 16px; } .fmsg { padding-inline: 16px; } }
 </style>
 </head>
 <body>
@@ -67,7 +79,7 @@
   <header class="mast">
     <div class="eyebrow">For the office only</div>
     <h1>Inbox</h1>
-    <p>Pick the requests worth researching and decline the rest. Picking runs nothing by itself: picked requests come first the next time you type <code>/queue</code> in Claude Code, on your computer or in a cloud session from your phone.</p>
+    <p>Pick the requests worth researching, decline the rest, and choose who can sign in. Picking runs nothing by itself: picked requests come first the next time you type <code>/queue</code> in Claude Code, on your computer or in a cloud session from your phone.</p>
   </header>
 
   <div class="sect"><i class="rn" aria-hidden="true">I</i><h2>Waiting</h2><span class="ct" id="count"></span></div>
@@ -75,6 +87,16 @@
 
   <div class="sect"><i class="rn" aria-hidden="true">II</i><h2>Recently closed</h2></div>
   <div class="panel small" id="recent"><div class="empty">Loading…</div></div>
+
+  <div class="sect"><i class="rn" aria-hidden="true">III</i><h2>Friends</h2><span class="ct" id="fcount"></span></div>
+  <div class="panel" id="friends">
+    <div id="flist"><div class="empty">Loading…</div></div>
+    <form class="addf" id="addf" hidden>
+      <input type="email" id="newf" placeholder="friend@gmail.com" autocomplete="off" autocapitalize="none" aria-label="Email to add">
+      <button class="btn gold" type="submit">Add</button>
+    </form>
+    <div class="fmsg" id="fmsg" role="status" aria-live="polite"></div>
+  </div>
 
   <footer class="foot"><span class="sigil" aria-hidden="true"></span>Research tools, not investment advice.</footer>
 </div>
@@ -160,7 +182,64 @@ waitingEl.addEventListener("click", async e => {
   } catch (err) { btn.disabled = false; alert(err.message); }
 });
 
+// ---------- Friends: who can sign in ----------
+const FAPI = "/api/friends";
+const flist = document.getElementById("flist"), addf = document.getElementById("addf"), fmsg = document.getElementById("fmsg");
+const say = (text, cls = "") => { fmsg.className = "fmsg " + cls; fmsg.textContent = text; };
+
+async function fcall(method, url, body) {
+  const res = await fetch(url, { method, credentials: "same-origin",
+    headers: body ? { "Content-Type": "application/json" } : {}, body: body ? JSON.stringify(body) : undefined });
+  let data = {};
+  try { data = await res.json(); } catch (e) {}
+  if (res.status === 401) throw new Error("Your sign-in has expired. Reload the page to sign in again.");
+  if (!res.ok) { const err = new Error(data.error || "Something went wrong. Try again in a moment."); err.setup = data.setup; throw err; }
+  return data;
+}
+
+let fadmins = [];
+function renderFriends(data) {
+  if (data.admins) fadmins = data.admins;
+  const admins = fadmins;
+  const emails = data.emails || [];
+  document.getElementById("fcount").textContent = `${emails.length} with access`;
+  flist.innerHTML = emails.map(e => `<div class="friend"><span>${esc(e)}</span>${admins.includes(e)
+    ? '<span class="tag">You</span>'
+    : `<button class="btn bad" type="button" data-email="${esc(e)}">Remove</button>`}</div>`).join("") || `<div class="empty">Nobody yet.</div>`;
+  addf.hidden = false;
+}
+
+async function loadFriends() {
+  try { renderFriends(await fcall("GET", FAPI)); }
+  catch (err) { flist.innerHTML = `<div class="empty">${esc(err.message)}</div>`; addf.hidden = true; }
+}
+
+addf.addEventListener("submit", async e => {
+  e.preventDefault();
+  const input = document.getElementById("newf"), email = input.value.trim();
+  if (!email) { input.focus(); return; }
+  const btn = addf.querySelector("button"); btn.disabled = true; say("Adding…");
+  try {
+    renderFriends(await fcall("POST", FAPI, { email }));
+    input.value = "";
+    say(`Added. ${email} can now sign in with Google or an email code.`, "ok");
+  } catch (err) { say(err.message, "err"); }
+  finally { btn.disabled = false; }
+});
+
+flist.addEventListener("click", async e => {
+  const btn = e.target.closest("[data-email]");
+  if (!btn || !confirm(`Remove ${btn.dataset.email}? They will no longer be able to sign in.`)) return;
+  btn.disabled = true; say("Removing…");
+  try {
+    const out = await fcall("DELETE", `${FAPI}?email=${encodeURIComponent(btn.dataset.email)}`);
+    say(out.revoked ? "Removed and signed out." : "Removed. They are signed out when their current session ends.", "ok");
+    await loadFriends();
+  } catch (err) { btn.disabled = false; say(err.message, "err"); }
+});
+
 load();
+loadFriends();
 </script>
 </body>
 </html>

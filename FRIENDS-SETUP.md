@@ -78,7 +78,12 @@ The API in `functions/api/_middleware.js` checks Access's signed token against t
 
 1. **console.cloud.google.com** → new project (e.g. `Officium Advocati Diaboli`).
 2. **APIs & Services → OAuth consent screen** (also called Google Auth Platform): user type **External**, app name, support email, developer email. Scopes: none beyond the defaults (email, profile).
-3. **Publish the app** (Audience / Publishing status → **In production**). While it says *Testing*, only listed test users can sign in. With only the default scopes no Google review is needed.
+3. **Publish the app**, so any invited friend can use Google without being added in Google Cloud too (while it says *Testing*, only listed **test users** can). Google first wants a homepage and a privacy page that open without signing in; the site has both, `about.html` and `privacy.html`:
+   1. **Cloudflare One → Access controls → Policies → Add a policy**: name `Public`, action **Bypass**, include **Everyone**.
+   2. **Applications → Create new application → Self-hosted**, name `Public pages`, two public hostnames: domain `officium-advocati-diaboli.pages.dev` with path `about`, and the same domain with path `privacy`. Policy: `Public`. Create. (Cloudflare Pages serves `about.html` at `/about`, so the paths have no `.html`. The more specific path wins over the main application.)
+   3. Check in a private window that `https://officium-advocati-diaboli.pages.dev/about` and `/privacy` open without a sign-in, and that `/` still asks for one.
+   4. Google → **Branding**: application home page `https://officium-advocati-diaboli.pages.dev/about`, privacy policy `https://officium-advocati-diaboli.pages.dev/privacy`; if it asks for authorized domains, add `officium-advocati-diaboli.pages.dev` and `officium-advocati-diaboli.cloudflareaccess.com`. Leave the logo empty (a logo triggers a Google review). Save.
+   5. **Audience → Publish app → Confirm.** With only the default scopes (email, profile) no Google review is needed. Google may show friends a "Google hasn't verified this app" screen; they choose **Continue**.
 4. **Credentials (Clients) → Create → OAuth client ID → Web application.** Authorized redirect URI:
    `https://officium-advocati-diaboli.cloudflareaccess.com/cdn-cgi/access/callback`
    Copy the Client ID and Client secret.
@@ -146,11 +151,26 @@ All of this happens in **the owner's** Claude account, once:
    - **API credentials** (Pro and Max plans): **Add credential** → name `Cloudflare queue`, allowed website `api.cloudflare.com`, header `Authorization`, prefix `Bearer`, value = the D1 token from step 7. Anthropic's proxy adds it to requests on the way out, so the token never enters the session. On a Team plan, which has no API credentials yet, put `CLOUDFLARE_API_TOKEN=<token>` under **Environment variables** instead (anyone using that environment can read it).
 3. Start a session on `investment-reports` and type `/queue`.
 
-How it fits together: the repo's [`.mcp.json`](.mcp.json) starts the queue tools as `research-queue-cloud` (with the account and database IDs, which are not secret), and `/queue` comes from the repo's `.claude/commands/`. In a cloud session `/queue` never pushes to `main`: it pushes a branch and opens a pull request, the owner merges it (the GitHub app works on a phone), the deploy workflow publishes, and then the request is marked done.
+How it fits together: the repo's [`.mcp.json`](.mcp.json) starts the queue tools as `research-queue-cloud` (with the account and database IDs, which are not secret), and `/queue` comes from the repo's `.claude/commands/`. Publishing feels the same everywhere: `/queue` shows the verdict and asks **Publish?**. On his computer it then pushes to `main`; in a cloud session it pushes a branch, opens a pull request and merges it itself (the cloud's usual hand-back route, which also copes with `main` having moved on). Either way the deploy workflow publishes and the request is marked done.
 
 On his own computer, Claude Code may ask whether to use `research-queue-cloud` from `.mcp.json`: answer no. His local `research-queue` from step 7 is the one for his computer.
 
 If the account or database ever changes, update the two IDs in `.mcp.json`.
+
+## 10. Friends list in the Inbox
+
+The Inbox has a **Friends** section: the emails on the `Friends` policy, an **Add** box and **Remove** buttons. It edits the same Access policy as step 3.1 through Cloudflare's API, so the owner never needs the dashboard for this. Only `ADMIN_EMAILS` can use it, and those emails cannot be removed there.
+
+1. Cloudflare → **Manage account → Account API tokens → Create token** → custom, this account only, permissions:
+   - **Access: Apps and Policies · Edit** (to change the list)
+   - **Access: Organizations, Identity Providers, and Groups · Edit** (optional: signs a removed friend out at once; without it they lose access when their session runs out)
+2. Pages project → **Settings → Variables and secrets** (production):
+   - `ACCESS_ADMIN_TOKEN` = that token, type **Secret**
+   - `CLOUDFLARE_ACCOUNT_ID` = the account ID, type Text
+   - `ACCESS_POLICY_ID` = the Friends policy's ID, type Text (optional: shown in the policy's page address; without it the policy named exactly `Friends` is used)
+3. Redeploy. The Friends section lists the current emails.
+
+Removing someone only takes away their sign-in: their past requests stay in the database.
 
 ## Testing
 
@@ -182,3 +202,5 @@ When the person who built this hands it to the owner:
 | [`inbox.html`](inbox.html), [`functions/api/inbox.js`](functions/api/inbox.js) | The owner's Inbox: pick or decline from a phone |
 | [`db/migrate-002-picked.sql`](db/migrate-002-picked.sql) | One-time column for databases made before the Inbox |
 | [`.mcp.json`](.mcp.json), [`tools/cloud-setup.sh`](tools/cloud-setup.sh) | Queue tools and setup for cloud sessions |
+| [`functions/api/friends.js`](functions/api/friends.js) | The Inbox's Friends section: list, add, remove on the Access policy |
+| [`about.html`](about.html), [`privacy.html`](privacy.html) | The two public pages Google needs to publish the sign-in; self-contained, since site.css sits behind the sign-in |
