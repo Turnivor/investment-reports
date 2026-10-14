@@ -1,71 +1,71 @@
 {
-  "updated": "2026-10-13T20:56:27Z",
+  "updated": "2026-10-14T19:55:18Z",
   "source": "Yahoo Finance",
   "prices": {
     "BETZ": {
-      "price": 16.66,
+      "price": 16.225,
       "currency": "USD",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "ESPO": {
-      "price": 100.43,
+      "price": 98.99,
       "currency": "USD",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "EUDF.DE": {
-      "price": 29.595,
+      "price": 30.11,
       "currency": "EUR",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "FLUT": {
-      "price": 78.06,
+      "price": 74.12,
       "currency": "USD",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "HDFCBANK.NS": {
-      "price": 714.0,
+      "price": 710.7,
       "currency": "INR",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "NLR": {
-      "price": 99.38,
+      "price": 94.24,
       "currency": "USD",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "OKLO": {
-      "price": 31.78,
+      "price": 29.025,
       "currency": "USD",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "PNR": {
-      "price": 52.97,
+      "price": 52.145,
       "currency": "USD",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "RHM.DE": {
-      "price": 953.4,
+      "price": 983.3,
       "currency": "EUR",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "TTWO": {
-      "price": 200.32,
+      "price": 201.075,
       "currency": "USD",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "XLI": {
-      "price": 168.67,
+      "price": 166.73,
       "currency": "USD",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "XYL": {
-      "price": 102.54,
+      "price": 102.49,
       "currency": "USD",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     },
     "^NSEBANK": {
-      "price": 55481.05,
+      "price": 55316.0,
       "currency": "INR",
-      "date": "2026-10-13"
+      "date": "2026-10-14"
     }
   }
 }
